@@ -10,7 +10,7 @@
         <div class="input-label">
           Espécie
         </div>
-        <select>
+        <select ng-model="pet.especie">
           <option>Gato</option>
           <option selected>Cachorro</option>
           <option>Outros</option>
@@ -34,13 +34,12 @@
         <span class="input-label">Descrição</span>
         <input type="text" placeholder="" ng-model="pet.descricao">
       </label>
-      <!--<div class="item item-button-right">-->
-        <!--Adicionar Fotos-->
-        <!--<button class="button button-assertive">-->
-          <!--<i class="icon ion-plus-circled"></i>-->
-        <!--</button>-->
-      <!--</div>-->
-
+      <div class="item item-button-right">
+        Adicionar Fotos
+        <button class="button button-assertive">
+          <i class="icon ion-plus-circled"></i>
+        </button>
+      </div>
     </div>
 
     <button ng-click="addPet(pet)" class="button button-block button-assertive">
