@@ -1,0 +1,18 @@
+<ion-view title="Filtros" id="page7">
+  <ion-content padding="true" class="has-header">
+    <form id="filtros-form2" class="list">
+      <ion-toggle toggle-class="toggle-assertive" ng-checked="true" id="filtros-toggle1">Cachorro</ion-toggle>
+      <ion-toggle toggle-class="toggle-assertive" ng-checked="true" id="filtros-toggle2">Gato</ion-toggle>
+      <ion-toggle toggle-class="toggle-assertive" ng-checked="true" id="filtros-toggle3">Outros</ion-toggle>
+      <label class="item item-select" id="filtros-select1">
+        <span class="input-label">Estado</span>
+        <select>
+          <option>Brasília</option>
+        </select>
+      </label>
+      <ion-item class="range range-positive" id="filtros-range1">Distância Km
+        <input type="range" value="50" min="0" max="1000" step="1">
+      </ion-item>
+    </form>
+  </ion-content>
+</ion-view>
