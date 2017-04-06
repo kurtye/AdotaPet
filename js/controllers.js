@@ -11,7 +11,7 @@ angular.module('app.controllers', [])
                 $scope.pets = snapshot.val();
 
             }, function (errorObject) {
-                console.log("The read failed: " + errorObject.code);
+                console.log("Erro na leitura do banco " + errorObject.code);
             });
 
         }])
