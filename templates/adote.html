@@ -1,0 +1,19 @@
+<ion-view title="Adote" id="page2">
+  <ion-nav-buttons side="right" class="has-header">
+    <button class="button button-icon icon ion-heart"></button>
+  </ion-nav-buttons>
+  <ion-content padding="true" class="has-header">
+    <ion-list id="adote-list2">
+      <ion-item class="item-thumbnail-left item-icon-right assertive" id="adote-list-item1" ui-sref="tabsController.perfil" ng-repeat="pet in pets">
+        <img src="img/JzgxUjT5QTW4cwLCmU75_166a3476d50b1505c170e31a0cd7885f.jpg">
+        <h2assertive>{{pet.nome}}
+          <p>Raça: {{pet.raca}}
+            <br> Idade: 10 anos
+            <br> Sexo: M</p>
+            <br> Espécie: {{pet.especie}}</p>
+          <i class="icon ion-heart"></i>
+        </h2assertive>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
