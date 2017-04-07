@@ -56,6 +56,7 @@ angular.module('app.controllers', [])
             $scope.pet = {};
 
             $scope.addPet = function (pet) {
+                // $scope.pets.push(pet);
 
                 firebase.database().ref('user/1').push(pet)
 

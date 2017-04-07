@@ -4,49 +4,14 @@
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header">
     <ion-list id="adote-list2">
-      <ion-item class="item-thumbnail-left item-icon-right assertive" id="adote-list-item1" ui-sref="tabsController.perfil">
+      <ion-item class="item-thumbnail-left item-icon-right assertive" id="adote-list-item1" ui-sref="tabsController.perfil" ng-repeat="pet in pets">
         <img src="img/JzgxUjT5QTW4cwLCmU75_166a3476d50b1505c170e31a0cd7885f.jpg">
-        <h2assertive>Brasília
-          <p>Raça: Yorkshire
-            <br> Idade: 1 ano
+        <h2assertive>{{pet.nome}}
+          <p>Raça: {{pet.raca}}
+            <br> Idade: 2 anos
             <br> Sexo: M</p>
+            <br> Espécie: {{pet.especie}}</p>
           <i class="icon ion-heart"></i>
-        </h2assertive>
-      </ion-item>
-      <ion-item class="item-thumbnail-left item-icon-right assertive" id="adote-list-item16" ui-sref="tabsController.perfil">
-        <img src="img/gsOfDcCWT4uCHnisP7Qq_600xNxcomo-fazer-seu-cachorro-feliz-1024x686.jpg.pagespeed.ic.-D6LO7t69L.jpg">
-        <h2assertive>Asa Norte
-          <p>Raça: SRD
-            <br> Idade: 1 ano
-            <br> Sexo: M</p>
-          <i class="icon ion-heart icon-accessory"></i>
-        </h2assertive>
-      </ion-item>
-      <ion-item class="item-thumbnail-left item-icon-right assertive" id="adote-list-item17" ui-sref="tabsController.perfil">
-        <img src="img/JpLIJ3EHQS2P0ICT8G9g_gato.jpg">
-        <h2assertive>Ceilândia
-          <p>Raça: SRD
-            <br> Idade: 1 ano
-            <br> Sexo: F</p>
-          <i class="icon ion-heart"></i>
-        </h2assertive>
-      </ion-item>
-      <ion-item class="item-thumbnail-left item-icon-right assertive" id="adote-list-item18" ui-sref="tabsController.perfil">
-        <img src="img/DENArDQLSwq1xT9IEhMN_gatocapa.jpg">
-        <h2assertive>Samâmbaia
-          <p>Raça: Persa
-            <br> Idade: 1 ano
-            <br> Sexo: F</p>
-          <i class="icon ion-heart"></i>
-        </h2assertive>
-      </ion-item>
-      <ion-item class="item-thumbnail-left item-icon-right assertive" id="adote-list-item15" ui-sref="tabsController.perfil">
-        <img src="img/sNf2ODPPTiC1tM11Lp6I_escolher.png">
-        <h2assertive>Asa Norte
-          <p>Raça: Bulldog
-            <br> Idade: 1 ano
-            <br> Sexo: M</p>
-          <i class="icon ion-heart icon-accessory"></i>
         </h2assertive>
       </ion-item>
     </ion-list>
