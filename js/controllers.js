@@ -1,7 +1,7 @@
 angular.module('app.controllers', [])
 
-    .controller('adoteCtrl', ['$scope', '$stateParams',
-        function ($scope, $stateParams) {
+    .controller('adoteCtrl', ['$scope', '$rootScope', '$stateParams',
+        function ($scope, $rootScope, $stateParams) {
 
             var db = firebase.database();
             var ref = db.ref("user/1");
@@ -25,6 +25,16 @@ angular.module('app.controllers', [])
     .controller('perfilCtrl', ['$scope', '$stateParams',
         function ($scope, $stateParams) {
 
+            var db = firebase.database();
+            var ref = db.ref("user/1");
+
+            ref.on("value", function (snapshot) {
+
+                $scope.pets = snapshot.val();
+
+            }, function (errorObject) {
+                console.log("Erro na leitura do banco " + errorObject.code);
+            });
 
         }])
 
