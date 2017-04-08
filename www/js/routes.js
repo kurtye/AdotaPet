@@ -20,7 +20,7 @@ angular.module('app.routes', ['ionicUIRouter'])
       })
 
       .state('tabsController.desaparecidos', {
-        url: '/page6',
+        url: '/desaparecidos',
         views: {
           'tab2': {
             templateUrl: 'templates/desaparecidos.html',
@@ -46,21 +46,22 @@ angular.module('app.routes', ['ionicUIRouter'])
        /page1/tab4/page3
        */
       .state('tabsController.perfil', {
-        url: '/page3',
+        url: '/perfil',
         views: {
           'tab1': {
             templateUrl: 'templates/perfil.html',
             controller: 'perfilCtrl'
-          },
-          'tab4': {
-            templateUrl: 'templates/perfil.html',
-            controller: 'perfilCtrl'
           }
+          // ,
+          // 'tab4': {
+          //   templateUrl: 'templates/perfil.html',
+          //   controller: 'perfilCtrl'
+          // }
         }
       })
 
       .state('tabsController', {
-        url: '/page1',
+        url: '/tab',
         templateUrl: 'templates/tabsController.html',
         abstract: true
       })
@@ -82,9 +83,9 @@ angular.module('app.routes', ['ionicUIRouter'])
       })
 
       .state('tabsController.addPet', {
-        url: '/page8',
+        url: '/addPet',
         views: {
-          'tab3': {
+          'tab4': {
             templateUrl: 'templates/addPet.html',
             controller: 'addPetCtrl'
           }
@@ -97,7 +98,7 @@ angular.module('app.routes', ['ionicUIRouter'])
         controller: "signupController"
       })
 
-    $urlRouterProvider.otherwise('/page5')
+    $urlRouterProvider.otherwise('/login')
 
 
   });
