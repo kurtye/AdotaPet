@@ -1,4 +1,4 @@
-<ion-view  title="Adicionar um Pet" id="page8">
+<ion-view  title="Adicionar um Pet" id="addPet">
   <ion-nav-buttons side="right" class="has-header">
     <button class="button button-icon icon ion-heart"></button>
   </ion-nav-buttons>
@@ -30,6 +30,18 @@
         <span class="input-label">Raça</span>
         <input type="text" placeholder="Yorkshire" ng-model="pet.raca">
       </label>
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Sexo
+        </div>
+        <select ng-model="pet.sexo">
+          <option>Macho</option>
+          <option selected>Femêa</option>
+
+        </select>
+      </label>
+
       <label class="item item-input item-stacked-label">
         <span class="input-label">Descrição</span>
         <input type="text" placeholder="" ng-model="pet.descricao">
