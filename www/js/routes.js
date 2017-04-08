@@ -10,7 +10,7 @@ angular.module('app.routes', ['ionicUIRouter'])
 
 
       .state('tabsController.adote', {
-        url: '/side-menu21',
+        url: '/adote',
         views: {
           'tab1': {
             templateUrl: 'templates/adote.html',
@@ -66,7 +66,7 @@ angular.module('app.routes', ['ionicUIRouter'])
       })
 
       .state('login', {
-        url: '/page5',
+        url: '/login',
         templateUrl: 'templates/login.html',
         controller: 'loginCtrl'
       })
@@ -89,6 +89,12 @@ angular.module('app.routes', ['ionicUIRouter'])
             controller: 'addPetCtrl'
           }
         }
+      })
+
+      .state('signup', {
+        url: '/signup',
+        templateUrl: "templates/signup.html",
+        controller: "signupController"
       })
 
     $urlRouterProvider.otherwise('/page5')
