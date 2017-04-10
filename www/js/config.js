@@ -14,6 +14,4 @@ angular.module('app.configs', [])
   });
 
 
-console.log('chegou aqui')
-
 
