@@ -141,7 +141,7 @@ angular.module('app.controllers', [])
 
         });
 
-      }//Fim do login com Google
+      }//Fim do login com Google Signin
 
 
     }])
