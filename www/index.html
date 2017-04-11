@@ -82,7 +82,7 @@
         <ion-list id="menu-list8" data-componentid="list8">
           <ion-item class="item-avatar" id="menu-list-item10" data-componentid="list-item10">
             <img src="img/whbQoSHfROyiefphZa8g_logo.png">
-            <h2>Ong Pet Feliz</h2>
+            <h2>{{usuario.displayName}}</h2>
           </ion-item>
         </ion-list>
         <h4 id="menu-heading1" style="color:#000000;font-weight:300;text-align:center;" data-componentid="heading1">Minhas Publicações</h4>
@@ -115,6 +115,12 @@
               <i class="icon ion-android-checkbox-outline-blank icon-accessory"></i>
             </h2assertive>
           </ion-item>
+
+          <ion-item class="item-avatar item-icon-right assertive">
+            <h2assertive><a ng-click="logout()">Sair</a>
+            </h2assertive>
+          </ion-item>
+
         </ion-list>
       </ion-content>
     </ion-side-menu>

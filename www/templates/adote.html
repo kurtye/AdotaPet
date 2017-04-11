@@ -4,7 +4,7 @@
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header">
     <ion-list id="adote-list2">
-      <ion-item class="item-thumbnail-left item-icon-right assertive" id="adote-list-item1" ui-sref="tabsController.perfil" ng-repeat="pet in pets">
+      <ion-item class="item-thumbnail-left item-icon-right assertive" id="adote-list-item1" ui-sref="tabsController.perfil" ng-repeat="pet in pets track by $index">
         <img src="img/JzgxUjT5QTW4cwLCmU75_166a3476d50b1505c170e31a0cd7885f.jpg">
         <h2assertive>{{pet.nome}}
           <p>Raça: {{pet.raca}}
