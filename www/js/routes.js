@@ -46,7 +46,7 @@ angular.module('app.routes', ['ionicUIRouter'])
        /page1/tab4/page3
        */
       .state('tabsController.perfil', {
-        url: '/perfil',
+        url: '/perfil/:id',
         views: {
           'tab1': {
             templateUrl: 'templates/perfil.html',

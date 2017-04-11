@@ -4,7 +4,7 @@ angular.module('app.controllers', [])
         function ($scope, $stateParams, $rootScope) {
 
             var pets = [];
-            $scope.pets = pets;
+            $rootScope.pets = pets;
 
             var usuario = $rootScope.usuario;
 
@@ -28,6 +28,8 @@ angular.module('app.controllers', [])
 
     .controller('perfilCtrl', ['$scope', '$rootScope', '$stateParams',
         function ($scope, $rootScope, $stateParams) {
+
+          $scope.petPerfil = $rootScope.pets[$stateParams.id];
 
         }])
 

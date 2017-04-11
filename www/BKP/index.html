@@ -82,39 +82,20 @@
         <ion-list id="menu-list8" data-componentid="list8">
           <ion-item class="item-avatar" id="menu-list-item10" data-componentid="list-item10">
             <img src="img/whbQoSHfROyiefphZa8g_logo.png">
-            <h2>Ong Pet Feliz</h2>
+            <h2>{{usuario.displayName}}</h2>
           </ion-item>
         </ion-list>
         <h4 id="menu-heading1" style="color:#000000;font-weight:300;text-align:center;" data-componentid="heading1">Minhas Publicações</h4>
         <ion-list id="menu-list9" data-componentid="list9">
-          <ion-item class="item-avatar item-icon-right assertive" id="menu-list-item24" data-componentid="list-item24">
-            <img src="img/z4jfMSJyTeiZhO227FdM_166a3476d50b1505c170e31a0cd7885f.jpg">
-            <h2assertive>Yorkshire
-              <p style="white-space:normal;">Adotado</p>
-              <i class="icon ion-android-done"></i>
-            </h2assertive>
-          </ion-item>
-          <ion-item class="item-avatar item-icon-right assertive" id="menu-list-item25" data-componentid="list-item25">
-            <img src="img/kvEQKbTZek3g78BKO5qg_600xNxcomo-fazer-seu-cachorro-feliz-1024x686.jpg.pagespeed.ic.-D6LO7t69L.jpg">
-            <h2assertive>Labrador
-              <p>Em Adoção</p>
-              <i class="icon ion-android-checkbox-outline-blank icon-accessory"></i>
-            </h2assertive>
-          </ion-item>
-          <ion-item class="item-avatar item-icon-right assertive" id="menu-list-item27" data-componentid="list-item27">
-            <img src="img/7ibRUXnwTDqoDkOqElyV_Cat.jpg">
-            <h2assertive>Gato
-              <p>Em Adoção</p>
-              <i class="icon ion-android-checkbox-outline-blank icon-accessory"></i>
-            </h2assertive>
-          </ion-item>
-          <ion-item class="item-avatar item-icon-right assertive" id="menu-list-item28" data-componentid="list-item28">
+
+          <ion-item class="item-avatar item-icon-right assertive" id="menu-list-item28" data-componentid="list-item28" ng-repeat="pet in myPets track by $index">
             <img src="img/IgsHoApRPi0OMzvPbcwc_gato.jpg">
-            <h2assertive>Persa
+            <h2assertive>{{pet.nome}}
               <p>Em Adoção</p>
               <i class="icon ion-android-checkbox-outline-blank icon-accessory"></i>
             </h2assertive>
           </ion-item>
+
         </ion-list>
       </ion-content>
     </ion-side-menu>
