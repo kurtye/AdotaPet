@@ -26,17 +26,23 @@ angular.module('app.controllers', [])
 
         }])
 
-    .controller('perfilCtrl', ['$scope', '$rootScope', '$stateParams', '$routeParams',
-        function ($scope, $rootScope, $stateParams, $routeParams) {
+    .controller('perfilCtrl', ['$scope', '$rootScope', '$stateParams',
+        function ($scope, $rootScope, $stateParams) {
 
-            $rootScope.pet  = {};
-
-            console.log($routeParams.id);
         }])
 
-    .controller('menuCtrl', ['$scope', '$stateParams',
-        function ($scope, $stateParams) {
+    .controller('menuCtrl', ['$scope', '$stateParams', '$rootScope',
+        function ($scope, $stateParams, $rootScope) {
 
+            var usuario = $rootScope.usuario ? $rootScope.usuario : {"uid": "1lPGwfKdZ6WKRljCpP5wPJlKfsP2"};
+            console.log($rootScope.usuario);
+            const db = firebase.database().ref();
+
+            const myPets = db.child('adocao/pets').orderByChild('usuario').equalTo(usuario.uid);
+
+            myPets.on('value', function (snap) {
+                $scope.myPets = snap.val();
+            })
 
         }])
 
@@ -60,8 +66,6 @@ angular.module('app.controllers', [])
 
                         if (user.emailVerified) { //Checagem de verificação no email
 
-                            console.log("Email Verificado");
-                            $state.go("tabsController.adote");
 
                             name = user.displayName;
                             email = user.email;
@@ -73,6 +77,9 @@ angular.module('app.controllers', [])
                             //console.log(name + "<>" + email + "<>" +  photoUrl + "<>" +  uid);
 
                             localStorage.setItem("photo", photoUrl);
+                            $state.go("tabsController.adote");
+
+
 
                         } else {
 
@@ -177,7 +184,6 @@ angular.module('app.controllers', [])
 
                     $rootScope.usuario = user;
 
-                    alert('Cadastrado com Sucesso');
                     $state.go("tabsController.adote");
 
                 }).catch(function (error) {
