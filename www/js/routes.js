@@ -6,6 +6,21 @@ angular.module('app.routes', ['ionicUIRouter'])
     // Learn more here: https://github.com/angular-ui/ui-router
     // Set up the various states which the app can be in.
     // Each state's controller can be found in controllers.js
+
+    /*
+     The IonicUIRouter.js UI-Router Modification is being used for this route.
+     To navigate to this route, do NOT use a URL. Instead use one of the following:
+     1) Using the ui-sref HTML attribute:
+     ui-sref='tabsController.perfil'
+     2) Using $state.go programatically:
+     $state.go('tabsController.perfil');
+     This allows your app to figure out which Tab to open this page in on the fly.
+     If you're setting a Tabs default page or modifying the .otherwise for your app and
+     must use a URL, use one of the following:
+     /page1/tab1/page3
+     /page1/tab4/page3
+     */
+
     $stateProvider
 
 
@@ -30,21 +45,6 @@ angular.module('app.routes', ['ionicUIRouter'])
       })
 
 
-
-
-      /*
-       The IonicUIRouter.js UI-Router Modification is being used for this route.
-       To navigate to this route, do NOT use a URL. Instead use one of the following:
-       1) Using the ui-sref HTML attribute:
-       ui-sref='tabsController.perfil'
-       2) Using $state.go programatically:
-       $state.go('tabsController.perfil');
-       This allows your app to figure out which Tab to open this page in on the fly.
-       If you're setting a Tabs default page or modifying the .otherwise for your app and
-       must use a URL, use one of the following:
-       /page1/tab1/page3
-       /page1/tab4/page3
-       */
       .state('tabsController.perfil', {
         url: '/perfil/:id',
         views: {
