@@ -81,8 +81,10 @@
       <ion-content ng-controller="menuCtrl" padding="false" style="background: url(img/1) no-repeat center;background-size:cover;" class="side-menu-left has-header ">
         <ion-list id="menu-list8" data-componentid="list8">
           <ion-item class="item-avatar" id="menu-list-item10" data-componentid="list-item10">
-            <img src="img/whbQoSHfROyiefphZa8g_logo.png">
+            <img src="{{usuario.photoURL}}">
+
             <h2>{{usuario.displayName}}</h2>
+            <h2>{{usuario.email}}</h2>
           </ion-item>
         </ion-list>
         <h4 id="menu-heading1" style="color:#000000;font-weight:300;text-align:center;" data-componentid="heading1">Minhas Publicações</h4>
