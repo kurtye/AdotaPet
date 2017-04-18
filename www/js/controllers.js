@@ -8,6 +8,7 @@ angular.module('app.controllers', [])
 
             var usuario = $rootScope.usuario;
 
+
             var db = firebase.database();
             var ref = db.ref("adocao/pets/");
 
@@ -17,6 +18,8 @@ angular.module('app.controllers', [])
             }, function (errorObject) {
                 console.log("Erro na leitura do banco " + errorObject.code);
             });
+
+
 
         }])
 
@@ -35,6 +38,7 @@ angular.module('app.controllers', [])
 
     .controller('menuCtrl', ['$scope', '$stateParams', '$rootScope',
         function ($scope, $stateParams, $rootScope) {
+
 
             var usuario = $rootScope.usuario ? $rootScope.usuario : {"uid": "1lPGwfKdZ6WKRljCpP5wPJlKfsP2"};
             console.log($rootScope.usuario);
@@ -66,6 +70,8 @@ angular.module('app.controllers', [])
 
                         var name, email, photoUrl, uid;
 
+
+
                         if (user.emailVerified) { //Checagem de verificação no email
 
 
@@ -75,8 +81,9 @@ angular.module('app.controllers', [])
                             uid = user.uid;
 
                             $rootScope.usuario = user;
+                            $rootScope.photoProfile = photoUrl;
 
-                            //console.log(name + "<>" + email + "<>" +  photoUrl + "<>" +  uid);
+                            console.log(name + "<>" + email + "<>" +  photoUrl + "<>" +  uid);
 
                             localStorage.setItem("photo", photoUrl);
                             $state.go("tabsController.adote");
@@ -138,17 +145,60 @@ angular.module('app.controllers', [])
 
             $scope.doLoginGoogle = function (userLoginGoogle) {
 
-                firebase.auth().signInWithPopup(provider).then(function (result) {
-                    // This gives you a Google Access Token. You can use it to access the Google API.
-                    var token = result.credential.accessToken;
-                    // The signed-in user info.
-                    var user = result.user;
-                    // ...
+              firebase.auth().signInWithPopup(provider).then(function (result) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+
+
+                 var token = result.credential.accessToken
+                // var photoURL = result.photo
+
+
+
+
+                var user = firebase.auth().currentUser;
+
+                if (user != null) {
+                  user.providerData.forEach(function (profile) {
+                    console.log("Sign-in provider: "+profile.providerId);
+                    console.log("  Provider-specific UID: "+profile.uid);
+                    console.log("  Name: "+profile.displayName);
+                    console.log("  Email: "+profile.email);
+                    console.log("  Photo URL: "+profile.photoURL);
+                  });
+                }
+
+
+                var user = firebase.auth().currentUser;
+                var name, email, photoUrl, uid;
+
+                if (user != null) {
+                  name = user.displayName;
+                  email = user.email;
+                  photoUrl = user.photoURL;
+                  uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                                   // this value to authenticate with your backend server, if
+                                   // you have one. Use User.getToken() instead.
+                }
+
+
+                // $scope.token = token
+                // $scope.photoURL = photo
+                // $scope.user = user;
+
+                sessionStorage.setItem("name", user.displayName)
+                sessionStorage.setItem("email", user.email)
+                sessionStorage.setItem("uid", user.uid)
+                sessionStorage.setItem("photoUrl", user.photoURL)
+
+
+
+                $state.go("tabsController.adote")
+
 
                     $rootScope.usuario = user;
 
 
-                    $state.go("tabsController.adote");
+
                 }).catch(function (error) {
                     // Handle Errors here.
                     var errorCode = error.code;
@@ -185,6 +235,7 @@ angular.module('app.controllers', [])
                     // ...
 
                     $rootScope.usuario = user;
+
 
                     $state.go("tabsController.adote");
 
@@ -260,6 +311,7 @@ angular.module('app.controllers', [])
                         user.updateProfile({
                             displayName: userSignup.displayname,
                             photoURL: userSignup.photoprofile
+
                         }).then(function () {
                             // Update successful.
                             $state.go("login");
