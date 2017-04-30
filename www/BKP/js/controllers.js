@@ -3,55 +3,11 @@ angular.module('app.controllers', [])
   .controller('adoteCtrl', ['$scope', '$stateParams', '$rootScope',
     function ($scope, $stateParams, $rootScope) {
 
-    //Teste Upload ImG
-
-      var auth = firebase.auth();
-      var storageRef = firebase.storage().ref();
-      function handleFileSelect(evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-        var file = evt.target.files[0];
-        var metadata = {
-          'contentType': file.type
-        };
-        // Push to child path.
-        // [START oncomplete]
-        storageRef.child('images/' + file.name).put(file, metadata).then(function(snapshot) {
-          console.log('Uploaded', snapshot.totalBytes, 'bytes.');
-          console.log(snapshot.metadata);
-          var url = snapshot.downloadURL;
-          console.log('File available at', url);
-          // [START_EXCLUDE]
-          document.getElementById('linkbox').innerHTML = '<a href="' +  url + '">Click For File</a>';
-          // [END_EXCLUDE]
-        }).catch(function(error) {
-          // [START onfailure]
-          console.error('Upload failed:', error);
-          // [END onfailure]
-        });
-        // [END oncomplete]
-      }
-      window.onload = function() {
-        document.getElementById('file').addEventListener('change', handleFileSelect, false);
-        document.getElementById('file').disabled = true;
-        auth.onAuthStateChanged(function(user) {
-          if (user) {
-            console.log('Anonymous user signed-in.', user);
-            document.getElementById('file').disabled = false;
-          } else {
-            console.log('There was no anonymous session. Creating a new anonymous user.');
-            // Sign the user in anonymously since accessing Storage requires the user to be authorized.
-            auth.signInAnonymously();
-          }
-        });
-      }
-
-      // FIm do teste
-
       var pets = [];
       $rootScope.pets = pets;
 
       var usuario = $rootScope.usuario;
+
 
       var db = firebase.database();
       var ref = db.ref("adocao/pets/");
@@ -63,8 +19,8 @@ angular.module('app.controllers', [])
         console.log("Erro na leitura do banco " + errorObject.code);
       });
 
-    }])
 
+    }])
 
   .controller('desaparecidosCtrl', ['$scope', '$stateParams',
     function ($scope, $stateParams) {
@@ -82,6 +38,7 @@ angular.module('app.controllers', [])
   .controller('menuCtrl', ['$scope', '$stateParams', '$rootScope',
     function ($scope, $stateParams, $rootScope) {
 
+
       var usuario = $rootScope.usuario ? $rootScope.usuario : {"uid": "1lPGwfKdZ6WKRljCpP5wPJlKfsP2"};
       console.log($rootScope.usuario);
       const db = firebase.database().ref();
@@ -93,18 +50,11 @@ angular.module('app.controllers', [])
       })
 
 
-
     }])
 
   .controller('loginCtrl', ['$scope', '$stateParams', '$document', '$state', '$rootScope',
     function ($scope, $stateParams, $document, $state, $rootScope) {
 
-      // Verificar Login existente
-      $scope.token = localStorage.getItem("token");
-      if(localStorage.getItem("token") !== null && localStorage.getItem("token") !== ""){
-        $state.go("tabsController.adote");
-      }
-      // Fim da verificação de Token de login
 
       // Executar a ação de login quando o usuário envia o formulário de login
       $scope.doLogin = function (userLogin) {
@@ -121,6 +71,7 @@ angular.module('app.controllers', [])
 
             var name, email, photoUrl, uid;
 
+
             if (user.emailVerified) { //Checagem de verificação no email
 
 
@@ -130,12 +81,12 @@ angular.module('app.controllers', [])
               uid = user.uid;
 
               $rootScope.usuario = user;
+              $rootScope.photoProfile = photoUrl;
 
-              //console.log(name + "<>" + email + "<>" +  photoUrl + "<>" +  uid);
+              console.log(name + "<>" + email + "<>" + photoUrl + "<>" + uid);
 
               localStorage.setItem("photo", photoUrl);
               $state.go("tabsController.adote");
-
 
 
             } else {
@@ -194,29 +145,50 @@ angular.module('app.controllers', [])
       $scope.doLoginGoogle = function (userLoginGoogle) {
 
         firebase.auth().signInWithPopup(provider).then(function (result) {
+
           // This gives you a Google Access Token. You can use it to access the Google API.
-          var token = result.credential.accessToken;
-          var photoURL = result.photo;
-          var user = result.user;
-          $scope.token = token;
-          $scope.photoURL = photo;
-          $scope.user = user;
-          console.log($scope.user);
-          localStorage.setItem("token", $scope.token);
-          localStorage.setItem("photoURL", $scope.photoURL);
-          localStorage.setItem("user", $scope.user);
 
 
+          var token = result.credential.accessToken
+
+          var user = firebase.auth().currentUser;
+
+          if (user != null) {
+            user.providerData.forEach(function (profile) {
+              console.log("Sign-in provider: " + profile.providerId);
+              console.log("  Provider-specific UID: " + profile.uid);
+              console.log("  Name: " + profile.displayName);
+              console.log("  Email: " + profile.email);
+              console.log("  Photo URL: " + profile.photoURL);
+            });
+          }
 
 
-          // The signed-in user info.
-          var user = result.user;
-          // ...
+          var user = firebase.auth().currentUser;
+          var name, email, photoUrl, uid;
+
+          if (user != null) {
+            name = user.displayName;
+            email = user.email;
+            photoUrl = user.photoURL;
+            uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                             // this value to authenticate with your backend server, if
+                             // you have one. Use User.getToken() instead.
+
+          }
+
+          sessionStorage.setItem("name", user.displayName)
+          sessionStorage.setItem("email", user.email)
+          sessionStorage.setItem("uid", user.uid)
+          sessionStorage.setItem("photoUrl", user.photoURL)
+
+
+          $state.go("tabsController.adote")
+
 
           $rootScope.usuario = user;
 
 
-          $state.go("tabsController.adote");
         }).catch(function (error) {
           // Handle Errors here.
           var errorCode = error.code;
@@ -254,6 +226,7 @@ angular.module('app.controllers', [])
 
           $rootScope.usuario = user;
 
+
           $state.go("tabsController.adote");
 
         }).catch(function (error) {
@@ -287,21 +260,57 @@ angular.module('app.controllers', [])
 
     function ($scope, $stateParams, $state, $rootScope) {
 
+      $scope.imgURL = document.getElementById("files");
+
+      //INICIO DO UPLOAD
+      window.previewFile = function previewFile() {
+        var storage = firebase.storage();
+
+        var file = document.getElementById("files").files[0];
+        console.log(file);
+
+        var storageRef = firebase.storage().ref();
+
+        //dynamically set reference to the file name
+        var thisRef = storageRef.child('images/adocao/' + file.name);
+
+
+        //put request upload file to firebase storage
+        thisRef.put(file).then(function (snapshot) {
+          var url = snapshot.downloadURL;
+
+
+          document.getElementById('linkbox').innerHTML = '<img src="' + url + '" style=" width: 100px; " />';
+
+
+          $scope.pet.imgURL = url;
+          console.log(url);
+        });
+
+        //get request to get URL for uploaded file
+        thisRef.getDownloadURL().then(function (url) {
+
+          console.log(url);
+        })
+
+      }
+      //FIM DO UPLOAD
+
       var usuario = $rootScope.usuario;
+
       console.log($rootScope.usuario);
-      $scope.pet = {"usuario": usuario.uid};
+
+
+      $scope.pet = {"usuario": usuario.uid, "nomeUsuario": usuario.displayName, "email": usuario.email, "fotoUsuario": usuario.photoURL};
 
       $scope.addPet = function (pet) {
-
+        console.log(pet);
         firebase.database().ref('adocao/pets/').push(pet)
-
-
         $state.go("tabsController.adote");
         alert('Cadastrado com Sucesso');
 
         $scope.pet = {}
       }
-
 
     }])
 
@@ -317,7 +326,7 @@ angular.module('app.controllers', [])
 
 
           firebase.auth().createUserWithEmailAndPassword(userSignup.cusername, userSignup.cpassword).then(function () {
-            // Sign-In successful.
+
             //console.log("Signup successful");
 
             var user = firebase.auth().currentUser;
@@ -331,6 +340,7 @@ angular.module('app.controllers', [])
             user.updateProfile({
               displayName: userSignup.displayname,
               photoURL: userSignup.photoprofile
+
             }).then(function () {
               // Update successful.
               $state.go("login");
