@@ -4,6 +4,15 @@
   </ion-nav-buttons>
   <ion-content ng-controller="addPetCtrl" padding="true" class="has-header">
 
+    <!--TESTE DE UPLOAD-->
+    <div class="custom-file-upload">
+      <input type="file" onchange="previewFile()" id="files" value="{{imgURL}}" name="files[]" multiple />
+      <div class="width:100px;"><span id="linkbox"></span></div>
+      <input type="text" value="{{pet.imgURL}}" name="imgURL" id="imgURL" ng-model="pet.imgURL">
+      <div>
+
+    <!--FIM DO TESTE DE UPLOAD-->
+
     <div class="list">
 
       <label class="item item-input item-select">
@@ -22,6 +31,9 @@
     <div class="list">
 
       <input type="hidden" ng-model="pet.usuario" value="usuario.uid">
+      <input type="hidden" ng-model="pet.usuario" value="usuario.displayName">
+      <input type="hidden" ng-model="pet.usuario" value="usuario.email">
+      <input type="hidden" ng-model="pet.usuario" value="usuario.photoURL">
       <label class="item item-input item-stacked-label">
         <span class="input-label">Nome do Pet</span>
         <input type="text"  placeholder="John" ng-model="pet.nome">
@@ -53,10 +65,15 @@
         <span class="input-label">Descrição</span>
         <input type="text" placeholder="" ng-model="pet.descricao">
       </label>
+
+
+
+
       <div class="item item-button-right">
         Adicionar Fotos
         <button class="button button-assertive">
           <i class="icon ion-plus-circled"></i>
+
         </button>
       </div>
     </div>

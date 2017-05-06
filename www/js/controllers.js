@@ -49,10 +49,12 @@ angular.module('app.controllers', [])
         $scope.myPets = snap.val();
       })
 
+
     }])
 
   .controller('loginCtrl', ['$scope', '$stateParams', '$document', '$state', '$rootScope',
     function ($scope, $stateParams, $document, $state, $rootScope) {
+
 
       // Executar a ação de login quando o usuário envia o formulário de login
       $scope.doLogin = function (userLogin) {
@@ -143,12 +145,11 @@ angular.module('app.controllers', [])
       $scope.doLoginGoogle = function (userLoginGoogle) {
 
         firebase.auth().signInWithPopup(provider).then(function (result) {
+
           // This gives you a Google Access Token. You can use it to access the Google API.
 
 
           var token = result.credential.accessToken
-          // var photoURL = result.photo
-
 
           var user = firebase.auth().currentUser;
 
@@ -173,12 +174,8 @@ angular.module('app.controllers', [])
             uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
                              // this value to authenticate with your backend server, if
                              // you have one. Use User.getToken() instead.
+
           }
-
-
-          // $scope.token = token
-          // $scope.photoURL = photo
-          // $scope.user = user;
 
           sessionStorage.setItem("name", user.displayName)
           sessionStorage.setItem("email", user.email)
@@ -263,12 +260,51 @@ angular.module('app.controllers', [])
 
     function ($scope, $stateParams, $state, $rootScope) {
 
+      $scope.imgURL = document.getElementById("files");
+
+      //INICIO DO UPLOAD
+      window.previewFile = function previewFile() {
+        var storage = firebase.storage();
+
+        var file = document.getElementById("files").files[0];
+        console.log(file);
+
+        var storageRef = firebase.storage().ref();
+
+        //dynamically set reference to the file name
+        var thisRef = storageRef.child('images/adocao/' + file.name);
+
+
+        //put request upload file to firebase storage
+        thisRef.put(file).then(function (snapshot) {
+          var url = snapshot.downloadURL;
+
+
+          document.getElementById('linkbox').innerHTML = '<img src="' + url + '" style=" width: 100px; " />';
+
+
+          $scope.pet.imgURL = url;
+          console.log(url);
+        });
+
+        //get request to get URL for uploaded file
+        thisRef.getDownloadURL().then(function (url) {
+
+          console.log(url);
+        })
+
+      }
+      //FIM DO UPLOAD
+
       var usuario = $rootScope.usuario;
+
       console.log($rootScope.usuario);
-      $scope.pet = {"usuario": usuario.uid};
+
+
+      $scope.pet = {"usuario": usuario.uid, "nomeUsuario": usuario.displayName, "email": usuario.email, "fotoUsuario": usuario.photoURL};
 
       $scope.addPet = function (pet) {
-
+        console.log(pet);
         firebase.database().ref('adocao/pets/').push(pet)
         $state.go("tabsController.adote");
         alert('Cadastrado com Sucesso');
@@ -290,7 +326,7 @@ angular.module('app.controllers', [])
 
 
           firebase.auth().createUserWithEmailAndPassword(userSignup.cusername, userSignup.cpassword).then(function () {
-            // Sign-In successful.
+
             //console.log("Signup successful");
 
             var user = firebase.auth().currentUser;
