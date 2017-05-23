@@ -88,10 +88,10 @@
         <ion-list id="menu-list9" data-componentid="list9">
 
           <ion-item class="item-avatar item-icon-right assertive" id="menu-list-item28" data-componentid="list-item28" ng-repeat="pet in myPets track by $index">
-            <img src="img/IgsHoApRPi0OMzvPbcwc_gato.jpg">
+            <img src="{{pet.imgURL}}">
             <h2assertive>{{pet.nome}}
               <p>Em Adoção</p>
-              <i class="icon ion-android-checkbox-outline-blank icon-accessory"></i>
+              <a class="button button-icon icon ion-gear-a" ui-sref="tabsController.addPet"></a>
             </h2assertive>
           </ion-item>
 
