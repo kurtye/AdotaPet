@@ -1,4 +1,4 @@
-angular.module('app.controllers', [])
+angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
 
   .controller('adoteCtrl', ['$scope', '$stateParams', '$rootScope',
     function ($scope, $stateParams, $rootScope) {
@@ -52,8 +52,22 @@ angular.module('app.controllers', [])
 
     }])
 
-  .controller('loginCtrl', ['$scope', '$stateParams', '$document', '$state', '$rootScope',
-    function ($scope, $stateParams, $document, $state, $rootScope) {
+  .controller('loginCtrl', ['$scope', '$stateParams', '$document', '$rootScope', '$state', '$ionicGoogleAuth',
+    '$ionicLoading', '$cordovaGooglePlus', '$ionicUser', '$http', 'UserService', '$q', '$ionicFacebookAuth','$ionicUser',
+
+    function ($scope, $stateParams, $document, $rootScope, $state, $ionicGoogleAuth, $ionicLoading,
+              $cordovaGooglePlus, $ionicUser, $http, UserService, $q, $ionicFacebookAuth, $ionicUser ) {
+
+      // Teste manter usuario
+
+      // if(usuario != null){
+      //   $state.go($state.go("tabsController.adote"))
+      // };
+
+
+
+
+      // Fim do teste
 
 
       // Executar a ação de login quando o usuário envia o formulário de login
@@ -140,70 +154,199 @@ angular.module('app.controllers', [])
 
       // Login com Google
 
-      var provider = new firebase.auth.GoogleAuthProvider();
 
-      $scope.doLoginGoogle = function (userLoginGoogle) {
+      $scope.doLoginGoogle = function () {
 
-        firebase.auth().signInWithPopup(provider).then(function (result) {
-
-          // This gives you a Google Access Token. You can use it to access the Google API.
-
-
-          var token = result.credential.accessToken
-
-          var user = firebase.auth().currentUser;
-
-          if (user != null) {
-            user.providerData.forEach(function (profile) {
-              console.log("Sign-in provider: " + profile.providerId);
-              console.log("  Provider-specific UID: " + profile.uid);
-              console.log("  Name: " + profile.displayName);
-              console.log("  Email: " + profile.email);
-              console.log("  Photo URL: " + profile.photoURL);
-            });
-          }
+          window.plugins.googleplus.login(
+            {
+              'auth': {
+                'google': {
+                  'scopes': 'https://www.googleapis.com/auth/plus.me',
+                  'offline': false,
+                  'webClientId': '908321839770-i7ri4c8f42h13i87cbnup9s1krnm22fs.apps.googleusercontent.com'
+                }
+              }
+            },
 
 
-          var user = firebase.auth().currentUser;
-          var name, email, photoUrl, uid;
+            function (user) {
 
-          if (user != null) {
-            name = user.displayName;
-            email = user.email;
-            photoUrl = user.photoURL;
-            uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
-                             // this value to authenticate with your backend server, if
-                             // you have one. Use User.getToken() instead.
-
-          }
-
-          sessionStorage.setItem("name", user.displayName)
-          sessionStorage.setItem("email", user.email)
-          sessionStorage.setItem("uid", user.uid)
-          sessionStorage.setItem("photoUrl", user.photoURL)
+              var name, email, imageUrl, uid, idToken;
 
 
-          $state.go("tabsController.adote")
+              if (user != null) {
+                console.debug(user);
+                name = user.displayName;
+                email = user.email;
+                imageUrl = user.imageUrl;
+                uid = user.userId;
+                idToken = user.idToken;
+                // The user's ID, unique to the Firebase project. Do NOT use
+                // this value to authenticate with your backend server, if
+
+                // you have one. Use User.getToken() instead.
 
 
-          $rootScope.usuario = user;
+                sessionStorage.setItem("name", user.displayName)
+                sessionStorage.setItem("email", user.email)
+                sessionStorage.setItem("uid", user.userId)
+                sessionStorage.setItem("imageUrl", user.imageUrl)
+
+                firebase.database().ref('usuarios/' + user.userId).set(user);
 
 
-        }).catch(function (error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // ...
+                $state.go("tabsController.adote");
 
-        });
+                $rootScope.usuario = user;
 
-      }//Fim do login com Google Signin
+
+              }
+
+
+            },
+            function (msg) {
+              ;
+              console.debug(msg);
+            }
+          );
+        }
+
+
+        //
+
+
+        // versão WEB
+        //
+        //  firebase.auth.sigInWithPopUp(provider).then(function (result) {
+        //
+        //   // This gives you a Google Access Token. You can use it to access the Google API.
+        //
+        //   var token = result.credential.accessToken
+        //
+        //   var user = firebase.auth().currentUser;
+        //   if ($ionicAuth.isAuthenticated()) {
+        //     $state.go("tabsController.adote")
+        //   }
+        //
+        //   if (user != null) {
+        //     user.providerData.forEach(function (profile) {
+        //       console.log("Sign-in provider: " + profile.providerId);
+        //       console.log("  Provider-specific UID: " + profile.uid);
+        //       console.log("  Name: " + profile.displayName);
+        //       console.log("  Email: " + profile.email);
+        //       console.log("  Photo URL: " + profile.photoURL);
+        //     });
+        //   }
+        //
+        //    firebase.auth().onAuthStateChanged(function (user) {
+        //      if (!user) {
+        //        $state.go("tabsController.adote")
+        //    }
+        //  });
+        //
+        //
+        //   var user = firebase.auth().currentUser;
+        //   var name, email, photoUrl, uid;
+        //
+        //   if (user != null) {
+        //     name = user.displayName;
+        //     email = user.email;
+        //     photoUrl = user.photoURL;
+        //     uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+        //                      // this value to authenticate with your backend server, if
+        //                      // you have one. Use User.getToken() instead.
+        //
+        //   }
+        //
+        //   sessionStorage.setItem("name", user.displayName)
+        //   sessionStorage.setItem("email", user.email)
+        //   sessionStorage.setItem("uid", user.uid)
+        //   sessionStorage.setItem("photoUrl", user.photoURL)
+        //
+        //    $rootScope.usuario = user;
+        //   $state.go("tabsController.adote")
+        //
+        //
+        //
+        //
+        //
+        // }).catch(function (error) {
+        //   // Handle Errors here.
+        //   var errorCode = error.code;
+        //   var errorMessage = error.message;
+        //   // The email of the user's account used.
+        //   var email = error.email;
+        //   // The firebase.auth.AuthCredential type that was used.
+        //   var credential = error.credential;
+        //   // ...
+        //
+        // });
+
+      //Fim do login com Google Signin
 
       // Login com Facebook
+
+
+
+      // window.plugins.facebook.login(
+      //   $ionicCloudProvider.init({
+      //     "core": {
+      //       "app_id": "107b46ee"
+      //     },
+      //     "auth": {
+      //       "facebook": {
+      //         "scope": ["permission1", "permission2"]
+      //       }
+      //     }
+      //   }),
+      //
+      //   function (user) {
+      //
+      //     var name, email, imageUrl, uid, idToken;
+      //
+      //
+      //
+      //     if (user != null) {
+      //       console.debug(user);
+      //       name = user.displayName;
+      //       email = user.email;
+      //       imageUrl = user.imageUrl;
+      //       uid = user.userId;
+      //       idToken = user.idToken;
+      //       // The user's ID, unique to the Firebase project. Do NOT use
+      //       // this value to authenticate with your backend server, if
+      //
+      //       // you have one. Use User.getToken() instead.
+      //
+      //
+      //
+      //       sessionStorage.setItem("name", user.displayName)
+      //       sessionStorage.setItem("email", user.email)
+      //       sessionStorage.setItem("uid", user.userId)
+      //       sessionStorage.setItem("imageUrl", user.imageUrl)
+      //
+      //
+      //
+      //
+      //       $state.go("tabsController.adote");
+      //
+      //       $rootScope.usuario = user;
+      //
+      //
+      //     }
+      //
+      //
+      //
+      //
+      //
+      //
+      //   },
+      //   function (msg) {;
+      //     console.debug(msg);
+      //   }
+      // );
+      //
+      // $ionicFacebookAuth
 
 
       // Recuperar dados com login do facebook
@@ -212,37 +355,192 @@ angular.module('app.controllers', [])
       // provider.addScope('profile_photo');
 
 
-      $scope.doLoginFacebook = function (userLoginFacebook) {
-
-        var provider = new firebase.auth.FacebookAuthProvider();
+        //TESTE
 
 
-        firebase.auth().signInWithPopup(provider).then(function (result) {
-          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-          var token = result.credential.accessToken;
-          // The signed-in user info.
-          var user = result.user;
-          // ...
 
-          $rootScope.usuario = user;
+      console.log($ionicUser);
 
 
-          $state.go("tabsController.adote");
 
-        }).catch(function (error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // ...
-        });
+
+
+
+
+      var fbLoginSuccess = function(response) {
+          if (!response.authResponse){
+            fbLoginError("Cannot find the authResponse");
+            return;
+          }
+
+          var authResponse = response.authResponse;
+
+
+          getFacebookProfileInfo(authResponse)
+            .then(function(profileInfo) {
+              // For the purpose of this example I will store user data on local storage
+              UserService.setUser({
+                authResponse: authResponse,
+                userID: profileInfo.id,
+                name: profileInfo.name,
+                email: profileInfo.email,
+                picture : "http://graph.facebook.com/" + authResponse.userID + "/picture?type=large"
+              });
+
+              $ionicLoading.hide();
+              $state.go("tabsController.adote");
+
+
+
+            }, function(fail){
+              // Fail get profile info
+              console.log('profile info fail', fail);
+            });
+        };
+
+        // This is the fail callback from the login method
+        var fbLoginError = function(error){
+          console.log('fbLoginError', error);
+          $ionicLoading.hide();
+        };
+
+        // This method is to get the user profile info from the facebook api
+        var getFacebookProfileInfo = function (authResponse) {
+          var info = $q.defer();
+
+          facebookConnectPlugin.api('/me?fields=email,name&access_token=' + authResponse.accessToken, null,
+            function (response) {
+              console.log(response);
+              info.resolve(response);
+            },
+            function (response) {
+              console.log(response);
+              info.reject(response);
+            }
+          );
+          return info.promise;
+          console.log(info.promisse)
+        };
+
+        //This method is executed when the user press the "Login with facebook" button
+        $scope.facebookSignIn = function() {
+          facebookConnectPlugin.getLoginStatus(function(success){
+            if(success.status === 'connected'){
+
+              $ionicFacebookAuth.login().then(
+                function (response) {
+                  console.log('response ' + response);
+                  $state.go("tabsController.adote");
+                })
+              // The user is logged in and has authenticated your app, and response.authResponse supplies
+              // the user's ID, a valid access token, a signed request, and the time the access token
+              // and signed request each expire
+              console.log('getLoginStatus', success.status);
+              var user = UserService.getUser('facebook');
+
+              $rootScope.usuario = user;
+              // Check if we have our user saved
+
+
+              if(!user.userID){
+                getFacebookProfileInfo(success.authResponse)
+                  .then(function(profileInfo) {
+                    // For the purpose of this example I will store user data on local storage
+                    UserService.setUser({
+                      authResponse: success.authResponse,
+                      userID: profileInfo.id,
+                      name: profileInfo.name,
+                      email: profileInfo.email,
+                      picture : "http://graph.facebook.com/" + success.authResponse.userID + "/picture?type=large"
+
+                    });
+
+
+
+
+                    $state.go("tabsController.adote");
+
+                    $rootScope.usuario = user;
+
+
+
+                    $state.go("tabsController.adote");
+                  }, function(fail){
+                    // Fail get profile info
+                    console.log('profile info fail', fail);
+                  });
+              }else{
+                $state.go("tabsController.adote");
+              }
+            } else {
+              // If (success.status === 'not_authorized') the user is logged in to Facebook,
+              // but has not authenticated your app
+              // Else the person is not logged into Facebook,
+              // so we're not sure if they are logged into this app or not.
+
+              console.log('getLoginStatus', success.status);
+
+
+
+              $ionicLoading.show({
+                template: 'Logando...'
+              });
+
+              // Ask the permissions you need. You can learn more about
+              // FB permissions here: https://developers.facebook.com/docs/facebook-login/permissions/v2.4
+              facebookConnectPlugin.login(['email', 'public_profile'], fbLoginSuccess, fbLoginError);
+            }
+          });
+
+
+
+
+//INSTAVEL NATIVO
+        // var fbLoginSuccess = function (userData) {
+        //   $state.go("tabsController.adote");
+        //
+        //   console.log("UserInfo: ", userData);
+        //   console.log(fbLoginSuccess);
+        //   console.log(data.email);
+        // }
+        //
+        // facebookConnectPlugin.login(["public_profile", "user_friends", "email"], fbLoginSuccess,
+        //   function loginError(error) {
+        //     console.error(error)
+        //   }
+        // );
+
+        // VERSÃO WEB
+        //
+        //   var provider = new firebase.auth.FacebookAuthProvider();
+        //
+        //
+        //   firebase.auth().signInWithPopup(provider).then(function (result) {
+        //     // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        //     var token = result.credential.accessToken;
+        //     // The signed-in user info.
+        //     var user = result.user;
+        //     // ...
+        //
+        //     $rootScope.usuario = user;
+        //
+        //
+        //     $state.go("tabsController.adote");
+        //
+        //   }).catch(function (error) {
+        //     // Handle Errors here.
+        //     var errorCode = error.code;
+        //     var errorMessage = error.message;
+        //     // The email of the user's account used.
+        //     var email = error.email;
+        //     // The firebase.auth.AuthCredential type that was used.
+        //     var credential = error.credential;
+        //     // ...
+        //   });
+        //
+        // }
 
       }
-
-
       // Fim do login com Facebook
 
 
@@ -301,7 +599,12 @@ angular.module('app.controllers', [])
       console.log($rootScope.usuario);
 
 
-      $scope.pet = {"usuario": usuario.uid, "nomeUsuario": usuario.displayName, "email": usuario.email, "fotoUsuario": usuario.photoURL};
+      $scope.pet = {
+        "usuario": usuario.uid,
+        "nomeUsuario": usuario.displayName,
+        "email": usuario.email,
+        "fotoUsuario": usuario.photoURL
+      };
 
       $scope.addPet = function (pet) {
         console.log(pet);

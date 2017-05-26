@@ -3,9 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+      <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src  'self' 'unsafe-inline' *">
     <title></title>
+    <script src="lib/bluebird.min.js"></script>
 
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic.cloud.min.js"></script>
+
+
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -51,9 +56,10 @@
     <script src="js/routes.js"></script>
     <script src="js/directives.js"></script>
     <script src="js/services.js"></script>
-    //arquivo de conexão
+    <!--arquivo de conexão-->
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
     <script src="js/config.js"></script>
+    <!--<script src="js/GooglePlus.js"></script>-->
 
 
 
@@ -80,8 +86,11 @@
       <ion-content ng-controller="menuCtrl" padding="false" style="background: url(img/1) no-repeat center;background-size:cover;" class="side-menu-left has-header ">
         <ion-list id="menu-list8" data-componentid="list8">
           <ion-item class="item-avatar" id="menu-list-item10" data-componentid="list-item10">
-            <img src="{{usuario.photoURL}}">
-            <h2>{{usuario.displayName}}</h2>
+            <img src="{{usuario.picture}}" ng-hide="usuario.picture == null" >
+
+            <img src="{{usuario.imageUrl}}" ng-hide="usuario.imageUrl == null">
+            <h2>{{usuario.displayName}} {{usuario.name}}</h2>
+              <p>{{usuario.email}}</p>
           </ion-item>
         </ion-list>
         <h4 id="menu-heading1" style="color:#000000;font-weight:300;text-align:center;" data-componentid="heading1">Minhas Publicações</h4>
@@ -94,6 +103,8 @@
               <i class="icon ion-android-checkbox-outline-blank icon-accessory"></i>
             </h2assertive>
           </ion-item>
+
+          <button id="logout" ng-click="doLogout()" class="button button-assertive  button-block "> Sair</button
 
         </ion-list>
       </ion-content>

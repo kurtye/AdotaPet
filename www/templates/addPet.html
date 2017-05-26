@@ -1,4 +1,4 @@
-<ion-view  title="Adicionar um Pet" id="addPet">
+<ion-view title="Adicionar um Pet" id="addPet">
   <ion-nav-buttons side="right" class="has-header">
     <button class="button button-icon icon ion-heart"></button>
   </ion-nav-buttons>
@@ -6,81 +6,79 @@
 
     <!--TESTE DE UPLOAD-->
     <div class="custom-file-upload">
-      <input type="file" onchange="previewFile()" id="files" value="{{imgURL}}" name="files[]" multiple />
+      <input type="file" onchange="previewFile()" id="files" value="{{imgURL}}" name="files[]" multiple/>
       <div class="width:100px;"><span id="linkbox"></span></div>
       <input type="text" value="{{pet.imgURL}}" name="imgURL" id="imgURL" ng-model="pet.imgURL">
       <div>
 
-    <!--FIM DO TESTE DE UPLOAD-->
+        <!--FIM DO TESTE DE UPLOAD-->
 
-    <div class="list">
+        <div class="list">
 
-      <label class="item item-input item-select">
-        <div class="input-label">
-          Espécie
+          <label class="item item-input item-select">
+            <div class="input-label">
+              Espécie
+            </div>
+            <select ng-model="pet.especie">
+              <option>Gato</option>
+              <option selected>Cachorro</option>
+              <option>Outros</option>
+            </select>
+          </label>
+
         </div>
-        <select ng-model="pet.especie">
-          <option>Gato</option>
-          <option selected>Cachorro</option>
-          <option>Outros</option>
-        </select>
-      </label>
 
-    </div>
+        <div class="list">
 
-    <div class="list">
-
-      <input type="hidden" ng-model="pet.usuario" value="usuario.uid">
-      <input type="hidden" ng-model="pet.usuario" value="usuario.displayName">
-      <input type="hidden" ng-model="pet.usuario" value="usuario.email">
-      <input type="hidden" ng-model="pet.usuario" value="usuario.photoURL">
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">Nome do Pet</span>
-        <input type="text"  placeholder="John" ng-model="pet.nome">
-      </label>
+          <input type="hidden" ng-model="pet.usuario" value="usuario.uid">
+          <input type="hidden" ng-model="pet.usuario" value="usuario.displayName">
+          <input type="hidden" ng-model="pet.usuario" value="usuario.email">
+          <input type="hidden" ng-model="pet.usuario" value="usuario.photoURL">
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Nome do Pet</span>
+            <input type="text" placeholder="John" ng-model="pet.nome">
+          </label>
 
 
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">Raça</span>
-        <input type="text" placeholder="Yorkshire" ng-model="pet.raca">
-      </label>
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Raça</span>
+            <input type="text" placeholder="Yorkshire" ng-model="pet.raca">
+          </label>
 
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">Idade</span>
-        <input type="text" placeholder="1" ng-model="pet.idade">
-      </label>
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Idade</span>
+            <input type="text" placeholder="1" ng-model="pet.idade">
+          </label>
 
-      <label class="item item-input item-select">
-        <div class="input-label">
-          Sexo
+          <label class="item item-input item-select">
+            <div class="input-label">
+              Sexo
+            </div>
+            <select ng-model="pet.sexo">
+              <option>Macho</option>
+              <option selected>Femêa</option>
+
+            </select>
+          </label>
+
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Descrição</span>
+            <input type="text" placeholder="" ng-model="pet.descricao">
+          </label>
+
+
+          <div class="item item-button-right">
+            Adicionar Fotos
+            <button class="button button-assertive">
+              <i class="icon ion-plus-circled"></i>
+
+            </button>
+          </div>
         </div>
-        <select ng-model="pet.sexo">
-          <option>Macho</option>
-          <option selected>Femêa</option>
 
-        </select>
-      </label>
-
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">Descrição</span>
-        <input type="text" placeholder="" ng-model="pet.descricao">
-      </label>
-
-
-
-
-      <div class="item item-button-right">
-        Adicionar Fotos
-        <button class="button button-assertive">
-          <i class="icon ion-plus-circled"></i>
-
+        <button ng-click="addPet(pet)" class="button button-block button-assertive">
+          Publicar
         </button>
-      </div>
-    </div>
-
-    <button ng-click="addPet(pet)" class="button button-block button-assertive">
-      Publicar
-    </button>
 
   </ion-content>
 </ion-view>
