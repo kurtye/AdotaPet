@@ -25,7 +25,6 @@ angular.module('app', ['ionic','ionic.cloud', 'app.controllers', 'app.routes', '
 })
 
 
-
 .run(function($ionicPlatform,CONFIG) {
 
 
