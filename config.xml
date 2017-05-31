@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.labup.adotapet" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>AdotaPet</name>
-  <description>
-        An Ionic Framework and Cordova project.
+  <description>&#xD;
+        An Ionic Framework and Cordova project.&#xD;
     </description>
-  <author email="you@example.com" href="http://example.com/">
-      Your Name Here
+  <author email="you@example.com" href="http://example.com/">&#xD;
+      Your Name Here&#xD;
     </author>
   <content src="index.html"/>
   <access origin="*"/>
@@ -46,6 +46,8 @@
   <allow-navigation href="auth.firebase.com"/>
   <allow-navigation href="https://adotapet-476b5.firebaseapp.com"/>
   <allow-navigation href="http://192.168.0.2:8100"/>
+  <allow-navigation href="http://192.168.0.6:8100"/>
+  <allow-navigation href="http://10.30.38.19:8100"/>
   <allow-intent href="http://192.168.0.4:8100"/>
   <allow-intent href="*.firebaseio.com"/>
   <allow-intent href="auth.firebase.com"/>

@@ -10,14 +10,21 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
 
 
       var db = firebase.database();
-      var ref = db.ref("adocao/pets/");
+      var ref = db.ref("adocao/pets/").orderByValue();
 
       ref.on("child_added", function (snapshot) {
-        pets.push(snapshot.val());
+        pets.unshift(snapshot.val());
 
       }, function (errorObject) {
         console.log("Erro na leitura do banco " + errorObject.code);
       });
+
+
+    }])
+
+  .controller('favoritosCtrl', ['$scope', '$stateParams',
+
+    function ($scope, $stateParams) {
 
 
     }])
@@ -33,46 +40,88 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
 
       $scope.petPerfil = $rootScope.pets[$stateParams.id];
 
+      var usuarioLogado = localStorage.getItem('uid');
+      var usuarioPublicacao =  $scope.petPerfil.usuario;
+
+      $scope.verificarUser = function () {
+
+        if(usuarioLogado == usuarioPublicacao){
+          return true;
+        }
+        return false;
+      }
+
+
+
     }])
 
-  .controller('menuCtrl', ['$scope', '$stateParams', '$rootScope',
-    function ($scope, $stateParams, $rootScope) {
+  .controller('menuCtrl', ['$scope', '$stateParams', '$rootScope', '$window', '$ionicHistory','$state',
+    function ($scope, $stateParams, $rootScope, $window, $ionicHistory, $state) {
 
 
-      var usuario = $rootScope.usuario ? $rootScope.usuario : {"uid": "1lPGwfKdZ6WKRljCpP5wPJlKfsP2"};
-      console.log($rootScope.usuario);
+      var CurrentUser = localStorage.getItem('uid');
+      $scope.UserPhoto = localStorage.getItem('photo');
+
       const db = firebase.database().ref();
-
-      const myPets = db.child('adocao/pets').orderByChild('usuario').equalTo(usuario.uid);
+      const myPets = db.child('adocao/pets').orderByChild('usuario').equalTo(CurrentUser);
 
       myPets.on('value', function (snap) {
         $scope.myPets = snap.val();
       })
 
+      $scope.doLogout = function(){
+        $window.localStorage.clear();
+        $ionicHistory.clearCache();
+        $ionicHistory.clearHistory();
+        $state.go('login')
+      };
+
 
     }])
 
   .controller('loginCtrl', ['$scope', '$stateParams', '$document', '$rootScope', '$state', '$ionicGoogleAuth',
-    '$ionicLoading', '$cordovaGooglePlus', '$ionicUser', '$http', 'UserService', '$q', '$ionicFacebookAuth', '$ionicUser',
+    '$ionicLoading', '$cordovaGooglePlus', '$ionicUser', '$http', 'UserService', '$q', '$ionicFacebookAuth', '$ionicAuth',
+    'UserServiceGoogle', '$ionicSideMenuDelegate',
 
     function ($scope, $stateParams, $document, $rootScope, $state, $ionicGoogleAuth, $ionicLoading,
-              $cordovaGooglePlus, $ionicUser, $http, UserService, $q, $ionicFacebookAuth, $ionicUser) {
+              $cordovaGooglePlus, $ionicUser, $http, UserService, $q, $ionicFacebookAuth,  $ionicAuth, UserServiceGoogle,
+              $ionicSideMenuDelegate
+               ) {
 
-      // Teste manter usuario
+     //  Teste manter usuario
+     //
+     //
+     //
+      var manterUsuario = localStorage.getItem('starter_facebook_user')
 
-      // if(usuario != null){
-      //   $state.go($state.go("tabsController.adote"))
-      // };
+      console.log(manterUsuario)
+
+     if(manterUsuario != null ){
+
+       var user = UserService.getUser('facebook');
+       $rootScope.usuario = user;
+
+       $state.go("tabsController.adote")
+       console.log($ionicAuth)
 
 
-      // Fim do teste
+
+       }else {
+       $state.go("login")
+     };
+     //
+     //
+     //  // Fim do teste
+
+      // $ionicSideMenuDelegate.canDragContent(false)
+
 
 
       // Executar a ação de login quando o usuário envia o formulário de login
       $scope.doLogin = function (userLogin) {
 
 
-        console.log(userLogin);
+
 
         if ($document[0].getElementById("user_name").value != "" && $document[0].getElementById("user_pass").value != "") {
 
@@ -92,13 +141,21 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
               photoUrl = user.photoURL;
               uid = user.uid;
 
+              localStorage.setItem("uid", user.uid);
+              console.log(user.uid);
+
+
+
               $rootScope.usuario = user;
               $rootScope.photoProfile = photoUrl;
 
               console.log(name + "<>" + email + "<>" + photoUrl + "<>" + uid);
 
               localStorage.setItem("photo", photoUrl);
+
               $state.go("tabsController.adote");
+
+
 
 
             } else {
@@ -150,7 +207,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
       };// fim $scope.doLogin()
 
 
-      // Login com Google
+      // Login com Google Nativo
 
 
       $scope.doLoginGoogle = function () {
@@ -172,6 +229,8 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
             var name, email, imageUrl, uid, idToken;
 
 
+
+
             if (user != null) {
               console.debug(user);
               name = user.displayName;
@@ -185,10 +244,14 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
               // you have one. Use User.getToken() instead.
 
 
+
+
               sessionStorage.setItem("name", user.displayName)
               sessionStorage.setItem("email", user.email)
               sessionStorage.setItem("uid", user.userId)
               sessionStorage.setItem("imageUrl", user.imageUrl)
+              localStorage.setItem("uid", user.userId)
+              localStorage.setItem("photo", user.imageUrl)
 
               firebase.database().ref('usuarios/' + user.userId).set(user);
 
@@ -210,10 +273,8 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
       }
 
 
-      //
+      // versão WEB (USAR EM DESENVOLVIMENTO e DELETAR APÓS PRODUÇÃO)
 
-
-      // versão WEB
       //
       //  firebase.auth.sigInWithPopUp(provider).then(function (result) {
       //
@@ -282,77 +343,11 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
 
       //Fim do login com Google Signin
 
-      // Login com Facebook
 
 
-      // window.plugins.facebook.login(
-      //   $ionicCloudProvider.init({
-      //     "core": {
-      //       "app_id": "107b46ee"
-      //     },
-      //     "auth": {
-      //       "facebook": {
-      //         "scope": ["permission1", "permission2"]
-      //       }
-      //     }
-      //   }),
-      //
-      //   function (user) {
-      //
-      //     var name, email, imageUrl, uid, idToken;
-      //
-      //
-      //
-      //     if (user != null) {
-      //       console.debug(user);
-      //       name = user.displayName;
-      //       email = user.email;
-      //       imageUrl = user.imageUrl;
-      //       uid = user.userId;
-      //       idToken = user.idToken;
-      //       // The user's ID, unique to the Firebase project. Do NOT use
-      //       // this value to authenticate with your backend server, if
-      //
-      //       // you have one. Use User.getToken() instead.
-      //
-      //
-      //
-      //       sessionStorage.setItem("name", user.displayName)
-      //       sessionStorage.setItem("email", user.email)
-      //       sessionStorage.setItem("uid", user.userId)
-      //       sessionStorage.setItem("imageUrl", user.imageUrl)
-      //
-      //
-      //
-      //
-      //       $state.go("tabsController.adote");
-      //
-      //       $rootScope.usuario = user;
-      //
-      //
-      //     }
-      //
-      //
-      //
-      //
-      //
-      //
-      //   },
-      //   function (msg) {;
-      //     console.debug(msg);
-      //   }
-      // );
-      //
-      // $ionicFacebookAuth
+      // Login com FACEBOOK
 
 
-      // Recuperar dados com login do facebook
-      // provider.addScope('user_name');
-      // provider.addScope('email');
-      // provider.addScope('profile_photo');
-
-
-      //TESTE
 
 
       console.log($ionicUser);
@@ -369,7 +364,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
 
         getFacebookProfileInfo(authResponse)
           .then(function (profileInfo) {
-            // For the purpose of this example I will store user data on local storage
+            // dados do usuário no armazenamento local
             UserService.setUser({
               authResponse: authResponse,
               userID: profileInfo.id,
@@ -383,18 +378,19 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
 
 
           }, function (fail) {
-            // Fail get profile info
+            // Falha em obter Profile info
             console.log('profile info fail', fail);
           });
       };
 
-      // This is the fail callback from the login method
+      // Este é o callback de falha do método de login
+
       var fbLoginError = function (error) {
         console.log('fbLoginError', error);
         $ionicLoading.hide();
       };
 
-      // This method is to get the user profile info from the facebook api
+      // Este método é para obter as informações de perfil do usuário do facebook api
       var getFacebookProfileInfo = function (authResponse) {
         var info = $q.defer();
 
@@ -412,7 +408,7 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
         console.log(info.promisse)
       };
 
-      //This method is executed when the user press the "Login with facebook" button
+      //Este método é executado quando o usuário pressiona o botão "Login with facebook"
       $scope.facebookSignIn = function () {
         facebookConnectPlugin.getLoginStatus(function (success) {
           if (success.status === 'connected') {
@@ -421,21 +417,28 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
               function (response) {
                 console.log('response ' + response);
                 $state.go("tabsController.adote");
+
+                localStorage.setItem("uid", profileInfo.id)
+                localStorage.setItem("photo", profileInfo.picture)
+
+                firebase.database().ref('usuarios/' + user.userId).set(info.promise);
+
               })
-            // The user is logged in and has authenticated your app, and response.authResponse supplies
-            // the user's ID, a valid access token, a signed request, and the time the access token
-            // and signed request each expire
+            // O usuário efetuou login e autenticou seu aplicativo e o response.authResponse fornece
+            // o ID do usuário, um token de acesso válido, um pedido assinado ea hora em que o token de acesso
+            // e cada solicitação assinada expiram
             console.log('getLoginStatus', success.status);
             var user = UserService.getUser('facebook');
-
             $rootScope.usuario = user;
-            // Check if we have our user saved
+            // Verifique se o usuário está salvo
+
+
 
 
             if (!user.userID) {
               getFacebookProfileInfo(success.authResponse)
                 .then(function (profileInfo) {
-                  // For the purpose of this example I will store user data on local storage
+                  // Salvando dados no localStorage
                   UserService.setUser({
                     authResponse: success.authResponse,
                     userID: profileInfo.id,
@@ -445,9 +448,11 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
 
                   });
 
-                  $state.go("tabsController.adote");
+                  $rootScope.usuario = UserService;
 
-                  $rootScope.usuario = user;
+
+
+
 
 
                   $state.go("tabsController.adote");
@@ -459,10 +464,10 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
               $state.go("tabsController.adote");
             }
           } else {
-            // If (success.status === 'not_authorized') the user is logged in to Facebook,
-            // but has not authenticated your app
-            // Else the person is not logged into Facebook,
-            // so we're not sure if they are logged into this app or not.
+            // If (success.status === 'not_authorized') o usuário está conectado ao Facebook,
+            // mas não autenticou seu aplicativo
+            // Se a pessoa não estiver conectado ao Facebook,
+            // então não temos certeza se eles estiverem conectados a este aplicativo ou não.
 
             console.log('getLoginStatus', success.status);
 
@@ -471,27 +476,12 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
               template: 'Logando...'
             });
 
-            // Ask the permissions you need. You can learn more about
-            // FB permissions here: https://developers.facebook.com/docs/facebook-login/permissions/v2.4
+            // Pergunte as permissões do profile Facebook
+            // Lista de permissões: https://developers.facebook.com/docs/facebook-login/permissions/v2.4
             facebookConnectPlugin.login(['email', 'public_profile'], fbLoginSuccess, fbLoginError);
           }
         });
 
-
-//INSTAVEL NATIVO
-        // var fbLoginSuccess = function (userData) {
-        //   $state.go("tabsController.adote");
-        //
-        //   console.log("UserInfo: ", userData);
-        //   console.log(fbLoginSuccess);
-        //   console.log(data.email);
-        // }
-        //
-        // facebookConnectPlugin.login(["public_profile", "user_friends", "email"], fbLoginSuccess,
-        //   function loginError(error) {
-        //     console.error(error)
-        //   }
-        // );
 
         // VERSÃO WEB
         //
@@ -583,10 +573,10 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
 
 
       $scope.pet = {
-        "usuario": usuario.uid,
+        "usuario": usuario.userId,
         "nomeUsuario": usuario.displayName,
         "email": usuario.email,
-        "fotoUsuario": usuario.photoURL
+        "fotoUsuario": usuario.imageUrl
       };
 
       $scope.addPet = function (pet) {

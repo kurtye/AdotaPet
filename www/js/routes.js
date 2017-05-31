@@ -34,6 +34,17 @@ angular.module('app.routes', ['ionicUIRouter'])
         }
       })
 
+
+      .state('tabsController.favoritos', {
+        url: '/favoritos',
+        views: {
+          'tab1': {
+            templateUrl: 'templates/favoritos.html',
+            controller: 'favoritosCtrl'
+          }
+        }
+      })
+
       .state('tabsController.desaparecidos', {
         url: '/desaparecidos',
         views: {
