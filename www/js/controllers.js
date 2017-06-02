@@ -113,7 +113,6 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
      //
      //  // Fim do teste
 
-      // $ionicSideMenuDelegate.canDragContent(false)
 
 
 
