@@ -35,15 +35,27 @@ angular.module('app.controllers', ['ionic.cloud', 'ionic.native'])
 
     }])
 
-  .controller('menuCtrl', ['$scope', '$stateParams', '$rootScope',
-    function ($scope, $stateParams, $rootScope) {
+  .controller('mssenuCtrl', ['$scope', '$stateParams', '$rootScope', '$ionicModal',
+    function ($scope, $stateParams, $rootScope, $ionicModal) {
 
+        $ionicModal.fromTemplateUrl('templates/modals/addPet.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modal = modal;
+        });
+        $scope.openModal = function() {
+            $scope.modal.show();
+        };
+        $scope.closeModal = function() {
+            $scope.modal.hide();
+        };
 
       var usuario = $rootScope.usuario ? $rootScope.usuario : {"uid": "1lPGwfKdZ6WKRljCpP5wPJlKfsP2"};
       console.log($rootScope.usuario);
       const db = firebase.database().ref();
 
-      const myPets = db.child('adocao/pets').orderByChild('usuario').equalTo(usuario.uid);
+      var myPets = db.child('adocao/pets').orderByChild('usuario').equalTo(usuario.uid);
 
       myPets.on('value', function (snap) {
         $scope.myPets = snap.val();

@@ -18,6 +18,6 @@ angular.module('app.services', [])
 
     return {
       getUser: getUser,
-      setUser: setUser
+      //setUser: setUser
     };
   });

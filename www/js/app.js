@@ -1,27 +1,9 @@
-angular.module('app', ['ionic','ionic.cloud', 'app.controllers', 'app.routes', 'app.directives','app.services','app.configs',])
+angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives','app.services','app.configs'])
 
-.config(function($ionicConfigProvider, $sceDelegateProvider, $ionicCloudProvider){
-
-
-
-    $ionicCloudProvider.init({
-      "core": {
-        "app_id": "107b46ee"
-      },
-      "auth": {
-        "google": {
-          //trocar webClient para testes
-          // "webClientId": "31439353449-a4mklvh2ugb65qrg5ie9ru9j3ojrdpa6.apps.googleusercontent.com",
-          // "webClientId": "31439353449-c8h94379gm3vdump7bboenbtco3i1ufa.apps.googleusercontent.com",
-          "webClientId": "908321839770-i7ri4c8f42h13i87cbnup9s1krnm22fs.apps.googleusercontent.com",
+.config(function($ionicConfigProvider, $sceDelegateProvider ){
 
 
-          "scope": ["permission1", "permission2"]
-        }
-      }
-    });
 
-  $sceDelegateProvider.resourceUrlWhitelist([ 'self','*://www.youtube.com/**', '*://player.vimeo.com/video/**']);
 })
 
 
