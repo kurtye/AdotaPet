@@ -5,9 +5,10 @@ angular.module('UsuarioServices', [])
     .service('UsuarioService', [function () {
 
         this.getUsuario = function () {
-            const db = firebase.database();
+
             var UserLogado = this.getUser();
-            ref = db.ref().child('usuarios').child(UserLogado.userId);
+            const rootRef = firebase.database();
+            return rootRef.ref('/usuarios/' + UserLogado.userId).once('value');
 
         };
 

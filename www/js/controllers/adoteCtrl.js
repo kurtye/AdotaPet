@@ -17,5 +17,6 @@ angular.module('adoteCtrls', []).controller('adoteCtrl', ['$scope', '$stateParam
             console.log("Erro na leitura do banco " + errorObject.code);
         });
 
+        console.log(pets);
 
     }]);

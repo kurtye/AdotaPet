@@ -1,6 +1,5 @@
-angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'UsuarioService',
-    function ($scope, $stateParams, $state, $rootScope, UsuarioService) {
-
+angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'UsuarioService', '$ionicModal',
+    function ($scope, $stateParams, $state, $rootScope, UsuarioService, $ionicModal) {
 
         $scope.imgURL = document.getElementById("files");
 
@@ -37,17 +36,25 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
 
         };
 
-        var usuario = UsuarioService.getUser() ? UsuarioService.getUser() : {"userId": 'whatever'};
+        //var usuario = {};
+        //var key;
+        //UsuarioService.getUsuario().then(function (snap) {
+        //    key = snap.key;
+        //    usuario[snap.key] = snap.val();
 
-        $scope.pet = {
-            "usuario": usuario.uid,
-            "nomeUsuario": usuario.displayName,
-            "email": usuario.email,
-            "fotoUsuario": usuario.photoURL
+        //});
+
+        var user = UsuarioService.getUser();
+        $rootScope.pet = {
+            "usuario": user.userId
+            //"nomeUsuario": user.displayName,
+            //"email": user.email,
+            //"fotoUsuario": user.imageUrl
         };
 
         $scope.addPet = function (pet) {
             console.log(pet);
+
             firebase.database().ref('adocao/pets/').push(pet);
             $state.go("tabsController.adote");
             alert('Cadastrado com Sucesso');
@@ -55,4 +62,5 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
             $scope.pet = {}
         }
 
-    }]);
+    }])
+;
