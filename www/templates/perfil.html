@@ -30,8 +30,10 @@
       <ion-item class="item-icon-left" id="perfil-list-item11">
         <i class="icon ion-ios-location"></i>Ceilândia</ion-item>
     </div>
-    <div ng-if="!verificarUser()">
-      <button id="enviarMensagem" class="button button-assertive  button-block">Envie uma mensagem</button>
+    <div ng-if="!verificarUser()" >
+      <a href="/#/tab/conversa">
+      <button id="enviarMensagem"  class="button button-assertive  button-block">Envie uma mensagem</button>
+      </a>
     </div>
     <div ng-if="verificarUser()">
       <button id="marcarAdotado" class="button button-assertive  button-block">Marcar como adotado</button>

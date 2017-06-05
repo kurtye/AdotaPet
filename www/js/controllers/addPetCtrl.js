@@ -1,6 +1,22 @@
 angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'UsuarioService', '$ionicModal',
     function ($scope, $stateParams, $state, $rootScope, UsuarioService, $ionicModal) {
 
+      var racas = [];
+      $rootScope.raca = racas;
+      console.log(racas)
+
+      var db = firebase.database();
+      var ref = db.ref("raca/");
+
+      ref.on("child_added", function (snapshot) {
+        racas.push(snapshot.val());
+
+      }, function (errorObject) {
+        console.log("Erro na leitura do banco " + errorObject.code);
+      });
+
+      console.log(pets);
+
         $scope.imgURL = document.getElementById("files");
 
         //INICIO DO UPLOAD

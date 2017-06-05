@@ -48,6 +48,7 @@
   <allow-navigation href="http://192.168.0.2:8100"/>
   <allow-navigation href="http://192.168.0.6:8100"/>
   <allow-navigation href="http://10.30.38.19:8100"/>
+  <allow-navigation href="http://192.168.0.3:8100"/>
   <allow-intent href="http://192.168.0.4:8100"/>
   <allow-intent href="*.firebaseio.com"/>
   <allow-intent href="auth.firebase.com"/>

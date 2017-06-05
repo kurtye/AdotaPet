@@ -1,6 +1,14 @@
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives','app.services','app.configs'])
 
-.config(function($ionicConfigProvider, $sceDelegateProvider ){
+.config(function($ionicConfigProvider, $sceDelegateProvider,$stateProvider ){
+  $stateProvider
+
+    .state('menu', {
+      url: '/menu',
+      abstract: true,
+      templateUrl: 'templates/menu.html',
+      controller: 'menuCtrl'
+    })
 
 
 
@@ -63,6 +71,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
         }]
     };
 }])
+
 
 /*
   This directive is used to open regular and dynamic href links inside of inappbrowser.

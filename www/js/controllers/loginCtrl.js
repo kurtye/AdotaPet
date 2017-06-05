@@ -90,7 +90,7 @@ angular.module('loginCtrls', [])
             };// fim $scope.doLogin()
 
 
-            // Login com Google
+            // Login com Google WEB
 
 
             $scope.doLoginGoogle = function () {

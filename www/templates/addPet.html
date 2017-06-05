@@ -13,14 +13,14 @@
 
         <!--FIM DO TESTE DE UPLOAD-->
 
-        <div class="list">
+        <div class="list" ">
 
           <label class="item item-input item-select">
             <div class="input-label">
               Espécie
             </div>
-            <select ng-model="pet.especie">
-              <option>Gato</option>
+            <select ng-repeat=" racas in raca ng-model="pet.especie">
+              <option>{{raca}}</option>
               <option selected>Cachorro</option>
               <option>Outros</option>
             </select>
