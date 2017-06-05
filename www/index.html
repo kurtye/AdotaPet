@@ -125,11 +125,11 @@
                     data-componentid="heading1">Minhas Publicações</h4>
                 <ion-list id="menu-list9" data-componentid="list9">
 
-                    <ion-item class="item-avatar item-icon-right assertive" id="menu-list-item28"  data-componentid="list-item28" ng-repeat="pet in myPets track by $index">
-                        <img src="{{pet.imgURL}}">
-                        <h2>{{pet.nome}}
+                    <ion-item class="item-avatar item-icon-right assertive" id="menu-list-item28"  data-componentid="list-item28" ng-repeat="(key , value) in myPets">
+                        <img src="{{value.imgURL}}">
+                        <h2>{{value.nome}}
                             <p>Em Adoção</p>
-                            <a class="button button-icon icon ion-edit small" ng-click="carregarModal(pet)"></a>
+                            <a class="button button-icon icon ion-edit small" ng-click="carregarModal(value, key)"></a>
                         </h2>
                     </ion-item>
 

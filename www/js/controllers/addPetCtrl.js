@@ -1,9 +1,10 @@
 angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'UsuarioService', '$ionicModal',
     function ($scope, $stateParams, $state, $rootScope, UsuarioService, $ionicModal) {
 
+
       var racas = [];
       $rootScope.raca = racas;
-      console.log(racas)
+      //console.log(racas);
 
       var db = firebase.database();
       var ref = db.ref("raca/");
@@ -14,8 +15,6 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
       }, function (errorObject) {
         console.log("Erro na leitura do banco " + errorObject.code);
       });
-
-      console.log(pets);
 
         $scope.imgURL = document.getElementById("files");
 
@@ -68,15 +67,19 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
             //"fotoUsuario": user.imageUrl
         };
 
+
+
         $scope.addPet = function (pet) {
+             var key = $rootScope.key;
             console.log(pet);
 
-            firebase.database().ref('adocao/pets/').push(pet);
+            firebase.database().ref('adocao/pets/' + key).set(pet);
             $state.go("tabsController.adote");
+            $rootScope.modal.hide;
             alert('Cadastrado com Sucesso');
 
-            $scope.pet = {}
-        }
+            $rootScope.pet = {};
+            $rootScope.key = {};
+        };
 
     }])
-;
