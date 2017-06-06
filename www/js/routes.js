@@ -22,31 +22,30 @@ angular.module('app.routes', ['ionicUIRouter'])
          */
 
         $stateProvider
-          .state('tabsController.chat', {
-            url: '/chat',
-            views: {
-              'tab5': {
-                templateUrl: 'templates/chat.html',
-                controller: 'chatCtrl'
-              }
-              }
-          })
+            .state('tabsController.chat', {
+                url: '/chat',
+                views: {
+                    'tab5': {
+                        templateUrl: 'templates/chat.html',
+                        controller: 'chatCtrl'
+                    }
+                }
+            })
 
-      $stateProvider
-        .state('tabsController.conversa', {
-          url: '/conversa',
-          views: {
-            'tab5': {
-              templateUrl: 'templates/conversa.html',
-              controller: 'conversaCtrl'
-            }
-          }
+        $stateProvider
+            .state('tabsController.conversa', {
+                url: '/conversa',
+                views: {
+                    'tab5': {
+                        templateUrl: 'templates/conversa.html',
+                        controller: 'conversaCtrl'
+                    }
+                }
 
-        })
+            })
 
 
-
-          .state('tabsController.adote', {
+            .state('tabsController.adote', {
                 url: '/adote',
                 views: {
                     'tab1': {

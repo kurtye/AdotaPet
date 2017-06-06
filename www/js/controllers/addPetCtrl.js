@@ -1,20 +1,20 @@
-angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'UsuarioService', '$ionicModal',
-    function ($scope, $stateParams, $state, $rootScope, UsuarioService, $ionicModal) {
+angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'UsuarioService', 'PetService',
+    function ($scope, $stateParams, $state, $rootScope, UsuarioService, PetService) {
 
 
-      var racas = [];
-      $rootScope.raca = racas;
-      //console.log(racas);
+        var racas = [];
+        $rootScope.raca = racas;
+        //console.log(racas);
 
-      var db = firebase.database();
-      var ref = db.ref("raca/");
+        var db = firebase.database();
+        var ref = db.ref("raca/");
 
-      ref.on("child_added", function (snapshot) {
-        racas.push(snapshot.val());
+        ref.on("child_added", function (snapshot) {
+            racas.push(snapshot.val());
 
-      }, function (errorObject) {
-        console.log("Erro na leitura do banco " + errorObject.code);
-      });
+        }, function (errorObject) {
+            console.log("Erro na leitura do banco " + errorObject.code);
+        });
 
         $scope.imgURL = document.getElementById("files");
 
@@ -51,35 +51,34 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
 
         };
 
-        //var usuario = {};
-        //var key;
-        //UsuarioService.getUsuario().then(function (snap) {
-        //    key = snap.key;
-        //    usuario[snap.key] = snap.val();
 
-        //});
 
         var user = UsuarioService.getUser();
         $rootScope.pet = {
             "usuario": user.userId
-            //"nomeUsuario": user.displayName,
-            //"email": user.email,
-            //"fotoUsuario": user.imageUrl
         };
-
 
 
         $scope.addPet = function (pet) {
-             var key = $rootScope.key;
-            console.log(pet);
+            var key = $rootScope.key;
 
-            firebase.database().ref('adocao/pets/' + key).set(pet);
+            //CHAMANDO O METODO DA SERVICE PASSANDO O OBJETO DE PET PARA INSERIR NO BANCO.
+            //SE TIVER A KEY A SERVICE VAI ALTERAR, SE NÃO ELA VAI INSERIR;
+            PetService.setPet(pet, key);
+
+            $scope.modal.hide;
             $state.go("tabsController.adote");
-            $rootScope.modal.hide;
-            alert('Cadastrado com Sucesso');
 
+            swal({
+                title: "Pet cadastrado com louvor",
+                text: "Tomara que alguem adote",
+                type: "success",
+                showConfirmlButton: false,
+                timer: 2000
+            });
             $rootScope.pet = {};
-            $rootScope.key = {};
+            $rootScope.key = null;
+            var key = null;
         };
 
-    }])
+    }]);

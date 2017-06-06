@@ -1,6 +1,15 @@
-angular.module('perfilCtrls', []).controller('perfilCtrl', ['$scope', '$rootScope', '$stateParams',
-    function ($scope, $rootScope, $stateParams) {
+angular.module('perfilCtrls', []).controller('perfilCtrl', ['$scope', '$rootScope', '$stateParams', 'PetService',
+    function ($scope, $rootScope, $stateParams, PetService) {
 
-        $scope.petPerfil = $rootScope.pets[$stateParams.id];
+        var petPerfil = {};
+        $scope.petPerfil = petPerfil;
+        console.log($stateParams.id);
+        PetService.getPets($stateParams.id).on("value", function (snap) {
+
+            petPerfil = snap.val();
+
+        }, function (errorObject) {
+            console.log("Erro na leitura do banco " + errorObject.code);
+        });
 
     }]);

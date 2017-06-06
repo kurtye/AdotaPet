@@ -13,7 +13,6 @@ angular.module('menuCtrls', [])
                 $rootScope.pet = pet;
                 $rootScope.key = key;
                 $scope.modal.show();
-                console.log(aPet);
             };
             $scope.usuario = UsuarioService.getUser() ? UsuarioService.getUser() : {"userId": 'default'};
 
@@ -26,7 +25,7 @@ angular.module('menuCtrls', [])
                 $scope.myPets = snap.val();
                 //console.log(snap.val());
             });
-            this.allPets = $scope.myPets;
+
             $scope.doLogout = function () {
                 localStorage.clear();
                 $state.go('login');
