@@ -4,16 +4,9 @@
 angular.module('UsuarioServices', [])
     .service('UsuarioService', [function () {
 
-        this.getUsuario = function () {
-
-            var UserLogado = this.getUser();
-            const rootRef = firebase.database();
-            return rootRef.ref('/usuarios/' + UserLogado.userId).once('value');
-
-        };
+        const rootRef = firebase.database();
 
         this.setUser = function (user_data) {
-            console.log(user_data);
             window.localStorage.starter_facebook_user = JSON.stringify(user_data);
 
             firebase.database().ref('usuarios/' + user_data.userId).set(user_data);
@@ -22,5 +15,10 @@ angular.module('UsuarioServices', [])
         this.getUser = function () {
             return JSON.parse(window.localStorage.starter_facebook_user || '{}');
         };
+
+        this.verificarUsuario = function (id_pet) {
+
+            return rootRef.ref('adocao/pets/' + id_pet);
+         };
 
     }]);

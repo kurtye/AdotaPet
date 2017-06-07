@@ -7,9 +7,9 @@ angular.module('PetServices', [])
 
             if (id) {
 
-                return rootRef.ref('adocao/pets/' + id);
+                return rootRef.ref("adocao/pets/" + id);
             }
-            return rootRef.ref('adocao/pets');
+            return rootRef.ref('adocao/pets/');
 
 
         };

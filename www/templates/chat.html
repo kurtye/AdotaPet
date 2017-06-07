@@ -1,3 +1,37 @@
+<ion-view style="" id="page3" title="Chats">
+    <ion-content class="has-header">
+
+        <div class="item item-input-inset">
+            <label class="item-input-wrapper">
+                <input type="text" placeholder="Pesquisar chat" ng-model="add_jid">
+            </label>
+            <button class="button button-small icon ion-search" ng-click="add(add_jid)">
+
+            </button>
+        </div>
+
+
+        <ion-list style="">
+            <ion-item class="item-remove-animate item-avatar item-icon-right assertive" ng-repeat="chat in chats"
+                      type="item-text-wrap" ng-click="chatDetails(chat.id)">
+                <img ng-src="{{chat.face}}">
+                <h2>{{chat.name}}</h2>
+                <p>{{chat.lastText}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+
+                <ion-option-button class="button-assertive" ng-click="remove(chat)">
+                    Delete
+                </ion-option-button>
+
+            </ion-item>
+        </ion-list>
+
+
+    </ion-content>
+
+</ion-view>
+
+<!--
 <ion-view title="chat" id="chat">
   <ion-content padding="true" class="has-header">
     <ion-list id="chat-list2">

@@ -1,24 +1,28 @@
 <ion-view title="Conversa" id="conversa" style="background-color:#FFFFFF;">
-  <ion-content padding="true" class="has-header">
-    <ion-list id="conversa-list4">
-      <ion-item class="item-avatar" id="conversa-list-item13">
-        <p>Conversa</p>
-      </ion-item>
-      <ion-item class="item-avatar assertive" id="conversa-list-item14">
-        <p style="white-space:normal;">Conversa</p>
-        <ion-option-button class="button-positive">click</ion-option-button>
-      </ion-item>
-    </ion-list>
-    <div class="spacer" style="width: 300px; height: 206px;"></div>
-    <form id="conversa-form2" class="list ng-pristine ng-valid __web-inspector-hide-shortcut__">
-      <button id="conversa-button2" class="button button-assertive button-small icon ion-ios-camera"
-              style="float: left; height: 48px; width: 40px;"></button>
-      <label class="item item-input" id="conversa-input2" style="width: 77%; float: left;">
-        <span class="input-label" aria-label="Input" id="_label-0">Input</span>
-        <input type="text" placeholder="">
-      </label>
-      <button id="conversa-button1" class="button button-assertive button-small icon ion-android-send"
-              style="width: 40px;height: 48px;"></button>
-    </form>
+  <ion-content class="content-stable"
+               on-swipe-left="hideTime = false"
+               on-swipe-right="hideTime = true">
+
+    <div ng-repeat="message in messages track by $index"
+         ng-class="{other: message.userId != myId}"
+         class="messages">
+
+
+      <div class="message" >
+        <span >{{ message.text }}</span>
+      </div>
+
+    </div>
+
   </ion-content>
+
+      <ion-footer-bar keyboard-attach class="bar-stable item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" placeholder="Escreva sua Mensagem" on-return="enviarMenssagem(); closeKeyboard()" ng-model="data.text" on-focus="inputUp()" on-blur="inputDown()" />
+        </label>
+        <button class="button button-assertive" ng-click="enviarMensagem(data.text)">
+          Enviar
+        </button>
+      </ion-footer-bar>
+
 </ion-view>

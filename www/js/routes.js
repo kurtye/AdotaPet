@@ -77,18 +77,13 @@ angular.module('app.routes', ['ionicUIRouter'])
             })
 
 
-            .state('tabsController.perfil', {
+            .state('tabsController.perfil/:id', {
                 url: '/perfil/:id',
                 views: {
                     'tab1': {
                         templateUrl: 'templates/perfil.html',
                         controller: 'perfilCtrl'
                     }
-                    // ,
-                    // 'tab4': {
-                    //   templateUrl: 'templates/perfil.html',
-                    //   controller: 'perfilCtrl'
-                    // }
                 }
             })
 
@@ -128,7 +123,7 @@ angular.module('app.routes', ['ionicUIRouter'])
             .state('signup', {
                 url: '/signup',
                 templateUrl: "templates/signup.html",
-                controller: "signupController"
+                controller: "signupCtrl"
             })
 
         $urlRouterProvider.otherwise('/login')
