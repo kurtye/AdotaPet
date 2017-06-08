@@ -9342,3 +9342,17 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   border-radius: 10px;
   text-align: left;
   max-width: 240px; }
+
+.fileContainer [type=file] {
+  cursor: pointer;
+}
+
+.fileContainer {
+  width: 100%;
+  float: left;
+  text-align: center;
+  background: #F44336;
+  border-radius: .5em;
+  padding: 0.5em;
+  color: #fff;
+}
