@@ -1,15 +1,18 @@
 <ion-modal-view ng-controller="addPetCtrl">
-  <ion-header-bar class="bar bar-header bar-positive">
-    <h1 class="title">Animal</h1>
-    <button class="button button-clear button-primary" ng-click="modal.hide()">Fechar</button>
+  <ion-header-bar class="bar bar-header bar-assertive">
+    <h1 class="title">Adicionar Pet</h1>
+    <button class="button button-clear button-primary" ng-click="modal.hide()" style="font-size: 30px;">
+      <i class="ion-ios-close"></i></button>
   </ion-header-bar>
   <ion-content class="padding" id="content-modal">
 
-    <!--TESTE DE UPLOAD-->
-
+    <label class="item item-input item-stacked-label">
+      <span class="input-label">Nome do Pet</span>
+      <input type="text" placeholder="John" ng-model="pet.nome">
+    </label>
 
     <label class="fileContainer">
-      <span>Foto do Perfil do PET</span> <i class="icon ion-camera" style="display: block;margin: 0 auto;height: 32px;font-size: 32px;"></i></i>
+      <span>Escolha uma foto do Perfil do PET</span> <i class="icon ion-camera" style="display: block;margin: 0 auto;height: 32px;font-size: 32px;"></i></i>
       <input type="file" class="upload" onchange="previewFile()" id="files" value="{{imgURL}}" name="files[]" multiple/>
     </label>
       <div style="width: 28%; margin: 0 auto;"><span id="linkbox"></span>
@@ -17,17 +20,14 @@
       </div>
 
 
-
-    <!--FIM DO TESTE DE UPLOAD-->
-
     <div class="list">
       <label class="item item-input item-select" for="especie">
         <div class="input-label">
           Espécie
         </div>
-        <select id="especie" ng-model="especieSrc" ng-options="especie for (especie, raca) in especie"
-                ng-change="GetSelectedEspecie()" ng-model="pet.especie">
-          <option value=''>Selecione</option>
+        <select id="especie" ng-model="especieSrc" ng-options="especie for (especie, raca) in especie track by especie"
+                ng-change="GetSelectedEspecie()" >
+          <option value="" ng-model="pet.especie">selecione</option>
 
         </select>
       </label>
@@ -37,11 +37,11 @@
           Raça
         </div>
         <select id="raca" ng-disabled="!especieSrc" ng-model="racaSrc" ng-options="raca for raca in especieSrc"
-                ng-change="GetSelectedRaca()">
-          <option value=''>Selecione</option>
+                ng-change="GetSelectedRaca()" >
+          <option value='raca' ng-model="pet.raca">Selecione</option>
         </select>
       </label>
-
+<div>{{pet}}</div> <div>{{especie.nome}}</div>
 
       <label class="item item-input item-select">
         <div class="input-label">
@@ -88,10 +88,7 @@
       <input type="hidden" ng-model="pet.usuario" value="usuario.displayName">
       <input type="hidden" ng-model="pet.usuario" value="usuario.email">
       <input type="hidden" ng-model="pet.usuario" value="usuario.imageURL">
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">Nome do Pet</span>
-        <input type="text" placeholder="John" ng-model="pet.nome">
-      </label>
+
 
 
       <label class="item item-input item-select">
