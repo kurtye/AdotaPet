@@ -2,14 +2,17 @@
 
   <ion-content padding="true" class="has-header">
     <ion-list id="adote-list2">
-      <ion-item class="item-thumbnail-left item-icon-right assertive" id="adote-list-item1" ng-click="detalharPet(key)" ng-repeat="(key , pet) in pets[0]">
+      <ion-item class="item-thumbnail-left item-icon-right assertive" id="adote-list-item1" ng-click="detalharPet(key)"
+                ng-repeat="(key , pet) in pets[0]">
         <img src="{{pet.imgURL}}">
         <h2assertive>{{pet.nome}}
-          <p>Raça: {{pet.raca}}
+          <p><br> Espécie: {{pet.especie}}
             <br> Idade {{pet.idade}} - ano(s)
             <br> Sexo: {{pet.sexo}}</p>
-            <br> Espécie: {{pet.especie}}</p>
-          <i class="button button-icon icon ion-ios-heart-outline" ></i>
+          Estado: {{pet.estado}}
+          <br>
+         Raça: {{pet.raca}}</p>
+          <a ng-click="favoritar(key,pet)" href="#" > <button class="button button-icon icon ion-heart"> </button></a>
         </h2assertive>
       </ion-item>
     </ion-list>
