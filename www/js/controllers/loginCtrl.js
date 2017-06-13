@@ -5,6 +5,25 @@ angular.module('loginCtrls', [])
 
 
             // Executar a ação de login quando o usuário envia o formulário de login
+
+          var checarLogin = UsuarioService.getUser();
+          var empty = true;
+          for (var p in checarLogin) {
+            if (checarLogin.hasOwnProperty(p)) {
+              empty = false;
+              break;
+            }
+          }
+          console.log(empty);
+
+
+          if (empty == false){
+            $state.go('tabsController.adote');
+          }
+          else {
+            $state.go('login');
+          }
+          ;
             $scope.doLogin = function (userLogin) {
 
 
