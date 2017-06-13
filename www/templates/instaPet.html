@@ -1,0 +1,55 @@
+<ion-view title="Instapet" id="instaPet">
+
+  <ion-content padding="true" class="has-header">
+
+      <div href="#/tab/perfil/{{$index}}"
+                ng-repeat="instapet in instapets track by $index" style="
+    margin-top: 50px;
+    margin-bottom: 50px;
+">
+
+
+
+
+
+    <ion-list id="instapet-list5">
+
+        <div class="list">
+
+          <a class="item item-avatar" href="#">
+            <img src="{{instapet.fotoUsuario}}">
+            <h2>{{instapet.nomeUsuario}}</h2>
+          </a>
+
+          ...
+
+        </div>
+
+
+    </ion-list>
+    <div style="margin: 0px;  background-color: rgb(232, 235, 239); text-align: center;">
+      <img src="{{instapet.instaFoto}}">
+    </div>
+    <div id="instapet-button-bar1" class="button-bar">
+      <button id="instapet-button4" class="button clear  icon ion-heart" onClick="like()"
+      > {{instapet.likes}}</button>
+      <button id="instapet-button5" class="button clear icon ion-android-chat"></button>
+    </div>
+
+      </div>
+
+
+
+
+
+  </ion-content>
+  <div class="bar bar-footer">
+
+      <div href="#/tab/addInsta" style="width: 100%;"><a href="#/tab/addInsta">
+        <button  class="button button-full button-assertive  icon ion-camera" style="margin: 0px;"> </button>
+      </a>
+      </div>
+
+
+  </div>
+</ion-view>
