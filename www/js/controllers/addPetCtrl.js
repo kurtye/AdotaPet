@@ -68,7 +68,7 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
             $rootScope.pet = {};
             $rootScope.key = null;
             var key = null;
-          $scope.modal.hide;
+          $scope.modal.hide();
           $state.go("tabsController.adote");
         };
 
