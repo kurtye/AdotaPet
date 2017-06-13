@@ -75,6 +75,8 @@
     <script src="js/controllers/signupCtrl.js"></script>
     <script src="js/controllers/chatCtrl.js"></script>
     <script src="js/controllers/conversaCtrl.js"></script>
+  <script src="js/controllers/instaPetCtrl.js"></script>
+  <script src="js/controllers/addInsta.js"></script>
 
 
     <!--  routes -->
@@ -122,10 +124,10 @@
                          class="side-menu-left has-header ">
                 <ion-list id="menu-list8" data-componentid="list8">
                     <ion-item class="item-avatar" id="menu-list-item10" data-componentid="list-item10">
-                        <img src="{{usuario.picture}}" ng-hide="usuario.picture == null">
+                        <img src="{{usuario.picture}}" ng-hide="usuario.picture == null" />
 
                         <span class="assertive">
-              <img class="assertive" src="{{usuario.imageUrl}}" ng-hide="usuario.imageUrl == null">
+              <img class="assertive" src="{{usuario.imageUrl}}" ng-hide="usuario.imageUrl == null" />
             </span>
                         <h2>{{usuario.displayName}} {{usuario.name}}</h2>
                         <p>{{usuario.email}}</p>
