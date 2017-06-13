@@ -120,6 +120,26 @@ angular.module('app.routes', ['ionicUIRouter'])
                 }
             })
 
+          .state('tabsController.addInsta', {
+            url: '/addInsta',
+            views: {
+              'tab2': {
+                templateUrl: 'templates/addInsta.html',
+                controller: 'addInstaCtrl'
+              }
+            }
+          })
+
+          .state('tabsController.instaPet', {
+            url: '/instaPet',
+            views: {
+              'tab2': {
+                templateUrl: 'templates/instaPet.html',
+                controller: 'instaPetCtrl'
+              }
+            }
+          })
+
             .state('signup', {
                 url: '/signup',
                 templateUrl: "templates/signup.html",
