@@ -32,10 +32,9 @@
         <ion-list style="">
             <ion-item class="item-remove-animate item-avatar item-icon-right assertive"
                       ng-repeat="(key, chat) in salasRecebidas"
-                      type="item-text-wrap" ng-click="abrirChat(chat.dono_interessado_pet, chat.pet, chat.id_dono)">
+                      type="item-text-wrap" ng-click="abrirChat(chat)">
                 <img ng-src="{{chat.imagePet}}">
                 <h2>{{chat.nomePet}}</h2>
-                <p>{{chat.nomeDono}}</p>
                 <i class="icon ion-chevron-right icon-accessory"></i>
 
                 <ion-option-button class="button-assertive" ng-click="remove(chat)">
