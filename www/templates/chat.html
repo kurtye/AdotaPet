@@ -1,22 +1,41 @@
-<ion-view style="" id="page3" title="Chats">
+<ion-view style="" title="Chats">
     <ion-content class="has-header">
 
-        <div class="item item-input-inset">
-            <label class="item-input-wrapper">
-                <input type="text" placeholder="Pesquisar chat" ng-model="add_jid">
-            </label>
-            <button class="button button-small icon ion-search" ng-click="add(add_jid)">
-
-            </button>
-        </div>
-
+        <ion-item>
+            <a class="tab-item">
+                Mensagens Enviadas
+            </a>
+        </ion-item>
 
         <ion-list style="">
-            <ion-item class="item-remove-animate item-avatar item-icon-right assertive" ng-repeat="chat in chats"
-                      type="item-text-wrap" ng-click="chatDetails(chat.id)">
-                <img ng-src="{{chat.face}}">
-                <h2>{{chat.name}}</h2>
-                <p>{{chat.lastText}}</p>
+            <ion-item class="item-remove-animate item-avatar item-icon-right assertive"
+                      ng-repeat="(key, chat) in salasEnvios"
+                      type="item-text-wrap" ng-click="abrirChat(chat)">
+                <img ng-src="{{chat.imagePet}}">
+                <h2>{{chat.nomePet}}</h2>
+                <p>{{chat.nomeDono}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+
+                <ion-option-button class="button-assertive" ng-click="remove(chat)">
+                    Delete
+                </ion-option-button>
+
+            </ion-item>
+        </ion-list>
+
+        <ion-item>
+            <a class="tab-item">
+                Mensagens Recebidas
+            </a>
+        </ion-item>
+
+        <ion-list style="">
+            <ion-item class="item-remove-animate item-avatar item-icon-right assertive"
+                      ng-repeat="(key, chat) in salasRecebidas"
+                      type="item-text-wrap" ng-click="abrirChat(chat.dono_interessado_pet, chat.pet, chat.id_dono)">
+                <img ng-src="{{chat.imagePet}}">
+                <h2>{{chat.nomePet}}</h2>
+                <p>{{chat.nomeDono}}</p>
                 <i class="icon ion-chevron-right icon-accessory"></i>
 
                 <ion-option-button class="button-assertive" ng-click="remove(chat)">
@@ -29,42 +48,4 @@
 
     </ion-content>
 
-</ion-view>
-
-<!--
-<ion-view title="chat" id="chat">
-  <ion-content padding="true" class="has-header">
-    <ion-list id="chat-list2">
-      <ion-item class="item-avatar item-icon-right assertive" href="#/tab/conversa" id="chat-list-item5">
-        <img src="../img/ionic.png">
-        <h2assertive>nome
-          <p>mensagem</p>
-          <i class="icon ion-ios-arrow-forward"></i>
-          <ion-option-button class="button-balanced">Click</ion-option-button>
-        </h2assertive>
-      </ion-item>
-      <ion-item class="item-avatar item-icon-right assertive" href="#/tab/conversa" id="chat-list-item5">
-        <img src="../img/ionic.png">
-        <h2assertive>nome
-          <p>mensagem</p>
-          <i class="icon ion-ios-arrow-forward"></i>
-          <ion-option-button class="button-positive"></ion-option-button>
-        </h2assertive>
-      </ion-item>
-      <ion-item class="item-avatar item-icon-right assertive" href="#/tab/conversa" id="chat-list-item5">
-        <img src="../img/ionic.png">
-        <h2assertive>nome
-          <p>mensagem</p>
-          <i class="icon ion-ios-arrow-forward"></i>
-        </h2assertive>
-      </ion-item>
-      <ion-item class="item-avatar item-icon-right assertive" href="#/tab/conversa" id="chat-list-item5">
-        <img src="../img/ionic.png">
-        <h2assertive>nome
-          <p>mensagem</p>
-          <i class="icon ion-ios-arrow-forward"></i>
-        </h2assertive>
-      </ion-item>
-    </ion-list>
-  </ion-content>
 </ion-view>
