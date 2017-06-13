@@ -1,9 +1,19 @@
 angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'UsuarioService', 'PetService',
     function ($scope, $stateParams, $state, $rootScope, UsuarioService, PetService) {
 
-      // var e = document.getElementById("especie");
-      // var selectedOp = e.options[e.selectedIndex].text;
+        var racas = [];
+        $rootScope.raca = racas;
+        //console.log(racas);
 
+        var db = firebase.database();
+        var ref = db.ref("raca/");
+
+        ref.on("child_added", function (snapshot) {
+            racas.push(snapshot.val());
+
+        }, function (errorObject) {
+            console.log("Erro na leitura do banco " + errorObject.code);
+        });
 
         $scope.imgURL = document.getElementById("files");
 
@@ -25,7 +35,7 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
                 var url = snapshot.downloadURL;
 
 
-                document.getElementById('linkbox').innerHTML = '<img src="' + url + '" style="width: 100%;background-repeat: no-repeat;background-position: 50%;border-radius: 50%;width: 100px;height: 100px;margin-top: 10px;" />';
+                document.getElementById('linkbox').innerHTML = '<img src="' + url + '" style=" width: 100px; " />';
 
 
                 $scope.pet.imgURL = url;
@@ -41,26 +51,29 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
         };
 
 
-
         var user = UsuarioService.getUser();
         $rootScope.pet = {
-            "usuario": user.userId
+            "usuario": user.userId,
+            "nomeUsuario": user.displayName,
+            "email": user.email,
+            "userFoto": user.imageUrl
         };
 
 
         $scope.addPet = function (pet) {
             var key = $rootScope.key;
 
+            pet.time = Date.now();
             //CHAMANDO O METODO DA SERVICE PASSANDO O OBJETO DE PET PARA INSERIR NO BANCO.
             //SE TIVER A KEY A SERVICE VAI ALTERAR, SE NÃO ELA VAI INSERIR;
-            PetService.setPet(pet, key);
+            PetService.updatePet(pet, key);
 
-
-
+            $scope.modal.hide();
+            $state.go("tabsController.adote");
 
             swal({
                 title: "Pet cadastrado com louvor",
-                text: "Tomara que alguem adote",
+                text: "Boa Sorte",
                 type: "success",
                 showConfirmlButton: false,
                 timer: 2000
@@ -68,133 +81,125 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
             $rootScope.pet = {};
             $rootScope.key = null;
             var key = null;
-          $scope.modal.hide;
-          $state.go("tabsController.adote");
         };
-
 
 
         $scope.especie = {
 
-          'Canina' : [
-            'Sem Raça Definida (SRD)',
-            "Afegão Hound",
-            "Affenpinscher",
-            "Airedale Terrier",
-            "Akita",
-            "American Staffordshire Terrier",
-            "Basenji",
-            "Basset Hound",
-            "Beagle",
-            "Bearded Collie",
-            "Bedlington Terrier",
-            "Bichon Frisé",
-            "Bloodhound",
-            "Bobtail",
-            "Boiadeiro Australiano",
-            "Boiadeiro Bernês",
-            "Border Collie",
-            "Border Terrier",
-            "Borzoi",
-            "Boston Terrier",
-            "Boxer",
-            "Buldogue",
-            "Bull Terrier",
-            "Bulmastife",
-            "Cairn Terrier",
-            "Cane Corso",
-            "Cão de Água Português",
-            "Cão de Crista Chinês",
-            "Cavalier King Charles Spaniel",
-            "Chesapeake Bay Retriever",
-            "Chihuahua",
-            "Chow Chow",
-            "Cocker Spaniel",
-            "Collie",
-            "Coton de Tuléar",
-            "Dachshund",
-            "Dálmata",
-            "Dandie Dinmont Terrier",
-            "Doberman",
-            "Dogo Argentino",
-            "Dogue Alemão",
-            "Fila Brasileiro",
-            "Fox Terrier (Pelo Duro e Pelo Liso)",
-            "Foxhound Inglês",
-            "Galgo",
-            "Golden Retriever",
-            "Grande Boiadeiro Suiço",
-            "Greyhound",
-            "Grifo da Bélgica",
-            "Husky Siberiano",
-            "Jack Russell Terrier",
-            "King Charles",
-            "Komondor",
-            "Labradoodle",
-            "Labrador",
-            "Lakeland Terrier",
-            "Leonberger",
-            "Lhasa Apso",
-            "Lulu da Pomerânia",
-            "Malamute do Alasca",
-            "Maltês",
-            "Mastife",
-            "Mastim",
-            "Norfolk Terrier",
-            "Norwich Terrier",
-            "Papillon",
-            "Pastor Alemão",
-            "Pastor Australiano",
-            "Pinscher Miniatura",
-            "Poodle",
-            "Pug",
-            "Rottweiler",
-            "ShihTzu",
-            "Silky Terrier",
-            "Skye Terrier",
-            "Staffordshire Bull Terrier",
-            "Terra Nova",
-            "Terrier Escocês",
-            "Tosa",
-            "Weimaraner",
-            "Welsh Corgi (Cardigan)",
-            "Welsh Corgi (Pembroke)",
-            "West Highland White Terrier",
-            "Whippet",
-            "Xoloitzcuintli",
-            "Yorkshire Terrier"
+            'Canina': [
+                "Sem Raça Definida (SRD)",
+                "Afegão Hound",
+                "Affenpinscher",
+                "Airedale Terrier",
+                "Akita",
+                "American Staffordshire Terrier",
+                "Basenji",
+                "Basset Hound",
+                "Beagle",
+                "Bearded Collie",
+                "Bedlington Terrier",
+                "Bichon Frisé",
+                "Bloodhound",
+                "Bobtail",
+                "Boiadeiro Australiano",
+                "Boiadeiro Bernês",
+                "Border Collie",
+                "Border Terrier",
+                "Borzoi",
+                "Boston Terrier",
+                "Boxer",
+                "Buldogue",
+                "Bull Terrier",
+                "Bulmastife",
+                "Cairn Terrier",
+                "Cane Corso",
+                "Cão de Água Português",
+                "Cão de Crista Chinês",
+                "Cavalier King Charles Spaniel",
+                "Chesapeake Bay Retriever",
+                "Chihuahua",
+                "Chow Chow",
+                "Cocker Spaniel",
+                "Collie",
+                "Coton de Tuléar",
+                "Dachshund",
+                "Dálmata",
+                "Dandie Dinmont Terrier",
+                "Doberman",
+                "Dogo Argentino",
+                "Dogue Alemão",
+                "Fila Brasileiro",
+                "Fox Terrier (Pelo Duro e Pelo Liso)",
+                "Foxhound Inglês",
+                "Galgo",
+                "Golden Retriever",
+                "Grande Boiadeiro Suiço",
+                "Greyhound",
+                "Grifo da Bélgica",
+                "Husky Siberiano",
+                "Jack Russell Terrier",
+                "King Charles",
+                "Komondor",
+                "Labradoodle",
+                "Labrador",
+                "Lakeland Terrier",
+                "Leonberger",
+                "Lhasa Apso",
+                "Lulu da Pomerânia",
+                "Malamute do Alasca",
+                "Maltês",
+                "Mastife",
+                "Mastim",
+                "Norfolk Terrier",
+                "Norwich Terrier",
+                "Papillon",
+                "Pastor Alemão",
+                "Pastor Australiano",
+                "Pinscher Miniatura",
+                "Poodle",
+                "Pug",
+                "Rottweiler",
+                "ShihTzu",
+                "Silky Terrier",
+                "Skye Terrier",
+                "Staffordshire Bull Terrier",
+                "Terra Nova",
+                "Terrier Escocês",
+                "Tosa",
+                "Weimaraner",
+                "Welsh Corgi (Cardigan)",
+                "Welsh Corgi (Pembroke)",
+                "West Highland White Terrier",
+                "Whippet",
+                "Xoloitzcuintli",
+                "Yorkshire Terrier"
 
-          ],
-          'Felina':
-            [
-              "Sem Raça Definida (SRD)",
-              "Persa",
-              "Siamês",
-              "Himalaia",
-              "Maine Coon",
-              "Angorá",
-              "Siberiano",
-              "Sphynx",
-              "Burmese",
-              "Ragdoll",
-              "British Shorthair",
+            ],
+            'Felina': [
+                "Sem Raça Definida (SRD)",
+                "Persa",
+                "Siamês",
+                "Himalaia",
+                "Maine Coon",
+                "Angorá",
+                "Siberiano",
+                "Sphynx",
+                "Burmese",
+                "Ragdoll",
+                "British Shorthair"
             ]
-          ,
-          'Outros': {
-            'New South Wales': ['Sydney'],
-            'Victoria': ['Melbourne']
-          }
+            ,
+            'Outros': {
+                'New South Wales': ['Sydney'],
+                'Victoria': ['Melbourne']
+            }
         };
 
-
-      $scope.GetSelectedEspecie = function () {
-        $scope.pet.especie = document.getElementById("especie").value;
-        console.log(document.getElementById("especie").value)
-        console.log(especie)
-      };
-      $scope.GetSelectedRaca = function () {
-        $scope.pet.raca = document.getElementById("raca").value;
-      };
-
+        $scope.GetSelectedEspecie = function () {
+            $scope.pet.especieSelecionado = document.getElementById("especie").value;
+        };
+        $scope.GetSelectedRaca = function () {
+            $scope.pet.raca = document.getElementById("raca").value;
+        };
 
     }]);
