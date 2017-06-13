@@ -21,7 +21,7 @@
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
 
-    <link href="css/ionic.app.css" rel="stylesheet">
+    <link href="css/ionic.app2.css" rel="stylesheet">
     <script type="text/javascript" src="lib/jquery/jquery-1.12.3.min.js"></script>
 
 
@@ -123,14 +123,9 @@
                          style="background: url(img/1) no-repeat center;background-size:cover;"
                          class="side-menu-left has-header ">
                 <ion-list id="menu-list8" data-componentid="list8">
-                    <ion-item class="item-avatar" id="menu-list-item10" data-componentid="list-item10">
-                        <img src="{{usuario.picture}}" ng-hide="usuario.picture == null" />
-
-                        <span class="assertive">
-              <img class="assertive" src="{{usuario.imageUrl}}" ng-hide="usuario.imageUrl == null" />
-            </span>
-                        <h2>{{usuario.displayName}} {{usuario.name}}</h2>
-                        <p>{{usuario.email}}</p>
+                    <ion-item class="item-avatar">
+                        <img src="{{usuario.imageUrl}}">
+                        <h2>{{usuario.displayName}}</h2>
                     </ion-item>
                 </ion-list>
                 <h4 id="menu-heading1" style="color:#000000;font-weight:300;text-align:center;"
