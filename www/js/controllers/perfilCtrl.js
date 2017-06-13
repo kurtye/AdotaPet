@@ -1,20 +1,16 @@
-angular.module('perfilCtrls', []).controller('perfilCtrl', ['$scope','$state', '$rootScope', '$stateParams', 'PetService', 'UsuarioService', 'ChatService',
-    function ($scope,  $state,  $rootScope, $stateParams, PetService, UsuarioService, ChatService) {
+angular.module('perfilCtrls', []).controller('perfilCtrl', ['$scope', '$state', '$rootScope', '$stateParams', 'PetService', 'UsuarioService', 'ChatService', '$ionicModal',
+    function ($scope, $state, $rootScope, $stateParams, PetService, UsuarioService, ChatService, $ionicModal) {
 
-        var petPerfil = [];
         var petKey = $stateParams.id;
         $scope.petKey = $stateParams.id;
+        if(petKey){
+            PetService.setPet(petKey);
+        }
+
+        var petPerfil = PetService.getPet();
         $scope.petPerfil = petPerfil;
+
         console.log(petPerfil);
-
-        PetService.getPets(petKey).once("value", function (snap) {
-
-            petPerfil.push(snap.val());
-
-        }, function (errorObject) {
-            console.log("Erro na leitura do banco " + errorObject.code);
-        });
-
 
         var UserLogado = UsuarioService.getUser();
         var user = UserLogado.userId;
@@ -24,21 +20,19 @@ angular.module('perfilCtrls', []).controller('perfilCtrl', ['$scope','$state', '
             postador = snap.val().usuario;
         });
 
-        if (user == postador){
+        if (user == postador) {
             $scope.donoDaPostagem = true;
-        }else {
-            $scope.donoDaPostagem =  false;
+        } else {
+            $scope.donoDaPostagem = false;
         }
 
 
+        $scope.enviarMensagem = function (objPet, petKey) {
 
+            var retorno = ChatService.setDados(objPet, petKey, null, 1);
 
-
-        $scope.enviarMensagem = function (dono, petKey) {
-
-            var retorno = ChatService.setDados(dono, petKey);
-
-            $state.go('tabsController.conversa');
+            var dadosAgrupados = ChatService.getDadosAgrupados();
+            $state.go('tabsController.conversa', {id: dadosAgrupados});
 
         };
     }]);
