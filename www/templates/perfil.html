@@ -2,37 +2,35 @@
   <ion-content padding="true" class="has-header">
     <div class="list card" id="perfil-card21">
       <ion-item class="item-avatar" id="perfil-list-item7">
-        <img src="{{petPerfil[0].imgURL}}">
-        <h2>{{petPerfil[0].nome}}</h2>
+        <img src="{{petPerfil.imgURL}}">
+        <h2>{{petPerfil.nome}}</h2>
       </ion-item>
       <div class=" item item-image">
-        <img src="{{petPerfil[0].imgURL}} style="display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;">
+        <img src="{{petPerfil.imgURL}} style='display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;'">
       </div>
       <div class="item item-body" id="perfil-list-item-container2">
         <ion-list id="perfil-list5">
-          <ion-item class="assertive" id="perfil-list-item9">Nome do Pet: {{petPerfil[0].nome}}</ion-item>
+          <ion-item class="assertive" id="perfil-list-item9">Nome do Pet: {{petPerfil.nome}}</ion-item>
         </ion-list>
         <div id="perfil-markdown2" class="show-list-numbers-and-dots">
-          <p style="margin-top:0px;color:#000000;"> {{petPerfil[0].descricao}}</p>
+          <p style="margin-top:0px;color:#000000;"> {{petPerfil.descricao}}</p>
         </div>
       </div>
       <div class="spacer" style="width: 300px; height: 41.9886px;"></div>
 
       <ion-item class="item-avatar" id="perfil-list-item7">
-        <img src="{{petPerfil[0].fotoUsuario}}">
-        <h2>Responsável: {{petPerfil[0].nomeUsuario}}</h2>
+        <img src="{{petPerfil.user.foto}}">
+        <h2>Responsável: {{petPerfil.user.nome}}</h2>
       </ion-item>
       <ion-item id="perfil-list-item12"></ion-item>
-      <ion-item class="item-icon-left" id="perfil-list-item13">
-        <i class="icon ion-ios-telephone"></i>61-9987-3774</ion-item>
       <ion-item class="item-icon-left" id="perfil-list-item14">
-        <i class="icon ion-ios-email"></i> {{petPerfil[0].email}} </ion-item>
+        <i class="icon ion-ios-email"></i> {{petPerfil.user.email}} </ion-item>
       <ion-item class="item-icon-left" id="perfil-list-item11">
-        <i class="icon ion-ios-location"></i>Ceilândia</ion-item>
+        <i class="icon ion-ios-location"></i>{{petPerfil.estado}}</ion-item>
     </div>
     <div ng-if="!donoDaPostagem" >
       <a>
-      <button id="enviarMensagem" ng-click="enviarMensagem(petPerfil[0].usuario, petKey)"  class="button button-assertive  button-block">Envie uma mensagem</button>
+      <button id="enviarMensagem" ng-click="enviarMensagem(petPerfil, petKey)"  class="button button-assertive  button-block">Envie uma mensagem</button>
       </a>
     </div>
     <div ng-if="donoDaPostagem">
