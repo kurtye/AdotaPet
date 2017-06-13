@@ -32,9 +32,8 @@ angular.module('app.routes', ['ionicUIRouter'])
                 }
             })
 
-        $stateProvider
             .state('tabsController.conversa', {
-                url: '/conversa',
+                url: '/conversa/:id',
                 views: {
                     'tab5': {
                         templateUrl: 'templates/conversa.html',
