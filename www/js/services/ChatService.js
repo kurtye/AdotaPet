@@ -1,5 +1,5 @@
 angular.module('ChatServices', [])
-    .service('ChatService', ['UsuarioService', function (UsuarioService) {
+    .service('ChatService', ['UsuarioService', '$ionicScrollDelegate', function (UsuarioService) {
 
         const salasRef = firebase.database().ref('chat/salas');
         const msgRef = firebase.database().ref('chat/mensagens');
@@ -7,81 +7,122 @@ angular.module('ChatServices', [])
 
         var dadosSala = [];
         var dadosMensagem = [];
-        var petKey;
-        var dono;
-        var id_interessado = UsuarioService.getUser().userId;
+
+        var chat = {
+            petKey:   null,
+            nomePet:  null,
+            imagePet: null,
+            id_dono:  null,
+            dono:     null,
+            nomeDono: null,
+            meu_id: UsuarioService.getUser().userId,
+            interessado: null,
+            nomeInteressado: null,
+            agrupados: null
+        };
 
 
-        this.setDados = function (id_dono, pet) {
-            dono = id_dono;
-            petKey = pet;
+        //O group so é preenchido quando eu clico na sala, pelo perfil sempre vira nulo;
+        this.setDados = function (objPet, petKey, group, rota) {
+            chat.petKey = petKey;
+            chat.nomePet = objPet.nome;
+            chat.imagePet = objPet.imgURL;
+            chat.interessado = null;
+            chat.agrupados = group;
+            if(rota){
+                chat.dono = objPet.user.id;
+                chat.id_dono = objPet.id_dono;
+                chat.nomeDono = objPet.user.nome;
+            }
 
         };
-        this.checarSala = function (id_dono, id_interessado, id_pet) {
-
-            var group = id_dono + '_' + id_interessado + '_' + id_pet;
-            var salas = [];
-            salasRef.orderByChild('dono_interessado_pet').equalTo(group).on('value', function (snap) {
-                salas.push(snap.val());
-
-            });
-            console.log(salas, 'resultado');
-
-            var retorno = true ? salas.length > 0 : false;
-
-            return retorno;
+        this.getDadosAgrupados = function () {
+            if (!chat.agrupados) {
+                var group = chat.dono + '_' + chat.meu_id + '_' + chat.petKey;
+                return group;
+            }
+            return chat.agrupados;
 
         };
+
+        this.getDados = function () {
+            return chat;
+        };
+
         this.enviarMensagem = function (msg) {
             // Se ja existe uma sala criada, inserir a mensagem na sala existente, se não, criar nova sala.
-            var novaSala = this.checarSala(dono, id_interessado, petKey);
 
-            var group = dono + '_' + id_interessado + '_' + petKey;
-            console.log(group, 'enviar');
+            var group = this.getDadosAgrupados();
 
+            console.log(group, 'agrupados');
 
-            console.log(novaSala);
-            if (novaSala) {
-                var objSala = {id_dono: dono, id_interessado: id_interessado, pet: petKey, dono_interessado_pet: group};
-                var objMsg = {
-                    id_dono: dono,
-                    id_interessado: id_interessado,
-                    pet: petKey,
-                    dono_interessado_pet: group,
-                    msg: msg
-                };
-                salasRef.push(objSala);
-                msgRef.push(objMsg);
+            salasRef.orderByChild('dono_interessado_pet').equalTo(group).once('value', function (snap) {
+
+                var salas = snap.val();
+
+                if (salas == null) {
+                    var objSala = {
+                        id_dono: chat.dono,
+                        nomeDono: chat.nomeDono,
+                        id_interessado: chat.meu_id,
+                        nomeInteressado: chat.nomeInteressado,
+                        pet: chat.petKey,
+                        nomePet: chat.nomePet,
+                        imagePet: chat.imagePet,
+                        dono_interessado_pet: group
+                    };
+                    var objMsg = {
+                        dono_interessado_pet: group,
+                        autor: chat.meu_id,
+                        msg: msg
+                    };
+                    salasRef.push(objSala);
+                    msgRef.push(objMsg);
+                } else {
+                    var objMsg = {
+                        dono_interessado_pet: group,
+                        autor: chat.meu_id,
+                        msg: msg
+                    };
+                    msgRef.push(objMsg);
+                }
                 return true;
-            } else {
-                var objMsg = {
-                    id_dono: dono,
-                    id_interessado: id_interessado,
-                    pet: petKey,
-                    dono_interessado_pet: group,
-                    msg: msg
-                };
-                msgRef.push(objMsg);
-                return true;
-            }
-        };
-
-        this.getMessages = function () {
-
-        };
-
-        this.getMyChats = function () {
-
-            var myChats = [];
-            var salas = firebase.database().ref('chat/salas').orderByChild('id_interessado').equalTo(id_interessado);
-
-            salas.on('value', function (snap) {
-                myChats.unshift(snap.val());
-                console.log(myChats);
-
-                return myChats;
             });
-        }
+
+        };
+
+        this.getMessages = function (key) {
+            return firebase.database().ref('chat/mensagens').orderByChild('dono_interessado_pet').equalTo(key);
+
+        };
+
+        this.getSalasEnviadas = function () {
+
+
+            var enviadas = [];
+            var salas = firebase.database().ref('chat/salas').orderByChild('id_interessado').equalTo(chat.meu_id);
+
+            salas.on('child_added', function (snap) {
+                enviadas.unshift(snap.val());
+
+            });
+
+            return enviadas;
+        };
+
+        this.getSalasRecebidas = function () {
+
+
+            var recebidas = [];
+            var salas = firebase.database().ref('chat/salas').orderByChild('id_dono').equalTo(chat.meu_id);
+
+            salas.on('child_added', function (snap) {
+                recebidas.unshift(snap.val());
+
+            });
+
+            return recebidas;
+        };
 
 
     }]);
