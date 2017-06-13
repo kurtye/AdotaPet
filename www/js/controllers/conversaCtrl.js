@@ -1,23 +1,33 @@
-angular.module('conversaCtrls', []).controller('conversaCtrl', ['$scope', '$stateParams', 'UsuarioService', 'ChatService',
-    function ($scope, $stateParams, UsuarioService, ChatService) {
+angular.module('conversaCtrls', []).controller('conversaCtrl', ['$scope', '$rootScope', '$state', 'UsuarioService', 'ChatService', '$ionicScrollDelegate', '$stateParams',
+    function ($scope, $rootScope, $state, UsuarioService, ChatService, $ionicScrollDelegate, $stateParams) {
 
+        $scope.msg = [];
 
-        $scope.messages = [
-            {userId: 'fTCTPF2Rj6Z4bWq5kvrwcaxvr3K2', text: 'iaeeeeeeeee', time: 100},
-            {userId: 123, text: 'iaeeeeeeeee'},
-            {userId: 'fTCTPF2Rj6Z4bWq5kvrwcaxvr3K2', text: 'iaeeeeeeeee'},
-            {userId: 123, text: 'sdfdsfs'},
-            {userId: 'fTCTPF2Rj6Z4bWq5kvrwcaxvr3K2', text: 'ddddd'},
-            {userId: 'fTCTPF2Rj6Z4bWq5kvrwcaxvr3K2', text: 'ffffffff'},
-            {userId: 123, text: 'gggggggggggg'},
-            {userId: 'fTCTPF2Rj6Z4bWq5kvrwcaxvr3K2', text: 'ccccccccccccccccccccccccccccccc'}
-        ];
-
+        var messages = [];
+        $scope.messages = messages;
         $scope.myId = UsuarioService.getUser().userId;
+        var chaveChat = $stateParams.id;
+        var dono = $stateParams.dono;
 
-        $scope.enviarMensagem = function (msg) {
+
+
+        ChatService.getMessages(chaveChat).on('child_added', function (snap) {
+
+            messages.push(snap.val());
+
+        });
+
+
+        $scope.sendMessage = function (msg) {
 
             var retorno = ChatService.enviarMensagem(msg);
+            $scope.msg = '';
 
         };
+
+
+        $ionicScrollDelegate.resize();
+        $ionicScrollDelegate.scrollBottom(true);
+
     }]);
+
