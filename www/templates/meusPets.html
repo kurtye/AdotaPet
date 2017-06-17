@@ -1,17 +1,27 @@
 <ion-view title="Meus Pets">
-  <ion-content padding="true" class="has-header">
-    <ion-list>
+    <ion-content padding="true" class="has-header">
+        <ion-list>
 
-      <ion-item class="item-avatar item-icon-right assertive" id="menu-list-item28"
-                data-componentid="list-item28" ng-repeat="(key , value) in myPets">
-        <img src="{{value.imgURL}}">
-        <h2>{{value.nome}}
-          <p>Em Adoção</p>
-          <a class="button button-icon icon ion-edit small" ng-click="carregarModal(value, key)"></a>
-        </h2>
-      </ion-item>
+            <ion-item class="item-avatar item-icon-right assertive" ng-repeat="(key , pet) in myPets">
+                <img src="{{pet.imgURL}}">
+                <h2>{{pet.nome}}
+                    <p>Em Adoção</p>
+                    <a class="button button-icon icon ion-edit" ng-click="carregarModal(pet, key)"></a>
+                </h2>
 
+                <ion-option-button>
+                    <a class="button button-icon icon ion-locked" ng-click="marcarAdotado(pet, key)"></a>
+                </ion-option-button>
+            </ion-item>
 
-    </ion-list>
-  </ion-content>
+            <ion-item class="item-avatar item-icon-right assertive" ng-repeat="(key , pet) in adotados">
+                <img src="{{pet.imgURL}}">
+                <h2>{{pet.nome}}
+                    <p>Adotado</p>
+                    <a class="button button-icon icon ion-ios-undo" ng-click="marcarDisponivel(pet, key)"></a>
+                </h2>
+            </ion-item>
+
+        </ion-list>
+    </ion-content>
 </ion-view>

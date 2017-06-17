@@ -26,11 +26,11 @@
     </div>
     <div ng-if="!donoDaPostagem" >
       <a>
-      <button id="enviarMensagem" ng-click="enviarMensagem(petPerfil, petKey)"  class="button button-assertive  button-block">Envie uma mensagem</button>
+      <button id="enviarMensagem" ng-click="enviarMensagem(petPerfil, petKey)"  class="button button-assertive  button-block"> Envie uma mensagem</button>
       </a>
     </div>
     <div ng-if="donoDaPostagem">
-      <button id="marcarAdotado" class="button button-assertive  button-block">Marcar como adotado</button>
+      <button id="marcarAdotado" ng-click="marcarAdotado(petPerfil, petKey)" class="button button-assertive  button-block">Marcar como adotado</button>
     </div>
   </ion-content>
 </ion-view>

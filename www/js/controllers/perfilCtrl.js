@@ -1,11 +1,10 @@
-angular.module('perfilCtrls', []).controller('perfilCtrl', ['$scope', '$state', '$rootScope', '$stateParams', 'PetService', 'UsuarioService', 'ChatService', '$ionicModal',
-    function ($scope, $state, $rootScope, $stateParams, PetService, UsuarioService, ChatService, $ionicModal) {
+angular.module('perfilCtrls', []).controller('perfilCtrl', ['$scope', '$state', '$rootScope', '$stateParams', 'PetService', 'UsuarioService', 'ChatService',
+    function ($scope, $state, $rootScope, $stateParams, PetService, UsuarioService, ChatService) {
 
         var petKey = $stateParams.id;
         $scope.petKey = $stateParams.id;
-        if(petKey){
-            PetService.setPet(petKey);
-        }
+        PetService.setPet(petKey);
+
 
         var petPerfil = PetService.getPet();
         $scope.petPerfil = petPerfil;
@@ -18,13 +17,14 @@ angular.module('perfilCtrls', []).controller('perfilCtrl', ['$scope', '$state', 
 
         UsuarioService.verificarUsuario(petKey).once('value', function (snap) {
             postador = snap.val().usuario;
+            if (user == postador) {
+                $scope.donoDaPostagem = true;
+            } else {
+                $scope.donoDaPostagem = false;
+            }
         });
 
-        if (user == postador) {
-            $scope.donoDaPostagem = true;
-        } else {
-            $scope.donoDaPostagem = false;
-        }
+
 
 
         $scope.enviarMensagem = function (objPet, petKey) {
@@ -34,5 +34,30 @@ angular.module('perfilCtrls', []).controller('perfilCtrl', ['$scope', '$state', 
             var dadosAgrupados = ChatService.getDadosAgrupados();
             $state.go('tabsController.conversa', {id: dadosAgrupados});
 
+        };
+
+        $scope.marcarAdotado = function (pet, key) {
+
+            swal({
+                title: 'Você tem certeza?',
+                text: "O pet não ira mais aparecer na lista para adoção!",
+                type: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Não',
+                confirmButtonText: 'Confirmar!',
+                closeOnConfirm: false
+            },function(isConfirm) {
+                if (isConfirm === true) {
+                    PetService.marcarComoAdotado(pet, key);
+                    $state.go('tabs.meuspets');
+                    swal(
+                        'confirmado!',
+                         pet.nome + ' adotado',
+                        'success'
+                    );
+                }
+            }); //function.
         };
     }]);
