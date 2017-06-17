@@ -1,1 +1,1 @@
-angular.module('app.services', ['UsuarioServices', 'PetServices', 'ChatServices']);
+angular.module('app.services', ['UsuarioServices', 'PetServices', 'ChatServices', 'ApoioServices']);
