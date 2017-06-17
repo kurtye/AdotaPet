@@ -67,7 +67,7 @@
     <script src="js/controllers/controllers.js"></script>
     <script src="js/controllers/addPetCtrl.js"></script>
     <script src="js/controllers/adoteCtrl.js"></script>
-    <script src="js/controllers/desaparecidosCtrl.js"></script>
+    <script src="js/controllers/meusPetsCtrl.js"></script>
     <script src="js/controllers/filtrosCtrl.js"></script>
     <script src="js/controllers/loginCtrl.js"></script>
     <script src="js/controllers/menuCtrl.js"></script>
@@ -75,8 +75,9 @@
     <script src="js/controllers/signupCtrl.js"></script>
     <script src="js/controllers/chatCtrl.js"></script>
     <script src="js/controllers/conversaCtrl.js"></script>
-  <script src="js/controllers/instaPetCtrl.js"></script>
-  <script src="js/controllers/addInsta.js"></script>
+    <script src="js/controllers/instaPetCtrl.js"></script>
+    <script src="js/controllers/addInsta.js"></script>
+    <script src="js/controllers/tabsCtrl.js"></script>
 
 
     <!--  routes -->
@@ -88,6 +89,7 @@
     <script src="js/services/UsuarioService.js"></script>
     <script src="js/services/PetsService.js"></script>
     <script src="js/services/ChatService.js"></script>
+    <script src="js/services/ApoioService.js"></script>
 
     <!--arquivo de conexão-->
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
@@ -119,32 +121,19 @@
             <ion-header-bar class="bar-assertive">
                 <div class="title">Menu</div>
             </ion-header-bar>
-            <ion-content ng-controller="menuCtrl" padding="false"
+            <ion-content padding="false"
                          style="background: url(img/1) no-repeat center;background-size:cover;"
                          class="side-menu-left has-header ">
                 <ion-list id="menu-list8" data-componentid="list8">
                     <ion-item class="item-avatar">
+
                         <img src="{{usuario.imageUrl}}">
                         <h2>{{usuario.displayName}}</h2>
+
                     </ion-item>
                 </ion-list>
                 <h4 id="menu-heading1" style="color:#000000;font-weight:300;text-align:center;"
-                    data-componentid="heading1">Minhas Publicações</h4>
-                <ion-list id="menu-list9" data-componentid="list9">
-
-                    <ion-item class="item-avatar item-icon-right assertive" id="menu-list-item28"
-                              data-componentid="list-item28" ng-repeat="(key , value) in myPets">
-                        <img src="{{value.imgURL}}">
-                        <h2>{{value.nome}}
-                            <p>Em Adoção</p>
-                            <a class="button button-icon icon ion-edit small" ng-click="carregarModal(value, key)"></a>
-                        </h2>
-                    </ion-item>
-
-                    <button id="logout" ng-click="doLogout()" class="button button-assertive  button-block "> Sair
-                    </button>
-
-                </ion-list>
+                    data-componentid="heading1">Meus dados</h4>
             </ion-content>
         </ion-side-menu>
     </ion-side-menus>
