@@ -58,7 +58,7 @@ angular.module('PetServices', [])
 
         this.getPetsRef = function () {
 
-            return rootRef.ref('adocao/pets/');
+            return rootRef.ref('adocao/pets/').orderByChild('dt_publicacao');
 
         };
 
@@ -69,6 +69,7 @@ angular.module('PetServices', [])
                 return firebase.database().ref('adocao/pets/' + key).set(pet);
             }
 
+            pet.dt_publicacao = Date.now();
             return firebase.database().ref('adocao/pets/').push(pet);
 
 
