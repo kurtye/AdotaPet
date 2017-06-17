@@ -19,6 +19,20 @@ angular.module('UsuarioServices', [])
         this.verificarUsuario = function (id_pet) {
 
             return rootRef.ref('adocao/pets/' + id_pet);
-         };
+        };
+
+        this.getDadosUsuario = function (id) {
+
+            var usuario;
+
+            rootRef.ref('usuarios/' + id).once('value', function (snap) {
+
+                usuario = snap.val();
+                return usuario;
+
+            });
+
+
+        };
 
     }]);

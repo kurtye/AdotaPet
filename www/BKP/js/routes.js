@@ -38,7 +38,7 @@ angular.module('app.routes', ['ionicUIRouter'])
         url: '/desaparecidos',
         views: {
           'tab2': {
-            templateUrl: 'templates/desaparecidos.html',
+            templateUrl: 'templates/meusPets.html',
             controller: 'desaparecidosCtrl'
           }
         }
@@ -62,7 +62,7 @@ angular.module('app.routes', ['ionicUIRouter'])
 
       .state('tabsController', {
         url: '/tab',
-        templateUrl: 'templates/tabsController.html',
+        templateUrl: 'templates/tabs.html',
         abstract: true
       })
 

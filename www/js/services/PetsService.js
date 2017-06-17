@@ -101,7 +101,7 @@ angular.module('PetServices', [])
         this.getMeusPets = function (userId) {
 
             if (userId) {
-                return rootRef.ref('adocao/pets/').orderByChild('usuario').equalTo(userId);
+                return rootRef.ref('adocao/pets/').orderByChild('user/id').equalTo(userId);
             }
             return false;
 

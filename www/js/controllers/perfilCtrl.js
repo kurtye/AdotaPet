@@ -16,7 +16,7 @@ angular.module('perfilCtrls', []).controller('perfilCtrl', ['$scope', '$state', 
         var postador;
 
         UsuarioService.verificarUsuario(petKey).once('value', function (snap) {
-            postador = snap.val().usuario;
+            postador = snap.val().user.id;
             if (user == postador) {
                 $scope.donoDaPostagem = true;
             } else {

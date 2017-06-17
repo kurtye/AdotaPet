@@ -22,7 +22,7 @@ angular.module('ChatServices', [])
         };
 
 
-        //O group so é preenchido quando eu clico na sala, pelo perfil sempre vira nulo;
+        //O group so é preenchido quando eu clico na sala, pelo perfil sempre sera nulo;
         this.setDados = function (objPet, petKey, group, rota) {
             chat.petKey = petKey;
             chat.nomePet = objPet.nome;

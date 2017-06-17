@@ -12,9 +12,7 @@ angular.module('conversaCtrls', []).controller('conversaCtrl', ['$scope', '$root
 
 
         ChatService.getMessages(chaveChat).on('child_added', function (snap) {
-
             messages.push(snap.val());
-
         });
 
 
@@ -30,4 +28,3 @@ angular.module('conversaCtrls', []).controller('conversaCtrl', ['$scope', '$root
         $ionicScrollDelegate.scrollBottom(true);
 
     }]);
-

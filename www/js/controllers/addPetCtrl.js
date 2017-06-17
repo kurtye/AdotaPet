@@ -2,7 +2,7 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
     function ($scope, $stateParams, $state, $rootScope, UsuarioService, PetService, ApoioService) {
 
         $scope.imgURL = document.getElementById("files");
-
+        $scope.pet  =  {};
         //INICIO DO UPLOAD
         window.previewFile = function previewFile() {
             var storage = firebase.storage();
@@ -37,19 +37,23 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
         };
 
 
+        var user = UsuarioService.getUser();
+        $scope.pet.user = {
+            "id": user.userId,
+            "nome": user.displayName,
+            "email": user.email,
+            "foto": user.imageUrl
+        };
+
         $scope.addPet = function (pet) {
             var key = $rootScope.key;
 
-            var user = UsuarioService.getUser();
-            pet.user = {
-                "id": user.userId,
-                "nome": user.displayName,
-                "email": user.email,
-                "foto": user.imageUrl
-            };
+
             pet.dt_publicacao = Date.now();
             //CHAMANDO O METODO DA SERVICE PASSANDO O OBJETO DE PET PARA INSERIR NO BANCO.
             //SE TIVER A KEY A SERVICE VAI ALTERAR, SE NÃO ELA VAI INSERIR;
+            console.log(pet);
+
             PetService.updatePet(pet, key);
 
             $scope.modal.hide();
