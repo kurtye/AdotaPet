@@ -15,7 +15,7 @@ angular.module('adoteCtrls', []).controller('adoteCtrl', ['$scope', '$stateParam
         console.log(pets, 'adote');
 
         $scope.detalharPet = function (id) {
-          $state.go('tabsController.perfil/:id', {id:id});
+          $state.go('tabs.perfil/:id', {id:id});
 
         };
     }]);
