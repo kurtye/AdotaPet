@@ -121,9 +121,7 @@
             <ion-header-bar class="bar-assertive">
                 <div class="title">Menu</div>
             </ion-header-bar>
-            <ion-content padding="false"
-                         style="background: url(img/1) no-repeat center;background-size:cover;"
-                         class="side-menu-left has-header ">
+            <ion-content padding="false" class="side-menu-left has-header" ng-controller="menuCtrl">
                 <ion-list id="menu-list8" data-componentid="list8">
                     <ion-item class="item-avatar">
 
@@ -134,6 +132,9 @@
                 </ion-list>
                 <h4 id="menu-heading1" style="color:#000000;font-weight:300;text-align:center;"
                     data-componentid="heading1">Meus dados</h4>
+
+                <button class="button button-block button-assertive" ng-click="doLogout()">Sair</button>
+
             </ion-content>
         </ion-side-menu>
     </ion-side-menus>
