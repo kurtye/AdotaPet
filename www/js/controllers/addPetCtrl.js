@@ -37,18 +37,16 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
         };
 
 
-        var user = UsuarioService.getUser();
-        $rootScope.pet = {
-            "usuario": user.userId,
-            "nomeUsuario": user.displayName,
-            "email": user.email,
-            "userFoto": user.imageUrl
-        };
-
-
         $scope.addPet = function (pet) {
             var key = $rootScope.key;
 
+            var user = UsuarioService.getUser();
+            pet.user = {
+                "id": user.userId,
+                "nome": user.displayName,
+                "email": user.email,
+                "foto": user.imageUrl
+            };
             pet.dt_publicacao = Date.now();
             //CHAMANDO O METODO DA SERVICE PASSANDO O OBJETO DE PET PARA INSERIR NO BANCO.
             //SE TIVER A KEY A SERVICE VAI ALTERAR, SE NÃO ELA VAI INSERIR;
@@ -58,7 +56,7 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
             $state.go("tabs.meuspets");
 
             swal({
-                title: "Pet cadastrado com louvor",
+                title: pet.nome + " foi colocado em adoção",
                 text: "Boa Sorte",
                 type: "success",
                 showConfirmlButton: false,
@@ -77,23 +75,11 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
 
 
         $scope.especies = ApoioService.especies;
-        $scope.racas = [];
-        console.log('aaaaaaaaaaaaaaaaaaaaaaaa');
-
-        if($rootScope.especie){
-            $scope.racas = ApoioService.getRacas($rootScope.especie);
-
-        };
+        $scope.racas = ApoioService.getRacas($rootScope.especie);
 
         $scope.GetSelectedEspecie = function (selecionada) {
-            var especie = selecionada;
-            if(!especie){
-                var key = $rootScope.especie;
-            }else {
-                var key = selecionada;
-            }
             console.log(selecionada);
-            $scope.racas = ApoioService.getRacas(key);
+            $scope.racas = ApoioService.getRacas(selecionada);
         };
 
     }]);
