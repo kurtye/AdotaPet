@@ -11,9 +11,9 @@ angular.module('app.routes', ['ionicUIRouter'])
          The IonicUIRouter.js UI-Router Modification is being used for this route.
          To navigate to this route, do NOT use a URL. Instead use one of the following:
          1) Using the ui-sref HTML attribute:
-         ui-sref='tabsController.perfil'
+         ui-sref='tabs.perfil'
          2) Using $state.go programatically:
-         $state.go('tabsController.perfil');
+         $state.go('tabs.perfil');
          This allows your app to figure out which Tab to open this page in on the fly.
          If you're setting a Tabs default page or modifying the .otherwise for your app and
          must use a URL, use one of the following:
@@ -22,7 +22,7 @@ angular.module('app.routes', ['ionicUIRouter'])
          */
 
         $stateProvider
-            .state('tabsController.chat', {
+            .state('tabs.chat', {
                 url: '/chat',
                 views: {
                     'tab5': {
@@ -32,7 +32,7 @@ angular.module('app.routes', ['ionicUIRouter'])
                 }
             })
 
-            .state('tabsController.conversa', {
+            .state('tabs.conversa', {
                 url: '/conversa/:id',
                 views: {
                     'tab5': {
@@ -44,7 +44,7 @@ angular.module('app.routes', ['ionicUIRouter'])
             })
 
 
-            .state('tabsController.adote', {
+            .state('tabs.adote', {
                 url: '/adote',
                 views: {
                     'tab1': {
@@ -55,7 +55,7 @@ angular.module('app.routes', ['ionicUIRouter'])
             })
 
 
-            .state('tabsController.favoritos', {
+            .state('tabs.favoritos', {
                 url: '/favoritos',
                 views: {
                     'tab1': {
@@ -65,18 +65,18 @@ angular.module('app.routes', ['ionicUIRouter'])
                 }
             })
 
-            .state('tabsController.desaparecidos', {
-                url: '/desaparecidos',
+            .state('tabs.meuspets', {
+                url: '/meuspets',
                 views: {
-                    'tab2': {
-                        templateUrl: 'templates/desaparecidos.html',
-                        controller: 'desaparecidosCtrl'
+                    'meusPets': {
+                        templateUrl: 'templates/meusPets.html',
+                        controller: 'meusPetsCtrl'
                     }
                 }
             })
 
 
-            .state('tabsController.perfil/:id', {
+            .state('tabs.perfil/:id', {
                 url: '/perfil/:id',
                 views: {
                     'tab1': {
@@ -86,10 +86,10 @@ angular.module('app.routes', ['ionicUIRouter'])
                 }
             })
 
-            .state('tabsController', {
+            .state('tabs', {
                 url: '/tab',
-                templateUrl: 'templates/tabsController.html',
-                controller: 'filtrosCtrl',
+                templateUrl: 'templates/tabs.html',
+                controller: 'tabsCtrl',
                 abstract: true
             })
 
@@ -99,7 +99,7 @@ angular.module('app.routes', ['ionicUIRouter'])
                 controller: 'loginCtrl'
             })
 
-            .state('tabsController.filtros', {
+            .state('tabs.filtros', {
                 url: '/page7',
                 views: {
                     'tab3': {
@@ -109,17 +109,17 @@ angular.module('app.routes', ['ionicUIRouter'])
                 }
             })
 
-            .state('tabsController.addPet', {
+            .state('tabs.addPet', {
                 url: '/addPet',
                 views: {
                     'tab4': {
-                        templateUrl: 'templates/modal.html',
+                        templateUrl: 'templates/modals/addPet.html',
                         controller: 'addPetCtrl'
                     }
                 }
             })
 
-          .state('tabsController.addInsta', {
+          .state('tabs.addInsta', {
             url: '/addInsta',
             views: {
               'tab2': {
@@ -129,7 +129,7 @@ angular.module('app.routes', ['ionicUIRouter'])
             }
           })
 
-          .state('tabsController.instaPet', {
+          .state('tabs.instaPet', {
             url: '/instaPet',
             views: {
               'tab2': {
