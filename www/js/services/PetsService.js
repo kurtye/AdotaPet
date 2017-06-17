@@ -6,6 +6,7 @@ angular.module('PetServices', [])
         var pet = {
             descricao: null,
             especie: null,
+            raca: null,
             estado: null,
             idade: null,
             imgURL: null,
@@ -28,16 +29,17 @@ angular.module('PetServices', [])
             rootRef.ref("adocao/pets/" + key).once("value", function (snap) {
                 pet.descricao = snap.val().descricao;
                 pet.especie = snap.val().especie;
+                pet.raca = snap.val().raca;
                 pet.estado = snap.val().estado;
                 pet.idade = snap.val().idade;
                 pet.imgURL = snap.val().imgURL;
                 pet.nome = snap.val().nome;
                 pet.dt_publicacao = snap.val().dt_publicacao;
 
-                pet.user.email = snap.val().email;
-                pet.user.nome = snap.val().nomeUsuario;
-                pet.user.foto = snap.val().userFoto;
-                pet.user.id = snap.val().usuario;
+                pet.user.email = snap.val().user.email;
+                pet.user.nome = snap.val().user.nome;
+                pet.user.foto = snap.val().user.foto;
+                pet.user.id = snap.val().user.id;
 
             }, function (errorObject) {
                 console.log("Erro ao setar pet" + errorObject.code);
