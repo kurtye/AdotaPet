@@ -6,11 +6,11 @@
                 <img src="{{pet.imgURL}}">
                 <h2>{{pet.nome}}
                     <p>Em Adoção</p>
-                    <a class="button button-icon icon ion-edit" ng-click="carregarModal(pet, key)"></a>
+                    <a class="button button-icon icon ion-edit" ng-click="alterarPet(pet, key)"></a>
                 </h2>
 
-                <ion-option-button>
-                    <a class="button button-icon icon ion-locked" ng-click="marcarAdotado(pet, key)"></a>
+                <ion-option-button ng-click="marcarAdotado(pet, key)">
+                    <button class="button button-icon icon ion-locked" ></button>
                 </ion-option-button>
             </ion-item>
 

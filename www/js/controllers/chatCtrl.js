@@ -13,7 +13,7 @@ angular.module('chatCtrls', []).controller('chatCtrl', ['$scope', '$rootScope', 
             // O padrão é um objeto, a key do pet, e os dados agrupados.
             var retorno = ChatService.setDados(chat, chat.pet, chat.dono_interessado_pet);
 
-            $state.go('tabsController.conversa', {id: chat.dono_interessado_pet, dono: chat.id_dono})
+            $state.go('tabsController.conversa', {id: chat.dono_interessado_pet, dono: chat.id_dono});
         }
 
     }]);

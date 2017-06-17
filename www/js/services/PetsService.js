@@ -11,6 +11,7 @@ angular.module('PetServices', [])
             idade: null,
             imgURL: null,
             nome: null,
+            sexo: null,
             dt_publicacao: null,
             user: {
                 email: null,
@@ -34,6 +35,7 @@ angular.module('PetServices', [])
                 pet.idade = snap.val().idade;
                 pet.imgURL = snap.val().imgURL;
                 pet.nome = snap.val().nome;
+                pet.sexo = snap.val().sexo;
                 pet.dt_publicacao = snap.val().dt_publicacao;
 
                 pet.user.email = snap.val().user.email;
@@ -43,6 +45,7 @@ angular.module('PetServices', [])
 
             }, function (errorObject) {
                 console.log("Erro ao setar pet" + errorObject.code);
+                return false;
             });
 
 
@@ -74,7 +77,7 @@ angular.module('PetServices', [])
         this.marcarComoAdotado = function (pet, key) {
 
             if (pet && key) {
-                rootRef.ref('adocao/pets/adotados/' + key).set(pet);
+                rootRef.ref('adocao/adotados/' + key).set(pet);
                 rootRef.ref('adocao/pets/' + key).remove();
                 return true;
             }
@@ -83,7 +86,7 @@ angular.module('PetServices', [])
 
         this.getPetsAdotados = function (userId) {
             if (userId) {
-                return rootRef.ref('adocao/pets/adotados').orderByChild('user/id').equalTo(userId);
+                return rootRef.ref('adocao/adotados').orderByChild('user/id').equalTo(userId);
             }
             return false;
         };
@@ -91,7 +94,7 @@ angular.module('PetServices', [])
         this.desmarcarAdotado = function (pet, key) {
 
             if (pet && key) {
-                rootRef.ref('adocao/pets/adotados/' + key).remove();
+                rootRef.ref('adocao/adotados/' + key).remove();
                 rootRef.ref('adocao/pets/' + key).set(pet);
                 return true;
             }

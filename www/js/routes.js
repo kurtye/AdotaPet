@@ -99,23 +99,16 @@ angular.module('app.routes', ['ionicUIRouter'])
                 controller: 'loginCtrl'
             })
 
-            .state('tabs.filtros', {
-                url: '/page7',
-                views: {
-                    'tab3': {
-                        templateUrl: 'templates/filtros.html',
-                        controller: 'filtrosCtrl'
-                    }
-                }
-            })
-
             .state('tabs.addPet', {
-                url: '/addPet',
+                url: '/addPet/:id',
                 views: {
                     'tab4': {
                         templateUrl: 'templates/modals/addPet.html',
                         controller: 'addPetCtrl'
                     }
+                },
+                params :{
+                    id : null
                 }
             })
 

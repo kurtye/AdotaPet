@@ -1,18 +1,11 @@
 angular.module('meusPetsCtrls', []).controller('meusPetsCtrl', ['$scope', '$rootScope', '$stateParams', '$state', 'UsuarioService', 'PetService', '$ionicModal',
     function ($scope, $rootScope, $stateParams, $state, UsuarioService, PetService, $ionicModal) {
 
-        $ionicModal.fromTemplateUrl('templates/modals/addPet.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function (modal) {
-            $scope.modal = modal;
-        });
 
-        $scope.carregarModal = function (pet, key) {
-            $rootScope.pet = pet;
-            $rootScope.key = key;
-            $rootScope.especie = pet.especie;
-            $scope.modal.show();
+        $scope.alterarPet = function (pet, key) {
+
+            $state.go('tabs.addPet', {id: key});
+
         };
 
         $scope.usuario = UsuarioService.getUser() ? UsuarioService.getUser() : null;
