@@ -1,7 +1,7 @@
 <ion-modal-view ng-controller="addPetCtrl">
   <ion-header-bar class="bar bar-header bar-assertive">
     <h1 class="title">Adicionar Pet</h1>
-    <button class="button button-clear button-primary" ng-click="modal.hide()" style="font-size: 30px;">
+    <button class="button button-clear button-primary" ng-click="fecharModal()" style="font-size: 30px;">
       <i class="ion-ios-close"></i></button>
   </ion-header-bar>
   <ion-content class="padding" id="content-modal">
@@ -15,9 +15,9 @@
       <span>Escolha uma foto do Perfil do PET</span> <i class="icon ion-camera" style="display: block;margin: 0 auto;height: 32px;font-size: 32px;"></i></i>
       <input type="file" class="upload" onchange="previewFile()" id="files" value="{{imgURL}}" name="files[]" multiple/>
     </label>
-      <div style="width: 28%; margin: 0 auto;"><span id="linkbox"></span>
+    <div style="width: 28%; margin: 0 auto;"><span id="linkbox"></span>
       <input type="text" value="{{pet.imgURL}}" name="imgURL" id="imgURL" ng-model="pet.imgURL">
-      </div>
+    </div>
 
 
     <div class="list">
@@ -25,10 +25,8 @@
         <div class="input-label">
           Espécie
         </div>
-        <select id="especie" ng-model="especieSrc" ng-options="especie for (especie, raca) in especie track by especie"
-                ng-change="GetSelectedEspecie()" >
-          <option value="" ng-model="pet.especie">selecione</option>
-
+        <select id="especie" ng-model="pet.especie" ng-options="especie.nome as especie.nome for especie in especies" ng-change="GetSelectedEspecie(pet.especie)">
+          <option value="">selecione</option>
         </select>
       </label>
 
@@ -36,12 +34,11 @@
         <div class="input-label">
           Raça
         </div>
-        <select id="raca" ng-disabled="!especieSrc" ng-model="racaSrc" ng-options="raca for raca in especieSrc"
-                ng-change="GetSelectedRaca()" >
-          <option value='raca' ng-model="pet.raca">Selecione</option>
+        <select id="raca" ng-disabled="!pet.especie" ng-model="pet.raca">
+          <option value="">Selecione</option>
+          <option ng-repeat="raca in racas" value="{{raca}}">{{raca}}</option>
         </select>
       </label>
-<div>{{pet}}</div> <div>{{especie.nome}}</div>
 
       <label class="item item-input item-select">
         <div class="input-label">
@@ -126,9 +123,9 @@
 
 
 
-    <button ng-click="addPet(pet)" class="button button-block button-assertive">
-      Publicar
-    </button>
-
+      <button ng-click="addPet(pet)" class="button button-block button-assertive">
+        Publicar
+      </button>
+    </div>
   </ion-content>
 </ion-modal-view>

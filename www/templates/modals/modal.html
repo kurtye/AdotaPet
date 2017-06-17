@@ -1,0 +1,133 @@
+<ion-modal-view ng-controller="addPetCtrl">
+    <ion-header-bar class="bar bar-header bar-assertive">
+        <h1 class="title">Adicionar Pet</h1>
+        <button class="button button-clear button-primary" ng-click="modal.hide()" style="font-size: 30px;">
+            <i class="ion-ios-close"></i></button>
+    </ion-header-bar>
+    <ion-content class="padding" id="content-modal">
+
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">Nome do Pet</span>
+            <input type="text" placeholder="John" ng-model="pet.nome">
+        </label>
+
+        <label class="fileContainer">
+            <span>Escolha uma foto do Perfil do PET</span> <i class="icon ion-camera" style="display: block;margin: 0 auto;height: 32px;font-size: 32px;"></i></i>
+            <input type="file" class="upload" onchange="previewFile()" id="files" value="{{imgURL}}" name="files[]" multiple/>
+        </label>
+        <div style="width: 28%; margin: 0 auto;"><span id="linkbox"></span>
+            <input type="text" value="{{pet.imgURL}}" name="imgURL" id="imgURL" ng-model="pet.imgURL">
+        </div>
+
+
+        <div class="list">
+            <label class="item item-input item-select" for="especie">
+                <div class="input-label">
+                    Espécie
+                </div>
+                <select id="especie" ng-model="especieSrc" ng-options="especie for (especie, raca) in especie track by especie"
+                        ng-change="GetSelectedEspecie()" >
+                    <option value="" ng-model="pet.especie">selecione</option>
+
+                </select>
+            </label>
+
+            <label class="item item-input item-select" for="raca">
+                <div class="input-label">
+                    Raça
+                </div>
+                <select id="raca" ng-disabled="!especieSrc" ng-model="racaSrc" ng-options="raca for raca in especieSrc"
+                        ng-change="GetSelectedRaca()" >
+                    <option value='raca' ng-model="pet.raca">Selecione</option>
+                </select>
+            </label>
+
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Estado
+                </div>
+                <select ng-model="pet.estado">
+                    <option value="">Selecione</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espirito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                </select>
+            </label>
+
+
+        </div>
+
+        <div class="list">
+
+            <input type="hidden" ng-model="pet.usuario" value="usuario.userId">
+            <input type="hidden" ng-model="pet.usuario" value="usuario.displayName">
+            <input type="hidden" ng-model="pet.usuario" value="usuario.email">
+            <input type="hidden" ng-model="pet.usuario" value="usuario.imageURL">
+
+
+
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Idade
+                </div>
+                <select ng-model="pet.idade">
+                    <option>1 a 3 meses</option>
+                    <option selected>3 a 6 meses</option>
+                    <option>6 a 9 meses</option>
+                    <option>9 a 12 meses</option>
+                    <option>1 a 3 anos</option>
+                    <option>Acima de 3 anos</option>
+
+
+                </select>
+            </label>
+
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Sexo
+                </div>
+                <select ng-model="pet.sexo">
+                    <option>Macho</option>
+                    <option selected>Femêa</option>
+
+                </select>
+            </label>
+
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Informações Adicionais</span>
+                <input type="text" placeholder="" ng-model="pet.descricao">
+            </label>
+
+
+
+
+            <button ng-click="addPet(pet)" class="button button-block button-assertive">
+                Publicar
+            </button>
+
+    </ion-content>
+</ion-modal-view>
