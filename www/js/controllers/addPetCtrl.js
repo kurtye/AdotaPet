@@ -52,7 +52,6 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
 
         $scope.addPet = function (pet) {
 
-            pet.dt_publicacao = Date.now();
             //CHAMANDO O METODO DA SERVICE PASSANDO O OBJETO DE PET PARA INSERIR NO BANCO.
             //SE TIVER A KEY A SERVICE VAI ALTERAR, SE NÃO ELA VAI INSERIR;
             console.log(pet);
