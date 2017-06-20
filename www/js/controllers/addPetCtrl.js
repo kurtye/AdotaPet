@@ -1,8 +1,13 @@
 angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'UsuarioService', 'PetService', 'ApoioService',
     function ($scope, $stateParams, $state, $rootScope, UsuarioService, PetService, ApoioService) {
 
+        $scope.key = $stateParams.id;
+        var key = $scope.key;
+        if(key){
+            PetService.setPet(key);
+            $scope.pet = PetService.getPet();
+        }
         $scope.imgURL = document.getElementById("files");
-        $scope.pet  =  {};
         //INICIO DO UPLOAD
         window.previewFile = function previewFile() {
             var storage = firebase.storage();
@@ -38,25 +43,21 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
 
 
         var user = UsuarioService.getUser();
-        $scope.pet.user = {
-            "id": user.userId,
-            "nome": user.displayName,
-            "email": user.email,
-            "foto": user.imageUrl
-        };
+       // $scope.pet.user = {
+       //     "id": user.userId,
+       //     "nome": user.displayName,
+       //     "email": user.email,
+       //     "foto": user.imageUrl
+       // };
 
         $scope.addPet = function (pet) {
-            var key = $rootScope.key;
 
-
-            pet.dt_publicacao = Date.now();
             //CHAMANDO O METODO DA SERVICE PASSANDO O OBJETO DE PET PARA INSERIR NO BANCO.
             //SE TIVER A KEY A SERVICE VAI ALTERAR, SE NÃO ELA VAI INSERIR;
             console.log(pet);
 
-            PetService.updatePet(pet, key);
+            PetService.updatePet(pet, $scope.key);
 
-            $scope.modal.hide();
             $state.go("tabs.meuspets");
 
             swal({
@@ -66,15 +67,6 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
                 showConfirmlButton: false,
                 timer: 2000
             });
-            $rootScope.pet = {};
-            $rootScope.key = null;
-            var key = null;
-        };
-
-        $scope.fecharModal = function () {
-            $rootScope.pet = {};
-            $rootScope.key = null;
-            $scope.modal.hide();
         };
 
 

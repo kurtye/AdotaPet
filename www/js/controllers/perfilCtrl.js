@@ -38,6 +38,7 @@ angular.module('perfilCtrls', []).controller('perfilCtrl', ['$scope', '$state', 
 
         $scope.marcarAdotado = function (pet, key) {
 
+            console.log(pet);
             swal({
                 title: 'Você tem certeza?',
                 text: "O pet não ira mais aparecer na lista para adoção!",
