@@ -6685,8 +6685,9 @@ a.subdued:last-child {
 }
 
 a.item {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
+  color: #ef4e3a;
 }
 
 a.item:hover,
