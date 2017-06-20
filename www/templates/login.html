@@ -1,18 +1,20 @@
-<ion-view title="Login" id="login">
-  <ion-content padding="true" style="background: url(img/rhpmGURJenKVIEnj8AL0_forest-dog-desktop-background.jpg) no-repeat center;background-size:cover;" class="has-header">
+<ion-view title="Login" id="login" hide-nav-bar="true">
+
+  <ion-content has-header="true" padding="true" style="background: url(img/rhpmGURJenKVIEnj8AL0_forest-dog-desktop-background.jpg) no-repeat center;background-size:cover;" >
+
     <form id="login-form1" ng-submit="doLogin(userLogin)" novalidate class="list">
-      <div class="spacer" style="width: 300px; height: 27.9844px;"></div>
+      <img src="img/logo.png" style="width: 39%; margin: 5% 22% 5% 30%;">
       <ion-list id="login-list1">
-        <label class="item item-input" id="login-input1">
+        <label class="item item-input" id="login-input1" style="border-top-left-radius: 20px; border-top-right-radius: 20px;">
           <input ng-model="$parent.userLogin.username" id="user_name" type="email" placeholder="Seu Email">
         </label>
-        <label class="item item-input" id="login-input2">
+        <label class="item item-input" id="login-input2" style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
           <input type="password" ng-model="$parent.userLogin.password" id="user_pass" placeholder="Digite sua senha">
         </label>
       </ion-list>
       <div class="spacer" style="width: 300px; height: 15.9844px;"></div>
       <!--<button id="login-button9" class="button button-assertive  button-block">Login</button>-->
-      <button type="submit" class="button button-assertive  button-block" ng-click="loading()">Login</button>
+      <button type="submit" class="button button-assertive  button-block">Login</button>
     </form>
     <a ui-sref="signup" id="login-button2" style="color:#fff;" class="button button-positive  button-block button-clear">Crie uma conta</a>
     <div id="login-button-bar1" class="button-bar">
@@ -23,6 +25,3 @@
     <div class="spacer" style="width: 300px; height: 55.9844px;"></div>
   </ion-content>
 </ion-view>
-
-<!--userLoginGoogle-->
-
