@@ -32,7 +32,7 @@ angular.module('perfilCtrls', []).controller('perfilCtrl', ['$scope', '$state', 
             var retorno = ChatService.setDados(objPet, petKey, null, 1);
 
             var dadosAgrupados = ChatService.getDadosAgrupados();
-            $state.go('tabsController.conversa', {id: dadosAgrupados});
+            $state.go('tabs.conversa', {id: dadosAgrupados});
 
         };
 

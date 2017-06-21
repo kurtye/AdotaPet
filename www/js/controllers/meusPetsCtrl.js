@@ -1,5 +1,5 @@
-angular.module('meusPetsCtrls', []).controller('meusPetsCtrl', ['$scope', '$rootScope', '$stateParams', '$state', 'UsuarioService', 'PetService', '$ionicModal',
-    function ($scope, $rootScope, $stateParams, $state, UsuarioService, PetService, $ionicModal) {
+angular.module('meusPetsCtrls', []).controller('meusPetsCtrl', ['$scope', '$rootScope', '$stateParams', '$state', 'UsuarioService', 'PetService',
+    function ($scope, $rootScope, $stateParams, $state, UsuarioService, PetService) {
 
 
         $scope.alterarPet = function (pet, key) {
@@ -15,15 +15,16 @@ angular.module('meusPetsCtrls', []).controller('meusPetsCtrl', ['$scope', '$root
         }
         var usuario = $scope.usuario;
 
-        PetService.getMeusPets(usuario.userId).once('value').then(function (snap) {
-            $scope.myPets = snap.val();
+         PetService.getMeusPets(usuario.userId).on('value', function (snap) {
+             $scope.myPets = snap.val();
         });
 
-        PetService.getPetsAdotados(usuario.userId).once('value').then(function (snap) {
-            $scope.adotados = snap.val();
+         PetService.getPetsAdotados(usuario.userId).on('value', function (snap) {
+             $scope.adotados =  snap.val();
         });
 
 
+        console.log($scope.myPets);
         $scope.marcarAdotado = function (pet, key) {
 
             swal({

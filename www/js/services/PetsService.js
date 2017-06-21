@@ -64,14 +64,18 @@ angular.module('PetServices', [])
 
         this.updatePet = function (pet, key) {
 
-            if (key) {
+            if (key && pet.user.id && pet.imgURL) {
 
                 return firebase.database().ref('adocao/pets/' + key).set(pet);
             }
 
-            pet.dt_publicacao = Date.now();
-            return firebase.database().ref('adocao/pets/').push(pet);
 
+            pet.dt_publicacao = Date.now();
+            if(pet.user.id && pet.imgURL){
+                return firebase.database().ref('adocao/pets/').push(pet);
+            }else {
+                return false;
+            }
 
         };
 

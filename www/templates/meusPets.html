@@ -1,8 +1,9 @@
 <ion-view title="Meus Pets">
     <ion-content padding="true" class="has-header">
+
         <ion-list>
 
-            <ion-item class="item-avatar item-icon-right assertive" ng-repeat="(key , pet) in myPets">
+            <ion-item class="item-avatar item-icon-right" ng-repeat="(key , pet) in myPets">
                 <img src="{{pet.imgURL}}">
                 <h2>{{pet.nome}}
                     <p>Em Adoção</p>
@@ -10,11 +11,17 @@
                 </h2>
 
                 <ion-option-button ng-click="marcarAdotado(pet, key)">
-                    <button class="button button-icon icon ion-locked" ></button>
+                    <button class="button button-icon icon ion-locked assertive"></button>
                 </ion-option-button>
+
             </ion-item>
 
-            <ion-item class="item-avatar item-icon-right assertive" ng-repeat="(key , pet) in adotados">
+
+        </ion-list>
+
+        <ion-list>
+
+            <ion-item class="item-avatar item-icon-right" ng-repeat="(key , pet) in adotados">
                 <img src="{{pet.imgURL}}">
                 <h2>{{pet.nome}}
                     <p>Adotado</p>

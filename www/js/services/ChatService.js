@@ -17,7 +17,6 @@ angular.module('ChatServices', [])
             nomeDono: null,
             meu_id: UsuarioService.getUser().userId,
             interessado: null,
-            nomeInteressado: null,
             agrupados: null
         };
 
@@ -27,12 +26,12 @@ angular.module('ChatServices', [])
             chat.petKey = petKey;
             chat.nomePet = objPet.nome;
             chat.imagePet = objPet.imgURL;
-            chat.interessado = null;
             chat.agrupados = group;
             if(rota){
                 chat.dono = objPet.user.id;
                 chat.id_dono = objPet.id_dono;
                 chat.nomeDono = objPet.user.nome;
+                chat.interessado = UsuarioService.getUser().displayName;
             }
 
         };
@@ -65,7 +64,7 @@ angular.module('ChatServices', [])
                         id_dono: chat.dono,
                         nomeDono: chat.nomeDono,
                         id_interessado: chat.meu_id,
-                        nomeInteressado: chat.nomeInteressado,
+                        nomeInteressado: chat.interessado,
                         pet: chat.petKey,
                         nomePet: chat.nomePet,
                         imagePet: chat.imagePet,

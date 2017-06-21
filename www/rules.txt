@@ -1,0 +1,14 @@
+{
+  "rules": {
+    ".read": "true",
+    ".write": "true",
+    "chat":{
+      "mensagens":{
+        ".indexOn": "dono_interessado_pet"
+      },
+      "salas":{
+        ".indexOn": "dono_interessado_pet"
+      }
+    }
+  }
+}

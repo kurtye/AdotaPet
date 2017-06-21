@@ -1,21 +1,24 @@
 angular.module('adoteCtrls', []).controller('adoteCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'PetService',
     function ($scope, $stateParams, $state, $rootScope, PetService) {
 
-        var pets = {};
-        $rootScope.pets = pets;
+        var pets = [];
+        $scope.pets = pets;
 
         var usuario = $rootScope.usuario;
 
         PetService.getPetsRef().on("child_added", function (snap) {
-            pets[snap.key] = snap.val();
+            var key = snap.key;
+            var obj = {"key": key, "val": snap.val()};
+            pets.unshift(obj);
+        });
 
-        }, function (errorObject) {
-            console.log("Erro na leitura do banco " + errorObject.code);
+        PetService.getPetsRef().on("child_removed", function (snap) {
+          window.location.reload();
         });
         console.log(pets, 'adote');
 
         $scope.detalharPet = function (id) {
-          $state.go('tabs.perfil/:id', {id:id});
+            $state.go('tabs.perfil/:id', {id: id});
 
         };
     }]);

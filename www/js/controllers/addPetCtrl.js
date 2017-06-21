@@ -3,6 +3,7 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
 
         $scope.key = $stateParams.id;
         var key = $scope.key;
+        $scope.pet = {};
         if(key){
             PetService.setPet(key);
             $scope.pet = PetService.getPet();
@@ -43,12 +44,12 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
 
 
         var user = UsuarioService.getUser();
-       // $scope.pet.user = {
-       //     "id": user.userId,
-       //     "nome": user.displayName,
-       //     "email": user.email,
-       //     "foto": user.imageUrl
-       // };
+        $scope.pet.user = {
+            "id": user.userId,
+            "nome": user.displayName,
+            "email": user.email,
+            "foto": user.imageUrl
+        };
 
         $scope.addPet = function (pet) {
 
@@ -67,6 +68,8 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
                 showConfirmlButton: false,
                 timer: 2000
             });
+
+            $scope.pet = {};
         };
 
 

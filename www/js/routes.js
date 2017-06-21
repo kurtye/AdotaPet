@@ -107,30 +107,30 @@ angular.module('app.routes', ['ionicUIRouter'])
                         controller: 'addPetCtrl'
                     }
                 },
-                params :{
-                    id : null
+                params: {
+                    id: null
                 }
             })
 
-          .state('tabs.addInsta', {
-            url: '/addInsta',
-            views: {
-              'tab2': {
-                templateUrl: 'templates/addInsta.html',
-                controller: 'addInstaCtrl'
-              }
-            }
-          })
+            .state('tabs.addInsta', {
+                url: '/addInsta',
+                views: {
+                    'tab2': {
+                        templateUrl: 'templates/addInsta.html',
+                        controller: 'addInstaCtrl'
+                    }
+                }
+            })
 
-          .state('tabs.instaPet', {
-            url: '/instaPet',
-            views: {
-              'tab2': {
-                templateUrl: 'templates/instaPet.html',
-                controller: 'instaPetCtrl'
-              }
-            }
-          })
+            .state('tabs.instaPet', {
+                url: '/instaPet',
+                views: {
+                    'tab2': {
+                        templateUrl: 'templates/instaPet.html',
+                        controller: 'instaPetCtrl'
+                    }
+                }
+            })
 
             .state('signup', {
                 url: '/signup',

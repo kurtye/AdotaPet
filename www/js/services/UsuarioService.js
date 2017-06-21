@@ -31,8 +31,10 @@ angular.module('UsuarioServices', [])
                 return usuario;
 
             });
+        };
 
-
+        this.getAllUsuarios = function () {
+            return rootRef.ref('usuarios');
         };
 
     }]);
