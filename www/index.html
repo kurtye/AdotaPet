@@ -9,7 +9,8 @@
     <script src="lib/bluebird.min.js"></script>
 
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <script src="../node_modules/@ionic/cloud/dist/bundle/ionic.cloud.js"></script>
+
+    <script src="lib/ionic/js/ionic.cloud.js"></script>
 
 
     <!-- cordova script (this will be a 404 during development) -->
@@ -104,6 +105,10 @@
     <link rel="stylesheet" type="text/css" href="lib/dist/sweetalert.css">
 
 
+    <link rel='stylesheet' href='lib/angular-loading-bar/build/loading-bar.min.css' type='text/css' media='all'/>
+    <script type='text/javascript' src='lib/angular-loading-bar/build/loading-bar.min.js'></script>
+
+
 </head>
 <body ng-app="app" animation="slide-left-right-ios7">
 <div>
@@ -124,59 +129,54 @@
             <ion-content padding="false" class="side-menu-left has-header" ng-controller="menuCtrl">
                 <ion-list id="menu-list8" data-componentid="list8">
                     <ion-item class="item-avatar">
-
-                        <img src="{{usuario.imageUrl}}">
-                        <h2>{{usuario.displayName}}</h2>
-
+                        <!--
+                                                <img src="{{usuario.imageUrl}}">
+                                                <h2>{{usuario.displayName}}</h2>
+                        -->
                     </ion-item>
                 </ion-list>
 
                 <button class="button button-block button-assertive" ng-click="doLogout()">Sair</button>
 
-              <div class="list">
-                <a class="item item-icon-left" href="#">
-                  <i class="icon ion-android-person"></i>
-                  <p>Meu Perfil</p>
-                </a>
+                <div class="list">
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-android-person"></i>
+                        <p>Meu Perfil</p>
+                    </a>
 
-                <a class="item item-icon-left" href="#">
-                  <i class="icon ion-android-options"></i>
-                  <p>Filtrar PETS</p>
-                </a>
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-android-options"></i>
+                        <p>Filtrar PETS</p>
+                    </a>
 
-                <a class="item item-icon-left" href="#">
-                  <i class="icon ion-android-settings"></i>
-                  <p>Configurações</p>
-                </a>
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-android-settings"></i>
+                        <p>Configurações</p>
+                    </a>
 
-                <a class="item item-icon-left" href="#">
-                  <i class="icon ion-ios-paw"></i>
-                  <p>Sobre o Adota Pet</p>
-                </a>
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-ios-paw"></i>
+                        <p>Sobre o Adota Pet</p>
+                    </a>
 
-                <a class="item item-icon-left" href="#">
-                  <i class="icon ion-android-happy"></i>
-                  <p>Avalie o APP</p>
+                    <a class="item item-icon-left" ng-click="rateApp()">
+                        <i class="icon ion-android-happy"></i>
+                        <p>Avalie o APP</p>
 
-                </a>
+                    </a>
 
-                <a class="item item-icon-left" href="#">
-                  <i class="icon ion-bug"></i>
-                  <p>Relatar Bugs</p>
-                </a>
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-bug"></i>
+                        <p>Relatar Bugs</p>
+                    </a>
 
-                <a class="item item-icon-left" href="#">
-                  <i class="icon ion-coffee"></i>
-                  <p>Apoio e Patrocínio</p>
-                </a>
-
-
-
-              </div>
+                    <a class="item item-icon-left" href="#">
+                        <i class="icon ion-coffee"></i>
+                        <p>Apoio e Patrocínio</p>
+                    </a>
 
 
-
-
+                </div>
 
 
             </ion-content>
