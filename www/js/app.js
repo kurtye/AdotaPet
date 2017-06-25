@@ -1,6 +1,6 @@
-angular.module('app', ['ionic','ionic.cloud', 'app.controllers', 'app.routes', 'app.directives', 'app.services', 'app.configs', 'angular-loading-bar', 'ngAnimate'])
+angular.module('app', ['ionic','ionic.cloud', 'app.controllers', 'app.routes', 'app.directives', 'app.services', 'app.configs', 'ngAnimate'])
 
-    .config(['$httpProvider', '$ionicConfigProvider', '$sceDelegateProvider', '$stateProvider', 'cfpLoadingBarProvider', '$ionicCloudProvider', function ($httpProvider, $ionicConfigProvider, $sceDelegateProvider, $stateProvider, cfpLoadingBarProvider, $ionicCloudProvider) {
+    .config(['$httpProvider', '$ionicConfigProvider', '$sceDelegateProvider', '$stateProvider', '$ionicCloudProvider', function ($httpProvider, $ionicConfigProvider, $sceDelegateProvider, $stateProvider, $ionicCloudProvider) {
         $stateProvider
 
             .state('menu', {
@@ -46,6 +46,29 @@ angular.module('app', ['ionic','ionic.cloud', 'app.controllers', 'app.routes', '
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
+
+      // 1
+      AppRate.preferences.useLanguage = 'en';
+
+// 2
+      var popupInfo = {};
+      popupInfo.title = "Rate Adota Pet";
+      popupInfo.message = "Você gostaria de avaliar Adota Pet? isso é muito importante para continuarmos o trabalho, obrigado!";
+      popupInfo.cancelButtonLabel = "Não, Obrigado";
+      popupInfo.laterButtonLabel = "Me lembre depois";
+      popupInfo.rateButtonLabel = "Avalie o Adota Pet";
+      AppRate.preferences.customLocale = popupInfo;
+
+// 3
+      AppRate.preferences.openStoreInApp = true;
+
+// 4
+//       AppRate.preferences.storeAppURL.ios = '849930087';
+AppRate.preferences.storeAppURL.android = 'https://play.google.com/store/apps/details?id=com.labup.adotapet';
+
+// 5
+      AppRate.preferences.usesUntilPrompt = 3;
+      AppRate.promptForRating();
     })
 
     //Inicialização do Firebase
