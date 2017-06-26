@@ -24,7 +24,13 @@ angular.module('app', ['ionic','ionic.cloud', 'app.controllers', 'app.routes', '
 
                     "scope": ["permission1", "permission2"]
                 }
+            },
+
+          "auth": {
+            "facebook": {
+              "scope": ["user_location"]
             }
+          }
         });
 
         $sceDelegateProvider.resourceUrlWhitelist([ 'self','*://www.youtube.com/**', '*://player.vimeo.com/video/**']);
