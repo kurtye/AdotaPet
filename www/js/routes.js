@@ -138,6 +138,29 @@ angular.module('app.routes', ['ionicUIRouter'])
                 controller: "signupCtrl"
             })
 
+          .state('sobre', {
+            url: '/sobre',
+            templateUrl: "templates/modals/sobre.html",
+            controller: "menuCtrl"
+          })
+          .state('filtros', {
+            url: '/filtros',
+            templateUrl: "templates/filtros.html",
+            controller: "menuCtrl"
+          })
+          .state('apoio', {
+            url: '/apoio',
+            templateUrl: "templates/modals/apoio.html",
+            controller: "menuCtrl"
+          })
+
+          .state('relatarBugs', {
+            url: '/relatarBugs',
+            templateUrl: "templates/modals/ideas.html",
+            controller: "menuCtrl"
+          })
+
+
         $urlRouterProvider.otherwise('/login')
 
 
