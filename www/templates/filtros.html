@@ -1,5 +1,12 @@
-<ion-view title="Meus Pets" id="page7">
-    <ion-content padding="true" class="has-header" class="row">
+<ion-view title="Filtro de Pesquisa" id="filtros">
+  <ion-nav-buttons side="right" class="has-header">
+    <button class="button button-clear button-primary" ng-click="fecharTela()" style="font-size: 30px;">
+      <i class="ion-ios-close"></i></button>
+  </ion-nav-buttons>
+  <ion-content padding="true" class="has-header">
+
+
+
         <form id="filtros-form2" class="list">
             <ion-toggle toggle-class="toggle-assertive" ng-checked="true" ng-model="filtros.cachorro"
                         id="filtros-toggle1">Cachorro
