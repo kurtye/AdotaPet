@@ -1,4 +1,8 @@
 {
   "name": "AdotaPet",
-  "app_id": "107b46ee"
+  "app_id": "107b46ee",
+  "type": "ionic1",
+  "watchPatterns": [
+    "scss/**/*"
+  ]
 }

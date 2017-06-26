@@ -52,8 +52,9 @@ exports.generateThumbnail = functions.storage.object()
         return bucket.file(filePath).download({
           destination: tempFilePath
         }).then(() => {
-          return spawn('convert', [tempFilePath, '-thumbnail', '400X400>', tempFilePath])
-          }).then(() => {
+          return spawn('convert', [tempFilePath, '-thumbnail', '200X200>', tempFilePath])
+          })
+          .then(() => {
                 console.log('Thumbnail criada.')
 
                 return bucket.upload(tempFilePath, {
@@ -74,14 +75,10 @@ exports.generateThumbnail = functions.storage.object()
             const originalResult = results[1]
             const thumbFileUrl   = thumbResult[0]
             const fileUrl        = originalResult[0]
-            var key = filePath.substr(14,20)
-            console.log(key)
-
-            return ref.child('adocao/pets/' + key).update({thumbnail: thumbFileUrl})
+            console.log(object)
+            return ref.child('adocao/pets/' + tempFilePath).set({thumbnail: thumbFileUrl})
             })
     })
-
-
 
 // TODO: Make sure you configure the 'dev_motivator.device_token' Google Cloud environment variables.
 const deviceToken = functions.config().dev_motivator.device_token;
@@ -120,7 +117,6 @@ admin.messaging().sendToDevice(deviceToken, payload);
 
 // Deletes the user data in the Realtime Datastore when the accounts are deleted.
 exports.cleanupUserData = functions.auth.user().onDelete(event => {
-        const uid = event.data.uid;
-        admin.database().ref(`/usuarios/${uid}`).remove();
-        return admin.database().ref(`/adocao/pets/`).orderByChild(`user/id/${uid}`).remove();
+        const uid = event.data.uid
+return admin.database().ref(`/usuarios/${uid}`).remove()
 })

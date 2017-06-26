@@ -1,6 +1,9 @@
-angular.module('meusPetsCtrls', []).controller('meusPetsCtrl', ['$scope', '$rootScope', '$stateParams', '$state', 'UsuarioService', 'PetService',
-    function ($scope, $rootScope, $stateParams, $state, UsuarioService, PetService) {
+angular.module('meusPetsCtrls', []).controller('meusPetsCtrl', ['$scope', '$rootScope', '$stateParams', '$state', 'UsuarioService', 'PetService', '$ionicLoading',
+    function ($scope, $rootScope, $stateParams, $state, UsuarioService, PetService, $ionicLoading) {
 
+        $ionicLoading.show({
+            template: '<ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>'
+        });
 
         $scope.alterarPet = function (pet, key) {
 
@@ -10,41 +13,44 @@ angular.module('meusPetsCtrls', []).controller('meusPetsCtrl', ['$scope', '$root
 
         $scope.usuario = UsuarioService.getUser() ? UsuarioService.getUser() : null;
 
-        if(!$scope.usuario){
-            window.reload();
-        }
         var usuario = $scope.usuario;
 
-         PetService.getMeusPets(usuario.userId).on('value', function (snap) {
-             $scope.myPets = snap.val();
+        PetService.getMeusPets(usuario.userId).on('value', function (snap) {
+            $scope.myPets = snap.val();
+            $scope.$apply();
+
         });
 
-         PetService.getPetsAdotados(usuario.userId).on('value', function (snap) {
-             $scope.adotados =  snap.val();
+        PetService.getPetsAdotados(usuario.userId).on('value', function (snap) {
+            $scope.adotados = snap.val();
+            $ionicLoading.hide();
+            $scope.$apply();
+
         });
 
-
-        console.log($scope.myPets);
         $scope.marcarAdotado = function (pet, key) {
 
             swal({
                 title: 'Você tem certeza?',
                 text: "O pet não ira mais aparecer na lista para adoção!",
-                type: 'success',
+                type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 cancelButtonText: 'Não',
                 confirmButtonText: 'Confirmar!',
                 closeOnConfirm: false
-            },function(isConfirm) {
+            }, function (isConfirm) {
                 if (isConfirm === true) {
                     PetService.marcarComoAdotado(pet, key);
                     $state.go('tabs.meuspets');
-                    swal(
-                        'confirmado!',
-                        pet.nome + ' adotado',
-                        'success'
+                    swal({
+                            title: 'Confirmado!',
+                            text: pet.nome + " Foi adotado",
+                            type: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }
                     );
                 }
             }); //function.
@@ -62,14 +68,17 @@ angular.module('meusPetsCtrls', []).controller('meusPetsCtrl', ['$scope', '$root
                 cancelButtonText: 'cancelar',
                 confirmButtonText: 'Confirmar!',
                 closeOnConfirm: false
-            },function(isConfirm) {
+            }, function (isConfirm) {
                 if (isConfirm === true) {
                     PetService.desmarcarAdotado(pet, key);
                     $state.go('tabs.meuspets');
-                    swal(
-                        'confirmado!',
-                        pet.nome + ' voltou para adoção',
-                        'success'
+                    swal({
+                            title: 'Confirmado!',
+                            text: pet.nome + " Retornou para a adoção",
+                            type: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }
                     );
                 }
             }); //function.
