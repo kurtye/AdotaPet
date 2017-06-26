@@ -5,7 +5,7 @@ angular.module('menuCtrls', [])
 
             $scope.usuario = UsuarioService.getUser() ? UsuarioService.getUser() : {"userId": 'default'};
 
-          $scope.fecharTela = function () {
+          $scope.fechar = function () {
 
             $state.go('tabs.adote');
           };
