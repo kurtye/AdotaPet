@@ -7,9 +7,8 @@ angular.module('adoteCtrls', []).controller('adoteCtrl', ['$scope', '$stateParam
         $scope.pets = [];
         PetService.getPetsRef().on("child_added", function (snap) {
             var key = snap.key;
-            snap.val().imgURL = 'thumb_' + snap.val().imgURL;
             var obj = {"key": key, "val": snap.val()};
-            console.log(obj);
+            //console.log(tumb);
             $scope.pets.unshift(obj);
             $ionicLoading.hide();
 
