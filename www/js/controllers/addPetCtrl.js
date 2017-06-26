@@ -19,7 +19,16 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
             var storageRef = firebase.storage().ref();
 
             //dynamically set reference to the file name
-            var thisRef = storageRef.child('images/adocao/' + file.name);
+            if (key) {
+              var thisRef = storageRef.child('images/adocao/' + key + '/' + file.name);
+            }else {
+              var petKey = PetService.getNewPetKey().key;
+              $scope.key = petKey;
+              console.log(petKey);
+
+              var thisRef = storageRef.child('images/adocao/' + petKey + '/' + file.name);
+
+            }
 
 
             //put request upload file to firebase storage

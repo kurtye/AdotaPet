@@ -1,21 +1,27 @@
-angular.module('adoteCtrls', []).controller('adoteCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'PetService',
-    function ($scope, $stateParams, $state, $rootScope, PetService) {
+angular.module('adoteCtrls', []).controller('adoteCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'PetService', '$ionicLoading',
+    function ($scope, $stateParams, $state, $rootScope, PetService, $ionicLoading) {
 
-        var pets = [];
-        $scope.pets = pets;
-
-        var usuario = $rootScope.usuario;
-
+        $ionicLoading.show({
+            template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>'
+        });
+        $scope.pets = [];
         PetService.getPetsRef().on("child_added", function (snap) {
             var key = snap.key;
             var obj = {"key": key, "val": snap.val()};
-            pets.unshift(obj);
+            //console.log(tumb);
+            $scope.pets.unshift(obj);
+            $ionicLoading.hide();
+
         });
 
         PetService.getPetsRef().on("child_removed", function (snap) {
-          window.location.reload();
+
+            console.log(snap.val(), 'adadadas');
+
         });
-        console.log(pets, 'adote');
+        $scope.apply = function () {
+            $scope.$apply();
+        };
 
         $scope.detalharPet = function (id) {
             $state.go('tabs.perfil/:id', {id: id});
