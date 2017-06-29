@@ -380,7 +380,7 @@ angular.module('loginCtrls', ['ionic.cloud', 'ionic.native'])
             var getFacebookProfileInfo = function (authResponse) {
                 var info = $q.defer();
 
-                facebookConnectPlugin.api('/me?fields=email,location,name&access_token=' + authResponse.accessToken, null,
+                facebookConnectPlugin.api('/me?fields=email,location{location},name&access_token=' + authResponse.accessToken, null,
                     function (response) {
                         console.log(response);
                         info.resolve(response);
@@ -423,8 +423,12 @@ angular.module('loginCtrls', ['ionic.cloud', 'ionic.native'])
                                         "email": profileInfo.email,
                                         "imageUrl": "http://graph.facebook.com/" + success.authResponse.userID + "/picture?type=large",
                                         "userId": profileInfo.id,
-                                      "city": profileInfo.location
+                                      "state": profileInfo.location.location.state,
+                                      "location" : profileInfo.location.location
+
+
                                     });
+
 
 
                                     $state.go("tabs.adote");
