@@ -2,33 +2,23 @@
 
   <ion-content padding="true" class="has-header">
 
-      <div href="#/tab/perfil/{{$index}}"
-                ng-repeat="instapet in instapets track by $index" style="
-    margin-top: 50px;
-    margin-bottom: 50px;
-">
-
-
-
-
+      <div href="#/tab/perfil/{{$index}}"ng-repeat="instapet in instapets track by $index" style="margin-top: 50px;
+    margin-bottom: 50px;">
 
     <ion-list id="instapet-list5">
 
         <div class="list">
 
           <a class="item item-avatar" href="#">
-            <img src="{{instapet.fotoUsuario}}">
+            <img src="{{instapet.fotoUsuario}}" />
             <h2>{{instapet.nomeUsuario}}</h2>
           </a>
-
-          ...
-
         </div>
 
 
     </ion-list>
     <div style="margin: 0px;  background-color: rgb(232, 235, 239); text-align: center;">
-      <img src="{{instapet.instaFoto}}">
+      <img src="{{instapet.instaFoto}}" style="width: 100%;" />
     </div>
     <div id="instapet-button-bar1" class="button-bar">
       <button id="instapet-button4" class="button clear  icon ion-heart" onClick="like()"
