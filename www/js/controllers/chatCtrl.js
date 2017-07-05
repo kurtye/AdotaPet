@@ -6,7 +6,7 @@ angular.module('chatCtrls', []).controller('chatCtrl', ['$scope', '$rootScope', 
             animation: 'fade-in',
             showBackdrop: true,
             maxWidth: 200,
-            duration: 6000,
+            duration: 6000
         });
 
         var salasEnvios = [];
