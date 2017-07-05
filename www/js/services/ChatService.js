@@ -97,30 +97,14 @@ angular.module('ChatServices', [])
 
         this.getSalasEnviadas = function () {
 
+            return  firebase.database().ref('chat/salas').orderByChild('id_interessado').equalTo(chat.meu_id);
 
-            var enviadas = [];
-            var salas = firebase.database().ref('chat/salas').orderByChild('id_interessado').equalTo(chat.meu_id);
-
-            salas.on('child_added', function (snap) {
-                enviadas.unshift(snap.val());
-
-            });
-
-            return enviadas;
         };
 
         this.getSalasRecebidas = function () {
 
+            return firebase.database().ref('chat/salas').orderByChild('id_dono').equalTo(chat.meu_id);
 
-            var recebidas = [];
-            var salas = firebase.database().ref('chat/salas').orderByChild('id_dono').equalTo(chat.meu_id);
-
-            salas.on('child_added', function (snap) {
-                recebidas.unshift(snap.val());
-
-            });
-
-            return recebidas;
         };
 
 
