@@ -47,13 +47,18 @@ angular.module('loginCtrls', ['ionic.cloud', 'ionic.native'])
                             email = user.email;
                             photoUrl = user.photoURL;
                             uid = user.uid;
+                            state = user.state;
+
 
                             UsuarioService.setUser({
                                 "displayName": user.displayName,
                                 "email": user.email,
                                 "imageUrl": user.photoURL,
-                                "userId": user.uid
+                                "userId": user.uid,
+                              "state": user.state
                             });
+
+                            console.log(user)
 
                             $rootScope.usuario = user;
                             $rootScope.photoProfile = photoUrl;
