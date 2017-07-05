@@ -1,5 +1,5 @@
 angular.module('ApoioServices', [])
-    .service('ApoioService', [function () {
+    .service('ApoioService', ['UsuarioService', function (UsuarioService) {
 
         this.especies = [
             {"nome": "Canina"},
@@ -8,11 +8,38 @@ angular.module('ApoioServices', [])
         ];
 
         this.getRacas = function (key) {
-            switch (key){
-                case "Canina": return aCaninos; break;
-                case "Felina": return aFelinos; break;
-                case "Outros": return aOutros; break;
+            switch (key) {
+                case "Canina":
+                    return aCaninos;
+                    break;
+                case "Felina":
+                    return aFelinos;
+                    break;
+                case "Outros":
+                    return aOutros;
+                    break;
             }
+        };
+
+        this.getFiltros = function () {
+            var filtros = JSON.parse(localStorage.getItem('adotapet_filtros'));
+            if (!filtros) {
+                var user = UsuarioService.getUser();
+
+                var filtros = {
+                    "canina": true,
+                    "felina": true,
+                    "outros": true,
+                    "estado": user.state ? user.state : "DF",
+                    "sexo": ""
+                };
+                return filtros;
+            }
+            return filtros;
+        };
+
+        this.setFiltros = function (filtros) {
+            localStorage.setItem('adotapet_filtros', JSON.stringify(filtros));
         };
 
         var aCaninos = [
