@@ -1,5 +1,5 @@
-angular.module('signupCtrls', []).controller('signupCtrl', ['$scope', '$stateParams', '$document',
-    function ($scope, $stateParams, $document) {
+angular.module('signupCtrls', []).controller('signupCtrl', ['$scope', '$stateParams', '$document', '$state',
+    function ($scope, $stateParams, $document, $state) {
 
         $scope.doSignup = function (userSignup) {
 
@@ -21,7 +21,8 @@ angular.module('signupCtrls', []).controller('signupCtrl', ['$scope', '$statePar
 
                     user.updateProfile({
                         displayName: userSignup.displayname,
-                        photoURL: userSignup.photoprofile
+                        photoURL: userSignup.photoprofile,
+                      state : userSignup.state
 
                     }).then(function () {
                         // Update successful.
