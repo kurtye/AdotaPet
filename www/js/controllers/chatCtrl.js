@@ -1,9 +1,22 @@
-angular.module('chatCtrls', []).controller('chatCtrl', ['$scope', '$rootScope', '$state', 'ChatService', 'UsuarioService', '$ionicModal',
-    function ($scope, $rootScope, $state, ChatService, UsuarioService, $ionicModal) {
+angular.module('chatCtrls', []).controller('chatCtrl', ['$scope', '$rootScope', '$state', 'ChatService', '$ionicLoading',
+    function ($scope, $rootScope, $state, ChatService, $ionicLoading) {
 
+        $ionicLoading.show({
+            template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>',
+            timer: 5000
+        });
 
-        var salasEnvios = ChatService.getSalasEnviadas();
-        var salasRecebidas = ChatService.getSalasRecebidas();
+        var salasEnvios = [];
+        ChatService.getSalasEnviadas().on('child_added', function (snap) {
+            salasEnvios.unshift(snap.val());
+            $ionicLoading.hide();
+        });
+
+        var salasRecebidas = [];
+        ChatService.getSalasRecebidas().on('child_added', function (snap) {
+            salasRecebidas.unshift(snap.val());
+            $ionicLoading.hide();
+        });
         $scope.salasEnvios = salasEnvios;
         $scope.salasRecebidas = salasRecebidas;
 
