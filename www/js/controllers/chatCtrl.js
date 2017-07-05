@@ -3,7 +3,10 @@ angular.module('chatCtrls', []).controller('chatCtrl', ['$scope', '$rootScope', 
 
         $ionicLoading.show({
             template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>',
-            timer: 5000
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            duration: 6000,
         });
 
         var salasEnvios = [];
