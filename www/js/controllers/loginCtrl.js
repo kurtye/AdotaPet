@@ -43,29 +43,32 @@ angular.module('loginCtrls', ['ionic.cloud', 'ionic.native'])
                         if (user.emailVerified) { //Checagem de verificação no email
 
 
-                            name = user.displayName;
-                            email = user.email;
-                            photoUrl = user.photoURL;
-                            uid = user.uid;
-                            state = user.state;
+
+                            // name = user.displayName;
+                            // email = user.email;
+                            // photoUrl = user.photoURL;
+                            // uid = user.uid;
 
 
-                            UsuarioService.setUser({
-                                "displayName": user.displayName,
-                                "email": user.email,
-                                "imageUrl": user.photoURL,
-                                "userId": user.uid,
-                              "state": user.state
-                            });
+                            // UsuarioService.updateUser({
+                            //     "displayName": user.displayName,
+                            //     "email": user.email,
+                            //     "imageUrl": user.photoURL,
+                            //     "userId": user.uid,
+                            //
+                            // });
+
 
                             console.log(user)
 
                             $rootScope.usuario = user;
                             $rootScope.photoProfile = photoUrl;
 
+                          $state.go("tabs.adote");
 
-                            localStorage.setItem("photo", photoUrl);
-                            $state.go("tabs.adote");
+
+
+
 
 
                         } else {
