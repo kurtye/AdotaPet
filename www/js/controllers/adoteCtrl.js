@@ -10,6 +10,8 @@ angular.module('adoteCtrls', []).controller('adoteCtrl', ['$scope', '$stateParam
         var pets = [];
         $scope.pets = pets;
 
+        console.log(pets)
+
         var filtros = ApoioService.getFiltros();
         $scope.filtros = filtros;
 
@@ -26,6 +28,7 @@ angular.module('adoteCtrls', []).controller('adoteCtrl', ['$scope', '$stateParam
                     }
                 }
             }
+
             $ionicLoading.hide();
 
         });
@@ -37,10 +40,14 @@ angular.module('adoteCtrls', []).controller('adoteCtrl', ['$scope', '$stateParam
                    log(item, index)
                    pets.splice(index, 1);
                    $scope.$apply();
+
+
                }
             });
 
         });
+
+
 
         $scope.detalharPet = function (id) {
             $state.go('tabs.perfil/:id', {id: id});
