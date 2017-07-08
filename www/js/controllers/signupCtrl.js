@@ -1,5 +1,5 @@
-angular.module('signupCtrls', []).controller('signupCtrl', ['$scope', '$stateParams', '$document', '$state',
-    function ($scope, $stateParams, $document, $state) {
+angular.module('signupCtrls', []).controller('signupCtrl', ['$scope', '$stateParams', '$document', '$state', 'UsuarioService',
+    function ($scope, $stateParams, $document, $state, UsuarioService) {
 
         $scope.doSignup = function (userSignup) {
 
@@ -17,12 +17,34 @@ angular.module('signupCtrls', []).controller('signupCtrl', ['$scope', '$statePar
                         console.log(result)
                     }, function (error) {
                         console.log(error)
-                    });
+                    })
+
+
+                  name = userSignup.displayName;
+                  email = userSignup.email;
+                  photoUrl = userSignup.photoURL;
+                  uid = userSignup.uid;
+                  state = userSignup.state;
+
+
+
+
+                  UsuarioService.setUser({
+                    "displayName": userSignup.displayname,
+                    "email": user.email,
+                    "imageUrl": user.photoURL,
+                    "userId": user.uid,
+                    "state": userSignup.state
+
+                  });
+
+
 
                     user.updateProfile({
                         displayName: userSignup.displayname,
                         photoURL: userSignup.photoprofile,
                       state : userSignup.state
+
 
                     }).then(function () {
                         // Update successful.
@@ -33,6 +55,7 @@ angular.module('signupCtrls', []).controller('signupCtrl', ['$scope', '$statePar
                     });
                     alert("Sucesso,verifique seu email e confirme")
                     return false;
+
 
 
                 }, function (error) {
