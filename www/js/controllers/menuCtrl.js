@@ -15,6 +15,16 @@ angular.module('menuCtrls', [])
 
       };
 
+$scope.fecharMenu = function () {
+  $ionicSideMenuDelegate.toggleLeft()
+
+}
+
+     $scope.callbacks = function() {
+
+          window.open('mailto:kurtyebsb@gmail.com','_system');
+
+        }
 
 
 
