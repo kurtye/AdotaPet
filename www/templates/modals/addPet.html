@@ -13,12 +13,23 @@
                 <input type="text" placeholder="John" ng-model="pet.nome" required="required">
             </label>
 
-            <label class="fileContainer">
-                <span>Escolha uma foto do Perfil do PET</span> <i class="icon ion-camera"
-                                                                  style="display: block;margin: 0 auto;height: 32px;font-size: 32px;"></i></i>
-                <input type="file" class="upload" onchange="previewFile()" id="files" value="{{imgURL}}" name="files[]"
-                       multiple/>
-            </label>
+          <div style="height: 60px;">
+          <p style="text-align: center">Escolha uma foto </p>
+
+          <label class="fileContainer">
+
+
+            <div class="row">
+              <div class="col text-center">
+                <i class="icon icon ion-camera" ></i>
+                <input type="file" class="upload" onchange="previewFile()" id="files" value="{{imgURL}}" name="files[]" multiple/>
+              </div>
+            </div>
+
+
+          </label>
+          </div>
+
             <div style="width: 28%; margin: 0 auto;"><span id="linkbox"></span>
                 <input type="text" value="{{pet.imgURL}}" name="imgURL" id="imgURL" ng-model="pet.imgURL" required="required">
             </div>
