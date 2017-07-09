@@ -54,6 +54,8 @@ angular.module('addInstaCtrls', []).controller('addInstaCtrl', ['$scope', '$stat
       swal('Publicado');
 
       $scope.instaPet = {};
+
+      $scope.$apply();
     };
 
 
