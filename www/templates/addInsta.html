@@ -1,17 +1,18 @@
 <ion-view title="Adicionar um Pet" id="addInsta">
 
+
+
   <ion-content padding="true" class="has-header">
+    <div style="height: 100%;">
+    <p style="text-align: center">Escolha uma foto </p>
 
     <label class="fileContainer">
-      <p style="text-align: center">Escolha uma foto </p>
 
 
       <div class="row">
         <div class="col text-center">
-      <button class="button button-float">
         <i class="icon icon ion-camera" ></i>
         <input type="file" class="upload" onchange="previewFile()" id="files" value="{{imgURL}}" name="files[]" multiple/>
-      </button>
         </div>
       </div>
 
@@ -26,8 +27,16 @@
     <input type="hidden" ng-model="pet.usuario" value="usuario.displayName">
     <input type="hidden" ng-model="pet.usuario" value="usuario.email">
     <input type="hidden" ng-model="pet.usuario" value="usuario.photoURL">
-    <div class="bar bar-footer">
-      <button class="button button-full button-assertive" ng-click="addInstaPet(instaPet)"  >Publicar</button>
+
     </div>
+
+
+        <button class="button button-full button-assertive" ng-click="addInstaPet(instaPet)"  >Publicar</button>
+
+
+  </ion-content>
+
+
+
 
 </ion-view>
