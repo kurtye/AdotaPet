@@ -21,6 +21,8 @@ angular.module('loginCtrls', ['ionic.cloud', 'ionic.native'])
 
             if (empty == false) {
                 $state.go('tabs.adote');
+
+
             }
             else {
                 $state.go('login');
@@ -43,29 +45,32 @@ angular.module('loginCtrls', ['ionic.cloud', 'ionic.native'])
                         if (user.emailVerified) { //Checagem de verificação no email
 
 
-                            name = user.displayName;
-                            email = user.email;
-                            photoUrl = user.photoURL;
-                            uid = user.uid;
-                            state = user.state;
+
+                            // name = user.displayName;
+                            // email = user.email;
+                            // photoUrl = user.photoURL;
+                            // uid = user.uid;
 
 
-                            UsuarioService.setUser({
-                                "displayName": user.displayName,
-                                "email": user.email,
-                                "imageUrl": user.photoURL,
-                                "userId": user.uid,
-                              "state": user.state
-                            });
+                            // UsuarioService.updateUser({
+                            //     "displayName": user.displayName,
+                            //     "email": user.email,
+                            //     "imageUrl": user.photoURL,
+                            //     "userId": user.uid,
+                            //
+                            // });
+
 
                             console.log(user)
 
                             $rootScope.usuario = user;
                             $rootScope.photoProfile = photoUrl;
 
+                          $state.go("tabs.adote");
 
-                            localStorage.setItem("photo", photoUrl);
-                            $state.go("tabs.adote");
+
+
+
 
 
                         } else {
@@ -116,60 +121,68 @@ angular.module('loginCtrls', ['ionic.cloud', 'ionic.native'])
 
           //GOOGLE login Nativo
 
-          // $scope.doLoginGoogle = function () {
-          //
-          //   window.plugins.googleplus.login(
-          //     {
-          //       'auth': {
-          //         'google': {
-          //           'scopes': 'https://www.googleapis.com/auth/plus.me',
-          //           'offline': false,
-          //           'webClientId': '908321839770-i7ri4c8f42h13i87cbnup9s1krnm22fs.apps.googleusercontent.com'
-          //         }
-          //       }
-          //     },
-          //
-          //
-          //
-          //
-          //     function (user) {
-          //
-          //       var name, email, imageUrl, uid, idToken;
-          //
-          //
-          //       if (user != null) {
-          //
-          //
-          //         console.debug(user);
-          //         $state.go("tabs.adote");
-          //
-          //
-          //         name = user.displayName;
-          //         email = user.email;
-          //         imageUrl = user.imageUrl;
-          //         uid = user.userId;
-          //         idToken = user.idToken;
-          //         // The user's ID, unique to the Firebase project. Do NOT use
-          //         // this value to authenticate with your backend server, if
-          //
-          //         // you have one. Use User.getToken() instead.
-          //
-          //         // firebase.database().ref('usuarios/' + user.userId).set(user);
-          //
-          //
-          //
-          //
-          //       }
-          //       $state.go("tabs.adote");
-          //
-          //
-          //     },
-          //     function (msg) {
-          //       ;
-          //       console.debug(msg);
-          //     }
-          //   );
-          // }
+          $scope.doLoginGoogle = function () {
+
+            window.plugins.googleplus.login(
+              {
+                'auth': {
+                  'google': {
+                    'scopes': 'https://www.googleapis.com/auth/plus.me',
+                    'offline': false,
+                    'webClientId': '908321839770-i7ri4c8f42h13i87cbnup9s1krnm22fs.apps.googleusercontent.com'
+                  }
+                }
+              },
+
+
+
+
+              function (user) {
+
+                var name, email, imageUrl, uid, idToken;
+
+
+                if (user != null) {
+
+                  $state.go("tabs.adote");
+                  console.debug(user);
+
+                  name = user.displayName;
+                  email = user.email;
+                  imageUrl = user.imageUrl;
+                  uid = user.userId;
+                  idToken = user.idToken;
+                  // The user's ID, unique to the Firebase project. Do NOT use
+                  // this value to authenticate with your backend server, if
+
+                  // you have one. Use User.getToken() instead.
+
+                  // firebase.database().ref('usuarios/' + user.userId).set(user);
+
+                  UsuarioService.setUser({
+                    "displayName": user.displayName,
+                    "email": user.email,
+                    "imageUrl": user.imageUrl,
+                    "userId": user.userId,
+                    // "state": profileInfo.location.location.state,
+                    // "location" : profileInfo.location.location
+
+
+                  });
+
+
+                  $state.go("tabs.adote");
+
+                }
+                $state.go("tabs.adote");
+
+
+              },
+              function (msg) {
+                console.debug(msg);
+              }
+            );
+          }
 
 
           //GOOGLE login Nativo Fim

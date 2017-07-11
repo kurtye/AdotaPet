@@ -12,6 +12,12 @@ angular.module('UsuarioServices', [])
             firebase.database().ref('usuarios/' + user_data.userId).set(user_data);
         };
 
+      this.updateUser = function (user_data) {
+        console.log(user_data)
+        window.localStorage.starter_facebook_user = JSON.stringify(user_data);
+        firebase.database().ref('usuarios/' + user_data.userId).update(user_data);
+      };
+
         this.getUser = function () {
             return JSON.parse(window.localStorage.starter_facebook_user || '{}');
         };

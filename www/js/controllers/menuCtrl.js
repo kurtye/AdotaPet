@@ -1,20 +1,36 @@
 angular.module('menuCtrls', [])
-    .controller('menuCtrl', ['$scope', '$stateParams', '$rootScope', 'UsuarioService', '$state',
-        function ($scope, $stateParams, $rootScope, UsuarioService, $state) {
+  .controller('menuCtrl', ['$scope', '$stateParams', '$rootScope', 'UsuarioService', '$state','$ionicSideMenuDelegate',
+    function ($scope, $stateParams, $rootScope, UsuarioService, $state, $ionicSideMenuDelegate) {
 
 
-            $scope.usuario = UsuarioService.getUser() ? UsuarioService.getUser() : {"userId": 'default'};
+      $scope.usuario = UsuarioService.getUser() ? UsuarioService.getUser() : {"userId": 'default'};
 
-          $scope.fechar = function () {
+      console.log($scope.usuario)
 
-            $state.go('tabs.adote');
-          };
-
+      $scope.fechar = function () {
 
 
+        $state.go('tabs.adote');
 
-            $scope.doLogout = function () {
-                localStorage.clear();
-                $state.go('login');
-            };
-        }]);
+
+      };
+
+$scope.fecharMenu = function () {
+  $ionicSideMenuDelegate.toggleLeft()
+
+}
+
+     $scope.callbacks = function() {
+
+          window.open('mailto:kurtyebsb@gmail.com','_system');
+
+        }
+
+
+
+      $scope.doLogout = function () {
+        localStorage.clear();
+        $ionicSideMenuDelegate.toggleLeft();
+        $state.go('login');
+      };
+    }]);

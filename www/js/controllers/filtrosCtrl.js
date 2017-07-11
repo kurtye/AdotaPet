@@ -13,10 +13,14 @@ angular.module('filtrosCtrls', []).controller('filtroCtrl', ['$scope', '$rootSco
                     timer: 1000
                 }
             );
+          $state.go('tabs.adote');
+          window.location.reload();
         };
 
         $scope.fechar = function () {
             $state.go('tabs.adote');
             window.location.reload();
         };
+
+
     }]);
