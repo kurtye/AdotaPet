@@ -18,8 +18,8 @@ angular.module('app', ['ionic','ionic.cloud', 'app.controllers', 'app.routes', '
                 "google": {
                     //trocar webClient para testes
                     // "webClientId": "31439353449-a4mklvh2ugb65qrg5ie9ru9j3ojrdpa6.apps.googleusercontent.com",
-                    // "webClientId": "31439353449-c8h94379gm3vdump7bboenbtco3i1ufa.apps.googleusercontent.com",
-                    "webClientId": "908321839770-i7ri4c8f42h13i87cbnup9s1krnm22fs.apps.googleusercontent.com",
+                    "webClientId": "31439353449-c8h94379gm3vdump7bboenbtco3i1ufa.apps.googleusercontent.com",
+                    // "webClientId": "908321839770-i7ri4c8f42h13i87cbnup9s1krnm22fs.apps.googleusercontent.com",
 
 
                     "scope": ["permission1", "permission2"]
@@ -53,6 +53,45 @@ angular.module('app', ['ionic','ionic.cloud', 'app.controllers', 'app.routes', '
             StatusBar.styleDefault();
         }
 
+
+      // AppRate.preferences = {
+      //   openStoreInApp: true,
+      //   displayAppName: 'Adota Pet',
+      //   usesUntilPrompt: 5,
+      //   promptAgainForEachNewVersion: false,
+      //   storeAppURL: {
+      //     ios: '<my_app_id>',
+      //     android: 'market://details?id=com.labup.adotapet',
+      //     windows: 'ms-windows-store://pdp/?ProductId=<the apps Store ID>',
+      //     blackberry: 'appworld://content/[App Id]/',
+      //     windows8: 'ms-windows-store:Review?name=<the Package Family Name of the application>'
+      //   },
+      //   customLocale: {
+      //     title: "Would you mind rating %@?",
+      //     message: "It won’t take more than a minute and helps to promote our app. Thanks for your support!",
+      //     cancelButtonLabel: "No, Thanks",
+      //     laterButtonLabel: "Remind Me Later",
+      //     rateButtonLabel: "Rate It Now",
+      //     yesButtonLabel: "Yes!",
+      //     noButtonLabel: "Not really",
+      //     appRatePromptTitle: 'Do you like using %@',
+      //     feedbackPromptTitle: 'Mind giving us some feedback?',
+      //   },
+      //   callbacks: {
+      //     handleNegativeFeedback: function(){
+      //       window.open('mailto:feedback@example.com','_system');
+      //     },
+      //     onRateDialogShow: function(callback){
+      //       callback(1) // cause immediate click on 'Rate Now' button
+      //     },
+      //     onButtonClicked: function(buttonIndex){
+      //       console.log("onButtonClicked -> " + buttonIndex);
+      //     }
+      //   }
+      // };
+      //
+      // AppRate.promptForRating();
+
       // 1
       AppRate.preferences.useLanguage = 'en';
 
@@ -70,11 +109,12 @@ angular.module('app', ['ionic','ionic.cloud', 'app.controllers', 'app.routes', '
 
 // 4
 //       AppRate.preferences.storeAppURL.ios = '849930087';
-AppRate.preferences.storeAppURL.android = 'https://play.google.com/store/apps/details?id=com.labup.adotapet';
+      AppRate.preferences.storeAppURL.android = 'https://play.google.com/store/apps/details?id=com.labup.adotapet';
 
 // 5
-      AppRate.preferences.usesUntilPrompt = 3;
-      AppRate.promptForRating();
+      AppRate.preferences.usesUntilPrompt = 10;
+      // AppRate.promptForRating();
+      AppRate.promptForRating(false);
     })
 
     //Inicialização do Firebase
@@ -87,6 +127,8 @@ AppRate.preferences.storeAppURL.android = 'https://play.google.com/store/apps/de
     });
 
 })
+
+
 
 /*
  This directive is used to disable the "drag to open" functionality of the Side-Menu
