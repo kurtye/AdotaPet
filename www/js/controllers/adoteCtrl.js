@@ -1,8 +1,9 @@
-angular.module('adoteCtrls', []).controller('adoteCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'PetService', '$ionicLoading', 'ApoioService',
-    function ($scope, $stateParams, $state, $rootScope, PetService, $ionicLoading, ApoioService) {
+angular.module('adoteCtrls', []).controller('adoteCtrl', ['$scope', '$stateParams', '$state', 'PetService', '$ionicLoading', 'ApoioService',
+    function ($scope, $stateParams, $state, PetService, $ionicLoading, ApoioService) {
 
         $ionicLoading.show({
-            template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>'
+            template: '<ion-spinner icon="android" class="spinner-assertive"></ion-spinner>',
+            duration: 6000
         });
         var log = function (data1, data2) {
             console.log(data1, data2);
@@ -19,7 +20,7 @@ angular.module('adoteCtrls', []).controller('adoteCtrl', ['$scope', '$stateParam
             var val = snap.val();
             var obj = {"key": key, "val": snap.val()};
 
-            if (filtros.sexo == "" ||  filtros.sexo == val.sexo) {
+            if (filtros.sexo == "" || filtros.sexo == val.sexo) {
                 if (filtros.outros && val.especie == "Outros" || filtros.canina && val.especie == "Canina" || filtros.felina && val.especie == "Felina") {
                     if (val.estado == filtros.estado) {
                         pets.unshift(obj);
@@ -33,11 +34,11 @@ angular.module('adoteCtrls', []).controller('adoteCtrl', ['$scope', '$stateParam
         PetService.getPetsRef().on("child_removed", function (snap) {
 
             pets.forEach(function (item, index) {
-               if (item.key == snap.key) {
-                   log(item, index)
-                   pets.splice(index, 1);
-                   $scope.$apply();
-               }
+                if (item.key == snap.key) {
+                    log(item, index)
+                    pets.splice(index, 1);
+                    $scope.$apply();
+                }
             });
 
         });
