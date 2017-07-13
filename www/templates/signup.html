@@ -6,13 +6,42 @@
 
         <label class="item item-input item-floating-label">
           <span class="input-label">Nome</span>
-          <input type="text" ng-model="$parent.userSignup.displayname" id="display_name" placeholder="Nome">
+          <input type="text" ng-model="$parent.userSignup.displayname" id="display_name"  placeholder="Nome">
         </label>
 
-        <label class="item item-input item-floating-label">
-          <span class="input-label">Foto do Perfil</span>
-          <input type="text" ng-model="$parent.userSignup.photoprofile" id="photo_profile" placeholder="Foto">
-        </label>
+
+
+
+
+          <input type="text" ng-model="$parent.userSignup.photoprofile" value="" id="photo_profile" placeholder="Foto" class="ng-valid-parse">
+
+
+<!--<div id="photo_profile" ng-value="photo_profile" ng-model="$parent.userSignup.displayname"></div>-->
+
+
+        <div style="height: 60px;">
+
+          <p style="text-align: center">Escolha uma foto </p>
+
+          <label class="fileContainer">
+
+
+            <div class="row">
+              <div class="col text-center">
+                <i class="icon icon ion-camera" ></i>
+                <input type="file" class="upload" onchange="previewFile()" id="files" value="{{imgURL}}" name="files[]" multiple/>
+              </div>
+            </div>
+
+
+          </label>
+        </div>
+
+        <div style="width: 28%; margin: 0 auto;"><span id="linkbox"></span>
+          <input type="text" value="{{user.imgURL}}" name="imgURL" id="imgURL" ng-model="user.imgURL" required="required">
+        </div>
+
+
 
         <label class="item item-input item-floating-label">
           <span class="input-label">Email</span>
@@ -64,12 +93,14 @@
           <input type="text" ng-model="$parent.userSignup.cpassword" id="cuser_pass" placeholder="Senha">
         </label>
 
+
+
       </div>
       <div class="padding">
         <button type="submit" class="button button-block button-calm">Cadastrar</button>
       </div>
     </form>
-
+{{$parent.userSignup}}
 
   </ion-content>
 </ion-view>
