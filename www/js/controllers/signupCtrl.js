@@ -1,7 +1,60 @@
 angular.module('signupCtrls', []).controller('signupCtrl', ['$scope', '$stateParams', '$document', '$state', 'UsuarioService',
-    function ($scope, $stateParams, $document, $state, UsuarioService) {
+  '$rootScope',
+    function ($scope, $stateParams, $document, $state, UsuarioService, $rootScope) {
+
+
+
+      $scope.imgURL = document.getElementById("files");
+
+
+
+
+      //INICIO DO UPLOAD
+      window.previewFile = function previewFile() {
+        var storage = firebase.storage();
+
+        var file = document.getElementById("files").files[0];
+        console.log(file);
+
+        var storageRef = firebase.storage().ref();
+
+        //dynamically set reference to the file name
+
+          var thisRef = storageRef.child('images/users/' + file.name);
+
+
+
+        //put request upload file to firebase storage
+        thisRef.put(file).then(function (snapshot) {
+          var url = snapshot.downloadURL;
+
+          document.getElementById('linkbox').innerHTML = '<img src="' + url + '" style=" width: 100px; " />';
+
+          document.getElementById("photo_profile").value = url;
+
+          console.log(url);
+        });
+
+        //get request to get URL for uploaded file
+        thisRef.getDownloadURL().then(function (url) {
+
+
+
+          console.log(url);
+
+        })
+
+
+      };
+
+
+
 
         $scope.doSignup = function (userSignup) {
+
+
+
+
 
 
             if ($document[0].getElementById("cuser_name").value != "" && $document[0].getElementById("cuser_pass").value != "") {
@@ -22,7 +75,7 @@ angular.module('signupCtrls', []).controller('signupCtrl', ['$scope', '$statePar
 
                   name = userSignup.displayName;
                   email = userSignup.email;
-                  photoUrl = userSignup.photoURL;
+                  photoUrl = userSignup.imgUrl;
                   uid = userSignup.uid;
                   state = userSignup.state;
 
@@ -32,7 +85,7 @@ angular.module('signupCtrls', []).controller('signupCtrl', ['$scope', '$statePar
                   UsuarioService.setUser({
                     "displayName": userSignup.displayname,
                     "email": user.email,
-                    "imageUrl": user.photoURL,
+                    "imageUrl": document.getElementById("photo_profile").value,
                     "userId": user.uid,
                     "state": userSignup.state
 
@@ -42,7 +95,7 @@ angular.module('signupCtrls', []).controller('signupCtrl', ['$scope', '$statePar
 
                     user.updateProfile({
                         displayName: userSignup.displayname,
-                        photoURL: userSignup.photoprofile,
+                        imgURL: userSignup.imgURL,
                       state : userSignup.state
 
 

@@ -1,5 +1,5 @@
 angular.module('menuCtrls', [])
-  .controller('menuCtrl', ['$scope', '$stateParams', '$rootScope', 'UsuarioService', '$state','$ionicSideMenuDelegate',
+  .controller('menuCtrl', ['$scope', '$stateParams', '$rootScope', 'UsuarioService', '$state', '$ionicSideMenuDelegate',
     function ($scope, $stateParams, $rootScope, UsuarioService, $state, $ionicSideMenuDelegate) {
 
 
@@ -15,22 +15,42 @@ angular.module('menuCtrls', [])
 
       };
 
-$scope.fecharMenu = function () {
-  $ionicSideMenuDelegate.toggleLeft()
+      $scope.addTexto = function (texto) {
 
-}
+        firebase.database().ref('relatarBugs/').push(texto)
+        $scope.texto = {}
 
-     $scope.callbacks = function() {
+        swal({
+            title: 'Obrigado',
+            text: "Sua opinião é muito importante",
+            type: 'success',
+            showConfirmButton: false,
+            timer: 1000
+          }
+        );
 
-          window.open('mailto:kurtyebsb@gmail.com','_system');
 
-        }
+      }
 
+      $scope.fecharMenu = function () {
+        $ionicSideMenuDelegate.toggleLeft()
 
+      }
+
+      $scope.callbacks = function () {
+
+        window.open('mailto:kurtyebsb@gmail.com', '_system');
+
+      }
+
+      $scope.rateApp = function () {
+        AppRate.promptForRating(true);
+
+      }
 
       $scope.doLogout = function () {
         localStorage.clear();
-        $ionicSideMenuDelegate.toggleLeft();
         $state.go('login');
+        $ionicSideMenuDelegate.toggleLeft()
       };
     }]);

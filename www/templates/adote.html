@@ -5,15 +5,15 @@
     </button>
     </a>
   </ion-nav-buttons>
-    <ion-content class="has-header" style="background: url('../img/back-home.jpg') no-repeat">
+    <ion-content class="has-header" >
 
 
         <div class="row responsive-sm">
-          <div class="box" ng-hide="pets.length > 1" >
+          <div class="box" ng-show="pets.length < 1" >
 
-            <p style="text-align: center; margin-top: 100px;">Nenhum PET Disponível no momento</p>
+            <p style="text-align: center; margin-top: 100px;">Nenhum PET Disponível no Momento...</p>
 
-            <p style="text-align: center;">Tente buscar por outro estado mais próximo</p>
+            <p style="text-align: center;">Use o Filtro e Veja Mais Opções</p>
 
 
             <a href="#/filtros" button class="button button-full button-assertive" >
@@ -29,7 +29,7 @@
 
 
 
-              <p>{{pet.length}}</p>
+
               <div class="card">
                     <div class="item item-image">
                         <img src="{{pet.val.imgURL}}">

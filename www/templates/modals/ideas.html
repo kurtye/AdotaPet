@@ -3,7 +3,7 @@
     <button class="button button-clear button-primary" ng-click="fechar()" style="font-size: 30px;">
       <i class="ion-ios-close"></i></button>
   </ion-nav-buttons>
-  <ion-content padding="true" class="has-header">
+  <ion-content padding="true" class="has-header" ng-controller="menuCtrl">
     <div class="item item-body">
       <p style="text-align: justify;">
         Aqui você pode relatar problemas, trazer ideias novas,
@@ -28,11 +28,12 @@
     <label class="item item-input item-stacked-label" style="margin: 20px;">
       <span class="input-label" >Envie sua idea ou relate um problema</span>
 
-      <textarea placeholder="Comente Aqui" rows="8" cols="10">
+      <textarea placeholder="Comente Aqui" rows="8" cols="10" ng-model="texto.texto">
+
 	</textarea>
     </label>
 
-    <button class="button button-block button-assertive">
+    <button class="button button-block button-assertive" ng-click="addTexto(texto)">
       Enviar
     </button>
 

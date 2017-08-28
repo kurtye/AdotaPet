@@ -1,4 +1,4 @@
-<ion-view hide-back-button="false" title="Signup" hide-nav-bar="false" >
+<ion-view hide-back-button="false" title="Signup" hide-nav-bar="false">
   <ion-content class="has-header">
 
     <form name="form_signup" ng-submit="doSignup(userSignup)" novalidate>
@@ -9,10 +9,38 @@
           <input type="text" ng-model="$parent.userSignup.displayname" id="display_name" placeholder="Nome">
         </label>
 
-        <label class="item item-input item-floating-label">
-          <span class="input-label">Foto do Perfil</span>
-          <input type="text" ng-model="$parent.userSignup.photoprofile" id="photo_profile" placeholder="Foto">
-        </label>
+
+        <input type="text" ng-model="$parent.userSignup.photoprofile" value="" id="photo_profile"
+               class="ng-valid-parse">
+
+
+        <!--<div id="photo_profile" ng-value="photo_profile" ng-model="$parent.userSignup.displayname"></div>-->
+
+
+        <div style="height: 60px;">
+
+          <p style="text-align: center">Escolha uma foto </p>
+
+          <label class="fileContainer">
+
+
+            <div class="row">
+              <div class="col text-center">
+                <i class="icon icon ion-camera"></i>
+                <input type="file" class="upload" onchange="previewFile()" id="files" value="{{imgURL}}" name="files[]"
+                       multiple/>
+              </div>
+            </div>
+
+
+          </label>
+        </div>
+
+        <div style="width: 28%; margin: 0 auto;"><span id="linkbox"></span>
+          <input type="text" value="{{user.imgURL}}" name="imgURL" id="imgURL" ng-model="user.imgURL"
+                 required="required">
+        </div>
+
 
         <label class="item item-input item-floating-label">
           <span class="input-label">Email</span>
@@ -22,7 +50,7 @@
         <label class="item item-input item-select">
 
           <div class="input-label">
-            Estado
+            <span class="input-label">Estado</span>
           </div>
           <select ng-model="$parent.userSignup.state" id="state" required="required">
             <option value="">Selecione</option>
@@ -59,10 +87,30 @@
 
       </div>
 
-        <label class="item item-input item-floating-label">
-          <span class="input-label">Senha</span>
-          <input type="text" ng-model="$parent.userSignup.cpassword" id="cuser_pass" placeholder="Senha">
-        </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Senha</span>
+
+        <input ng-show="showpassword" type="text" ng-model="$parent.userSignup.cpassword" id="cuser_pass"
+               placeholder="Senha">
+        <input ng-hide="showpassword" type="password" ng-model="$parent.userSignup.cpassword" id="cuser_pass"
+               placeholder="Senha">
+
+
+      </label>
+
+
+      <ul class="list">
+
+        <li class="item item-toggle">
+          Mostrar Senha
+          <label class="toggle toggle-assertive">
+            <input type="checkbox" type="checkbox" ng-model="showpassword" ng-checked="false">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+      </ul>
 
       </div>
       <div class="padding">

@@ -339,32 +339,6 @@ angular.module('loginCtrls', ['ionic.cloud', 'ionic.native'])
 
                 var authResponse = response.authResponse;
 
-
-                // auth enviando para o firebase
-              var credential = firebase.auth.FacebookAuthProvider.credential(
-                response.authResponse.accessToken);
-
-              auth.currentUser.link(credential).then(function(user) {
-                console.log("Account linking success", user);
-              }, function(error) {
-                console.log("Account linking error", error);
-              });
-
-              // Get reference to the currently signed-in user
-              var prevUser = auth.currentUser;
-// Sign in user with another account
-              auth.signInWithCredential(credential).then(function(user) {
-                console.log("Sign In Success", user);
-                var currentUser = user;
-                // Merge prevUser and currentUser accounts and data
-                // ...
-              }, function(error) {
-                console.log("Sign In Error", error);
-              });
-
-              //fim do auth firebase
-
-
                 getFacebookProfileInfo(authResponse)
                     .then(function (profileInfo) {
                         // For the purpose of this example I will store user data on local storage
@@ -376,10 +350,15 @@ angular.module('loginCtrls', ['ionic.cloud', 'ionic.native'])
                             email: profileInfo.email,
                           city: profileInfo.location,
                             picture: "http://graph.facebook.com/" + authResponse.userID + "/picture?type=large"
+
+
                         });
 
                         $ionicLoading.hide();
-                        $state.go("tabs.adote");
+
+
+
+                      $state.go('tabs.adote');
                         console.log(profileInfo)
 
 
@@ -413,20 +392,25 @@ angular.module('loginCtrls', ['ionic.cloud', 'ionic.native'])
 
             //This method is executed when the user press the "Login with facebook" button
             $scope.facebookSignIn = function () {
+
                 facebookConnectPlugin.getLoginStatus(function (success) {
                     if (success.status === 'connected') {
 
-                        $ionicFacebookAuth.login().then(
-                            function (response) {
-                              $state.go("tabs.adote");
-                                console.log('response ' + response);
+                        // $ionicFacebookAuth.login().then(
+                        //     function (response) {
+                        //
+                        //         console.log('response ' + response);
+                        //       // $state.go("tabs.adote");
+                        //
+                        //     });
 
-                            });
                         // The user is logged in and has authenticated your app, and response.authResponse supplies
                         // the user's ID, a valid access token, a signed request, and the time the access token
                         // and signed request each expire
-                        console.log('getLoginStatus', success.status);
+
+                        // console.log('getLoginStatus', success.status);
                         var user = UsuarioService.getUser();
+
 
                         $rootScope.usuario = user;
                         // Check if we have our user saved
