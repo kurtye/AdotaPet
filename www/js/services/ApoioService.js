@@ -30,7 +30,7 @@ angular.module('ApoioServices', [])
                     "canina": true,
                     "felina": true,
                     "outros": true,
-                    "estado": user.state ? user.state : "DF",
+                    "estado": user.state ? user.state : "SP",
                     "sexo": ""
                 };
                 return filtros;
