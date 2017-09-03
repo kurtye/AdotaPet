@@ -1,46 +1,44 @@
 <ion-view title="Adote" id="adote">
   <ion-nav-buttons side="right">
-    <a  href="#/filtros">
-    <button class="button button-icon button-clear ion-android-funnel" menu-toggle="right">
-    </button>
+    <a href="#/filtros">
+      <button class="button button-icon button-clear ion-android-funnel" menu-toggle="right">
+      </button>
     </a>
   </ion-nav-buttons>
-    <ion-content class="has-header" >
+  <ion-content class="has-header" scroll="true">
 
 
-        <div class="row responsive-sm">
-          <div class="box" ng-show="pets.length < 1" >
+    <div class="row responsive-sm">
+      <div class="box" ng-show="pets.length < 1">
 
-            <p style="text-align: center; margin-top: 100px;">Nenhum PET Disponível no Momento...</p>
+        <p style="text-align: center; margin-top: 100px;">Nenhum PET Disponível no Momento...</p>
 
-            <p style="text-align: center;">Use o Filtro e Veja Mais Opções</p>
-
-
-            <a href="#/filtros" button class="button button-full button-assertive" >
-             Filtrar
-            </a>
+        <p style="text-align: center;">Use o Filtro e Veja Mais Opções</p>
 
 
+        <a href="#/filtros" button class="button button-full button-assertive">
+          Filtrar
+        </a>
+
+
+      </div>
+
+
+      <div class="col-50" ng-click="detalharPet(pet.key)" ng-repeat="(key , pet) in pets">
+
+        <div class="card">
+          <div class="item item-image">
+            <img src="{{pet.val.imgURL}}" style="height: auto">
           </div>
-
-
-            <div class="col-50" ng-click="detalharPet(pet.key)" ng-repeat="(key , pet) in pets">
-
-
-
-
-
-              <div class="card">
-                    <div class="item item-image">
-                        <img src="{{pet.val.imgURL}}">
-                    </div>
-                    <ion-item>
-                        <h2>{{pet.val.nome}}</h2>
-                        <p>{{pet.val.raca}}</p>
-                    </ion-item>
-
-                </div>
-            </div>
+          <ion-item class="row item">
+            <span class="col-50 ng-binding ion-ios-paw icon-left" style="text-align: center;"> {{pet.val.nome}}</span>
+            <span class="col-50 ng-binding ion-social-octocat icon-left" style="text-align: center;"> {{pet.val.raca}}</span>
+            <span class="col-50 ng-binding ion-ios-location icon-left" style="text-align: center;"> {{pet.val.estado}} </span>
+          </ion-item>
         </div>
-    </ion-content>
+
+
+      </div>
+    </div>
+  </ion-content>
 </ion-view>
