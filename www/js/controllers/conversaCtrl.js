@@ -15,7 +15,7 @@ angular.module('conversaCtrls', []).controller('conversaCtrl', ['$scope', '$root
             messages.push(snap.val());
             $scope.$apply();
             $ionicScrollDelegate.resize();
-            $ionicScrollDelegate.scrollBottom(true);
+            $ionicScrollDelegate.scrollBottom();
         });
 
 
@@ -25,9 +25,5 @@ angular.module('conversaCtrls', []).controller('conversaCtrl', ['$scope', '$root
             $scope.msg = '';
 
         };
-
-
-        $ionicScrollDelegate.resize();
-        $ionicScrollDelegate.scrollBottom(true);
 
     }]);

@@ -2,7 +2,7 @@ angular.module('chatCtrls', []).controller('chatCtrl', ['$scope', '$rootScope', 
     function ($scope, $rootScope, $state, ChatService, $ionicLoading) {
 
         $ionicLoading.show({
-            template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>',
+            template: '<ion-spinner icon="android" class="spinner-assertive"></ion-spinner>',
             animation: 'fade-in',
             showBackdrop: true,
             maxWidth: 200,

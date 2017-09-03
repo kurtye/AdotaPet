@@ -14,11 +14,11 @@ angular.module('filtrosCtrls', []).controller('filtroCtrl', ['$scope', '$rootSco
         }
       );
       $state.go('tabs.adote', {}, {reload: true});
+
     };
 
     $scope.fechar = function () {
       $state.go('tabs.adote', {}, {reload: true});
-
     };
 
 
