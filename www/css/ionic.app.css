@@ -3460,6 +3460,7 @@ textarea {
 
 img {
     -webkit-user-drag: none;
+  width: 100%;
 }
 
 /* ==========================================================================
@@ -7412,7 +7413,7 @@ button.item.item-button-right {
 .card,
 .list-inset {
     overflow: hidden;
-    margin: 20px 10px;
+    margin: 10px;
     border-radius: 2px;
     background-color: #fff;
 }
@@ -7459,6 +7460,8 @@ button.item.item-button-right {
 .card .item:last-child,
 .list-inset .item:last-child {
     margin-bottom: -1px;
+  background: #ef4e3a;
+  color: #fff;
 }
 
 .card .item,
@@ -11184,8 +11187,7 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
         -moz-flex: 1;
         -ms-flex: 1;
         flex: 1;
-        margin-bottom: 15px;
-        margin-left: 0;
+      margin:3px;
         max-width: 100%;
         width: 100%;
     }
