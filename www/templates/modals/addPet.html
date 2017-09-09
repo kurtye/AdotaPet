@@ -22,7 +22,7 @@
             <div class="row">
               <div class="col text-center">
                 <i class="icon icon ion-camera" ></i>
-                <input type="file" class="upload" onchange="previewFile()" id="files" value="{{imgURL}}" name="files[]" multiple/>
+                <input type="file" class="upload"  resize-max-height="200" resize-max-width="200" resize-quality="0.8" resize-type="image/jpg" ng-image-compress onchange="previewFile()" id="files" value="{{imgURL}}" name="files[]" multiple/>
               </div>
             </div>
 
@@ -31,7 +31,7 @@
           </div>
 
             <div style="width: 28%; margin: 0 auto;"><span id="linkbox"></span>
-                <input type="text" value="{{pet.imgURL}}" name="imgURL" id="imgURL" ng-model="pet.imgURL" required="required">
+                <input type="text" value="{{pet.compress.imgURL}}" name="imgURL" id="imgURL" ng-model="pet.imgURL" required="required">
             </div>
 
             <div class="list">
@@ -125,9 +125,14 @@
                     </select>
                 </label>
 
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Whatsapp</span>
+                <input type="number" placeholder="Número Whatsapp Opcional" ng-model="pet.whatsapp">
+              </label>
+
                 <label class="item item-input item-stacked-label">
                     <span class="input-label">Informações Adicionais</span>
-                    <input type="text" placeholder="" ng-model="pet.descricao" required="required">
+                    <input type="text" placeholder="Conte-nos um pouco sobre o PET" ng-model="pet.descricao" required="required">
                 </label>
 
 
