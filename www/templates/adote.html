@@ -15,11 +15,9 @@
 
         <p style="text-align: center;">Use o Filtro e Veja Mais Opções</p>
 
-
         <a href="#/filtros" button class="button button-full button-assertive">
           Filtrar
         </a>
-
 
       </div>
 
@@ -28,12 +26,16 @@
 
         <div class="card">
           <div class="item item-image">
-            <img src="{{pet.val.imgURL}}" style="height: auto">
+
+            <img src="{{pet.val.imgURL}}">
+
           </div>
-          <ion-item class="row item">
+          <ion-item class="row item" style="background:#ef4e3a; color:#fff; ">
             <span class="col-50 ng-binding ion-ios-paw icon-left" style="text-align: center;"> {{pet.val.nome}}</span>
-            <span class="col-50 ng-binding ion-social-octocat icon-left" style="text-align: center;"> {{pet.val.raca}}</span>
-            <span class="col-50 ng-binding ion-ios-location icon-left" style="text-align: center;"> {{pet.val.estado}} </span>
+            <span class="col-50 ng-binding ion-social-octocat icon-left"
+                  style="text-align: center;"> {{pet.val.raca}}</span>
+            <span class="col-50 ng-binding ion-ios-location icon-left"
+                  style="text-align: center;"> {{pet.val.estado}} </span>
           </ion-item>
         </div>
 
