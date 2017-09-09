@@ -1,51 +1,51 @@
-<ion-view style="" title="Chats">
-    <ion-content class="has-header">
+<ion-view style="" title="Chats" id="chat">
+  <ion-content class="has-header">
 
-        <ion-item>
-            <a class="tab-item">
-                Mensagens Enviadas
-            </a>
-        </ion-item>
+    <ion-item>
+      <a class="tab-item">
+        Mensagens Enviadas
+      </a>
+    </ion-item>
 
-        <ion-list style="">
-            <ion-item class="item-remove-animate item-avatar item-icon-right assertive"
-                      ng-repeat="(key, chat) in salasEnvios"
-                      type="item-text-wrap" ng-click="abrirChat(chat)">
-                <img ng-src="{{chat.imagePet}}">
-                <h2>{{chat.nomePet}}</h2>
-                <p>{{chat.nomeDono}}</p>
-                <i class="icon ion-chevron-right icon-accessory"></i>
+    <ion-list style="">
+      <ion-item class="item-remove-animate item-avatar item-icon-right assertive"
+                ng-repeat="(key, chat) in salasEnvios"
+                type="item-text-wrap" ng-click="abrirChat(chat)">
+        <img ng-src="{{chat.imagePet}}">
+        <h2>{{chat.nomePet}}</h2>
+        <p>{{chat.nomeDono}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
 
-                <ion-option-button class="button-assertive" ng-click="remove(chat)">
-                    Delete
-                </ion-option-button>
+        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+          Delete
+        </ion-option-button>
 
-            </ion-item>
-        </ion-list>
+      </ion-item>
+    </ion-list>
 
-        <ion-item>
-            <a class="tab-item">
-                Mensagens Recebidas
-            </a>
-        </ion-item>
+    <ion-item>
+      <a class="tab-item">
+        Mensagens Recebidas
+      </a>
+    </ion-item>
 
-        <ion-list style="">
-            <ion-item class="item-remove-animate item-avatar item-icon-right assertive"
-                      ng-repeat="(key, chat) in salasRecebidas"
-                      type="item-text-wrap" ng-click="abrirChat(chat)">
-                <img ng-src="{{chat.imagePet}}">
-                <h2>{{chat.nomePet}}</h2>
-                <h3>{{chat.nomeInteressado}}</h3>
-                <i class="icon ion-chevron-right icon-accessory"></i>
+    <ion-list style="">
+      <ion-item class="item-remove-animate item-avatar item-icon-right assertive"
+                ng-repeat="(key, chat) in salasRecebidas"
+                type="item-text-wrap" ng-click="abrirChat(chat)">
+        <img ng-src="{{chat.imagePet}}">
+        <h2>{{chat.nomePet}}</h2>
+        <h3>{{chat.nomeInteressado}}</h3>
+        <i class="icon ion-chevron-right icon-accessory"></i>
 
-                <ion-option-button class="button-assertive" ng-click="remove(chat)">
-                    Delete
-                </ion-option-button>
+        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+          Delete
+        </ion-option-button>
 
-            </ion-item>
-        </ion-list>
+      </ion-item>
+    </ion-list>
 
 
-    </ion-content>
+  </ion-content>
 
 </ion-view>
