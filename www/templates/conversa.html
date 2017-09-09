@@ -1,29 +1,28 @@
 <ion-view ng-controller="conversaCtrl" title="Bate -Papo">
-    <ion-header-bar class="bar bar-header bar-positive">
-        <h1 class="title">Bate - Papo</h1>
-        <button class="button button-clear button-primary" ng-click="modal.hide()">Fechar</button>
-    </ion-header-bar>
-    <ion-content>
+  <ion-header-bar class="bar bar-header bar-positive">
+    <h1 class="title">Bate - Papo</h1>
+    <button class="button button-clear button-primary" ng-click="modal.hide()">Fechar</button>
+  </ion-header-bar>
+  <ion-content>
 
-        <div ng-repeat="message in messages track by $index" ng-class="{other: message.autor != myId}" class="messages">
+    <div ng-repeat="message in messages track by $index" ng-class="{other: message.autor != myId}" class="messages">
 
-            <span>{{ message.msg }}</span>
+      <span>{{ message.msg }}</span>
 
-        </div>
+    </div>
 
+  </ion-content>
 
-    </ion-content>
-
-    <form name="sendMessageForm" ng-submit="sendMessage(msg)" novalidate>
-        <ion-footer-bar class="bar-stable item-input-inset message-footer" keyboard-attach>
-            <label class="item-input-wrapper">
-                <input id="msg-input" ng-model="msg" class="input-message" type="text" placeholder="Message">
-            </label>
-            <div class="footer-btn-wrap">
-                <button class="button button-icon icon ion-ios-paperplane footer-btn" type="submit"
-                        ng-disabled="!msg || msg === ''">
-                </button>
-            </div>
-        </ion-footer-bar>
-    </form>
+  <form name="sendMessageForm" ng-submit="sendMessage(msg)" novalidate>
+    <ion-footer-bar class="bar-stable item-input-inset message-footer" keyboard-attach>
+      <label class="item-input-wrapper">
+        <input id="msg-input" ng-model="msg" class="input-message" type="text" placeholder="Message">
+      </label>
+      <div class="footer-btn-wrap">
+        <button class="button button-icon icon ion-ios-paperplane footer-btn" type="submit"
+                ng-disabled="!msg || msg === ''">
+        </button>
+      </div>
+    </ion-footer-bar>
+  </form>
 </ion-view>
