@@ -64,7 +64,7 @@ exports.generateThumbnail = functions.storage.object()
                 const thumbFile = bucket.file(thumbFilePath)
                 const config = {
                   action: 'read',
-                  expires: '03-09-2030'
+                  expires: '03-09-2025'
                  }
                  return Promise.all([
                    thumbFile.getSignedUrl(config),
@@ -75,45 +75,15 @@ exports.generateThumbnail = functions.storage.object()
             const originalResult = results[1]
             const thumbFileUrl   = thumbResult[0]
             const fileUrl        = originalResult[0]
-            console.log(object)
-            return ref.child('adocao/pets/' + tempFilePath).set({thumbnail: thumbFileUrl})
-            })
+
+            var key = filePath.substr(14,20)
+            console.log(key)
+            return ref.child('adocao/pets/' + key).update({thumbnail: thumbFileUrl})
+          })
     })
 
 // TODO: Make sure you configure the 'dev_motivator.device_token' Google Cloud environment variables.
 const deviceToken = functions.config().dev_motivator.device_token;
-
-/**
- * Triggers when the app is opened the first time in a user device and sends a notification to your developer device.
- *
- * The device model name, the city and the country of the user are sent in the notification message
- */
-exports.appinstalled = functions.analytics.event('first_open').onLog(event => {
-        const payload = {
-            notification: {
-                title: 'voce tem um novo usuário \uD83D\uDE43',
-                body: event.data.user.deviceInfo.mobileModelName + ' from ' + event.data.user.geoInfo.city + ', ' + event.data.user.geoInfo.country
-            }
-        }
-
-admin.messaging().sendToDevice(deviceToken, payload)
-})
-
-/**
- * Triggers when the app is removed from the user device and sends a notification to your developer device.
- *
- * The device model name, the city and the country of the user are sent in the notification message
- */
-exports.appremoved = functions.analytics.event('app_remove').onLog(event => {
-        const payload = {
-            notification: {
-                title: 'you lost a user \uD83D\uDE1E',
-                body: event.data.user.deviceInfo.mobileModelName + ' from ' + event.data.user.geoInfo.city + ', ' + event.data.user.geoInfo.country
-            }
-        };
-
-admin.messaging().sendToDevice(deviceToken, payload);
-})
 
 // Deletes the user data in the Realtime Datastore when the accounts are deleted.
 exports.cleanupUserData = functions.auth.user().onDelete(event => {
