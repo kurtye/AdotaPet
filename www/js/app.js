@@ -1,6 +1,8 @@
-angular.module('app', ['ionic','ionic.cloud', 'app.controllers', 'app.routes', 'app.directives', 'app.services', 'app.configs', 'ngAnimate'])
+angular.module('app', ['ionic','ionic.cloud', 'app.controllers', 'app.routes', 'app.directives', 'app.services',
+  'app.configs', 'ngAnimate', 'ngImageCompress',])
 
-    .config(['$httpProvider', '$ionicConfigProvider', '$sceDelegateProvider', '$stateProvider', '$ionicCloudProvider', function ($httpProvider, $ionicConfigProvider, $sceDelegateProvider, $stateProvider, $ionicCloudProvider) {
+    .config(['$httpProvider', '$ionicConfigProvider', '$sceDelegateProvider', '$stateProvider', '$ionicCloudProvider',
+      function ($httpProvider, $ionicConfigProvider, $sceDelegateProvider, $stateProvider, $ionicCloudProvider) {
         $stateProvider
 
             .state('menu', {
