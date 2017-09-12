@@ -13,13 +13,13 @@ angular.module('adoteCtrls', []).controller('adoteCtrl', ['$scope', '$stateParam
     };
 
     $scope.$on('$ionicView.enter', function () {
-
       var pets = [];
       $scope.pets = pets;
 
-      log('entrou na viewwwww')
+
       var filtros = ApoioService.getFiltros();
       PetService.getPetsRef().on("child_added", function (snap) {
+
         var key = snap.key;
         var val = snap.val();
         var obj = {"key": key, "val": snap.val()};
@@ -36,20 +36,23 @@ angular.module('adoteCtrls', []).controller('adoteCtrl', ['$scope', '$stateParam
 
       });
 
-    });
+      PetService.getPetsRef().on("child_removed", function (snap) {
 
+        pets.forEach(function (item, index) {
+          console.log(item.key);
+          if (item.key == snap.key) {
+            log(item, index)
+            pets.splice(index, 1);
+            $scope.$apply();
+          }
+        });
 
-    PetService.getPetsRef().on("child_removed", function (snap) {
-
-      pets.forEach(function (item, index) {
-        if (item.key == snap.key) {
-          log(item, index)
-          pets.splice(index, 1);
-          $scope.$apply();
-        }
       });
 
     });
+
+
+
 
 
     $scope.detalharPet = function (id) {
