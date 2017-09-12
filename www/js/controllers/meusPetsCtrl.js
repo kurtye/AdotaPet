@@ -64,7 +64,7 @@ angular.module('meusPetsCtrls', []).controller('meusPetsCtrl', ['$scope', '$root
 
       swal({
         title: 'Você tem certeza?',
-        text: "O pet ira aparecer novamente na lista para adoção!",
+        text: "O pet irá aparecer novamente na lista para adoção!",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
