@@ -28,8 +28,7 @@ angular.module('loginCtrls', ['ionic.cloud', 'ionic.native'])
       }
       else {
         $state.go('login');
-      }
-      ;
+      };
 
       $scope.doLogin = function (userLogin) {
 
@@ -113,65 +112,46 @@ angular.module('loginCtrls', ['ionic.cloud', 'ionic.native'])
 
       //GOOGLE login Nativo
 
+      //teste 2
+
       $scope.doLoginGoogle = function () {
+
+        $ionicLoading.show({
+          template: 'Logging in...'
+        });
 
         window.plugins.googleplus.login(
           {
-            'auth': {
+
               'google': {
                 'scopes': 'https://www.googleapis.com/auth/plus.me',
-                'offline': false,
+                'offline': true,
                 'webClientId': '908321839770-i7ri4c8f42h13i87cbnup9s1krnm22fs.apps.googleusercontent.com'
-              }
+
             }
           },
 
 
-          function (user) {
+            function (obj) {
 
-            var name, email, imageUrl, uid, idToken;
+              UsuarioService.setUser({
+                "displayName": obj.displayName,
+                "email": obj.email,
+                "imageUrl": obj.imageUrl,
+                "userId": obj.userId
 
-
-            if (user != null) {
-
+              });
               $state.go("tabs.adote");
-              console.debug(user);
-
-              name = user.displayName;
-              email = user.email;
-              imageUrl = user.imageUrl;
-              uid = user.userId;
-              idToken = user.idToken;
-              // The user's ID, unique to the Firebase project. Do NOT use
-              // this value to authenticate with your backend server, if
-
-              // you have one. Use User.getToken() instead.
-
-              // firebase.database().ref('usuarios/' + user.userId).set(user);
-
-              //                UsuarioService.setUser({
-              //   "displayName": user.displayName,
-              //   "email": user.email,
-              //   "imageUrl": user.imageUrl,
-              //   "userId": user.userId,
-              //   // "state": profileInfo.location.location.state,
-              //   // "location" : profileInfo.location.location
-              //
-              //
-              // });
-
-
-              $state.go("tabs.adote");
-
+              $ionicLoading.hide();
+              $scope.$apply();
+              // do something useful instead of alerting
+            },
+            function (msg) {
+              $ionicLoading.hide();
+              alert('error: ' + msg);
             }
-            $state.go("tabs.adote");
+          );
 
-
-          },
-          function (msg) {
-            console.debug(msg);
-          }
-        );
       }
 
 
