@@ -4,6 +4,7 @@ angular.module('menuCtrls', [])
 
 
       $scope.usuario = UsuarioService.getUser() ? UsuarioService.getUser() : {"userId": 'default'};
+      $scope.$apply();
 
       console.log($scope.usuario)
 
