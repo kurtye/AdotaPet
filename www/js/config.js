@@ -1,7 +1,3 @@
-/**
- * Created by Marlon on 02/04/2017.
- */
-
 angular.module('app.configs', [])
 
   .constant("CONFIG", {
@@ -12,6 +8,3 @@ angular.module('app.configs', [])
     // "FIREBASE_PROJECT_ID":'adotapet-476b5',
     "MESSAGE_SENDER_ID": '31439353449'
   });
-
-
-
