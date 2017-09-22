@@ -68,7 +68,7 @@ angular.module('PetServices', [])
 
       if (key && pet.user.id && pet.imgURL) {
 
-        return firebase.database().ref('adocao/pets/' + key).set(pet);
+        return firebase.database().ref('adocao/pets/' + key).update(pet);
       }
 
     };
@@ -118,7 +118,7 @@ angular.module('PetServices', [])
       if (!petImgUrl) {
         return false;
       }
-      var storageRef = firebase.storage().ref();
+      var storageRef = firebase.storage().ref('images/adocao/' + key);
 
       var thumb = 'thumb_' + petImgUrl;
       //dynamically set reference to the file name
