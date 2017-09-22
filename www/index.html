@@ -123,13 +123,13 @@
             </ion-nav-bar>
             <ion-nav-view></ion-nav-view>
         </ion-side-menu-content>
-        <ion-side-menu side="left" id="side-menu">
+        <ion-side-menu side="left" id="side-menu" >
             <ion-header-bar class="bar-assertive">
                 <div class="title">Menu</div>
             </ion-header-bar>
             <ion-content padding="false" class="side-menu-left has-header" ng-controller="menuCtrl">
                 <ion-list id="menu-list8" data-componentid="list8">
-                    <ion-item class="item-avatar">
+                    <ion-item class="item-avatar" ng-model="usuario">
 
                                                 <img src="{{usuario.imageUrl}}">
                                                 <h2>{{usuario.displayName}}</h2>
