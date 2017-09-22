@@ -36,22 +36,44 @@ angular.module('addPetCtrls', []).controller('addPetCtrl', ['$scope', '$statePar
 
 
       //put request upload file to firebase storage
-      thisRef.put(file).then(function (snapshot) {
-        var url = snapshot.downloadURL;
+      uploadTask = thisRef.put(file);
 
+      uploadTask.on('state_changed', function (snapshot) {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        updateProgress(progress);
+        //console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+          case firebase.storage.TaskState.PAUSED: // or 'paused'
+            console.log('Upload is paused');
+            break;
+          case firebase.storage.TaskState.RUNNING: // or 'running'
+            console.log('Upload is running');
+            break;
+        }
+        if (progress == 100) {
+          // quando estiver 100 upado a imagem, zera o loading pro circulo sumir;
+          updateProgress(0);
+        }
+      }, function (error) {
+        // Handle unsuccessful uploads
+        console.log(error.code)
+      }, function () {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        var downloadURL = uploadTask.snapshot.downloadURL;
 
-        document.getElementById('linkbox').innerHTML = '<img src="' + url + '" style=" width: 100px; " />';
-
-
-        $scope.pet.imgURL = url;
-        console.log(url);
+        document.getElementById('linkbox').innerHTML = '<img src="' + downloadURL + '" style=" width: 100px; " />';
+        $scope.pet.imgURL = downloadURL;
+        console.log(downloadURL);
       });
 
-      //get request to get URL for uploaded file
-      thisRef.getDownloadURL().then(function (url) {
-
-        console.log(url);
-      })
+      var updateProgress = function (percent) {
+        console.log(percent);
+        $scope.progress = percent;
+        $scope.$apply();
+      }
 
     };
 
