@@ -10,6 +10,8 @@ angular.module('UsuarioServices', [])
             window.localStorage.starter_facebook_user = JSON.stringify(user_data);
 
             firebase.database().ref('usuarios/' + user_data.userId).set(user_data);
+
+            console.log(window.localStorage.starter_facebook_user)
         };
 
       this.updateUser = function (user_data) {
