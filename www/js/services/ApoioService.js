@@ -43,7 +43,7 @@ angular.module('ApoioServices', [])
         };
 
         var aCaninos = [
-            "Sem Raça Definida (SRD)",
+            "(SRD)",
             "Afegão Hound",
             "Affenpinscher",
             "Airedale Terrier",
@@ -132,7 +132,7 @@ angular.module('ApoioServices', [])
         ];
 
         var aFelinos = [
-            "Sem Raça Definida (SRD)",
+            "(SRD)",
             "Persa",
             "Siamês",
             "Himalaia",
