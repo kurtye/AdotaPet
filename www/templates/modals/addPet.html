@@ -16,14 +16,14 @@
       <div style="height: 60px;">
         <p style="text-align: center">Escolha uma foto </p>
 
+
         <label class="fileContainer">
 
 
           <div class="row">
             <div class="col text-center">
               <i class="icon icon ion-camera"></i>
-              <input type="file" class="upload" resize-max-height="200" resize-max-width="200" resize-quality="0.8"
-                     resize-type="image/jpg" ng-image-compress onchange="previewFile()" id="files" value="{{imgURL}}"
+              <input type="file" class="upload" onchange="previewFile()" id="files" value="{{imgURL}}"
                      name="files[]" multiple/>
             </div>
           </div>
@@ -32,8 +32,9 @@
         </label>
       </div>
 
+
       <div style="width: 28%; margin: 0 auto;"><span id="linkbox"></span>
-        <input type="text" value="{{pet.compress.imgURL}}" name="imgURL" id="imgURL" ng-model="pet.imgURL"
+        <input type="text" value="{{pet.imgURL}}" name="imgURL" id="imgURL" ng-model="pet.imgURL"
                required="required">
       </div>
 
@@ -129,18 +130,16 @@
         </label>
 
         <label class="item item-input item-stacked-label">
-          <span class="input-label">Whatsapp</span>
-          <input type="number" placeholder="Número Whatsapp Opcional" ng-model="pet.whatsapp">
-        </label>
-
-        <label class="item item-input item-stacked-label">
           <span class="input-label">Informações Adicionais</span>
-          <input type="text" placeholder="Conte-nos um pouco sobre o PET" ng-model="pet.descricao" required="required">
+          <input type="text" placeholder="" ng-model="pet.descricao" required="required">
         </label>
 
 
-        <button type="submit" class="button button-block button-assertive" ng-disabled="form.$invalid || form.$pending">
+        <button type="submit" class="button button-block button-assertive"
+                ng-disabled="form.$invalid || form.$pending">
           Publicar
+          <md-progress-circular md-mode="determinate" value="{{progress}}"></md-progress-circular>
+
         </button>
       </div>
     </form>
