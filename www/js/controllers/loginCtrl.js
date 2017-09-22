@@ -6,7 +6,7 @@ angular.module('loginCtrls', ['ionic.cloud', 'ionic.native'])
               UsuarioService, $q,
               $ionicFacebookAuth, $ionicGoogleAuth, $cordovaGooglePlus, $ionicSideMenuDelegate) {
 
-      $ionicSideMenuDelegate.canDragContent(false);
+
 
 
       // Executar a ação de login quando o usuário envia o formulário de login
@@ -141,9 +141,9 @@ angular.module('loginCtrls', ['ionic.cloud', 'ionic.native'])
                 "userId": obj.userId
 
               });
-              $state.go("tabs.adote");
+
+              $state.go('tabs.adote');
               $ionicLoading.hide();
-              $scope.$apply();
               // do something useful instead of alerting
             },
             function (msg) {
