@@ -4,15 +4,14 @@ angular.module('menuCtrls', [])
 
 
       $scope.usuario = UsuarioService.getUser() ? UsuarioService.getUser() : {"userId": 'default'};
-      $scope.$apply();
 
       console.log($scope.usuario)
+
 
       $scope.fechar = function () {
 
 
         $state.go('tabs.adote');
-
 
       };
 
@@ -36,6 +35,7 @@ angular.module('menuCtrls', [])
       $scope.fecharMenu = function () {
         $ionicSideMenuDelegate.toggleLeft()
 
+
       }
 
       $scope.callbacks = function () {
@@ -51,7 +51,8 @@ angular.module('menuCtrls', [])
 
       $scope.doLogout = function () {
         localStorage.clear();
+        $scope.usuario = {};
         $state.go('login');
-        $ionicSideMenuDelegate.toggleLeft()
+        $ionicSideMenuDelegate.toggleLeft();
       };
     }]);
