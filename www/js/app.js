@@ -43,6 +43,13 @@ angular.module('app', ['ionic','ionic.cloud', 'app.controllers', 'app.routes', '
 
     $ionicPlatform.ready(function () {
 
+      window.FirebasePlugin.getToken(function(token) {
+        // save this server-side and use it to push notifications to this device
+        console.log(token);
+      }, function(error) {
+        console.error(error);
+      })
+
 
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -128,7 +135,12 @@ angular.module('app', ['ionic','ionic.cloud', 'app.controllers', 'app.routes', '
         messagingSenderId: CONFIG.FIREBASE_STORAGE
     });
 
+
 })
+
+
+
+
 
 
 
